@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #0D0D11;
+}
+
 :root {
   --bg: #0D0D11;
   --card: #18181D;
