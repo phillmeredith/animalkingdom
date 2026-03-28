@@ -13,8 +13,9 @@ interface PageHeaderProps {
 export function PageHeader({ title, centre, trailing, below, className = '' }: PageHeaderProps) {
   return (
     <div
-      className={`sticky top-0 z-[100] shrink-0 px-6 pt-6 ${className}`}
+      className={`sticky top-0 z-[100] shrink-0 px-6 ${className}`}
       style={{
+        paddingTop: 'calc(24px + env(safe-area-inset-top, 0px))',
         background: 'rgba(13,13,17,.72)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
