@@ -20,5 +20,6 @@
     "baseUrl": ".",
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/components/_component-template.tsx", "src/hooks/_hook-template.ts"]
 }
