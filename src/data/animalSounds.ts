@@ -7,7 +7,7 @@
 //
 // The public/sounds symlink points to ../Sounds so MP3s are served at /sounds/{filename}.
 
-import soundsData from '../../Sounds/animal_sounds.json'
+import soundsData from './animal_sounds.json'
 
 interface SoundEntry {
   filename: string
