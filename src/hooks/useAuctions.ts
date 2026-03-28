@@ -645,7 +645,7 @@ export function useAuctions() {
       // AUC-DEF-01: Check if the player can afford the next minimum bid.
       // If not, fire the "out of coins" variant so Harry knows he cannot re-bid.
       const wallet = await db.playerWallet.get(1)
-      const playerBalance = wallet?.balance ?? 0
+      const playerBalance = wallet?.coins ?? 0
       const canAffordNextBid = playerBalance >= nextBidAmount
 
       if (canAffordNextBid) {
@@ -721,7 +721,6 @@ export function useAuctions() {
    * No earn() call — Harry's bid coins were spent at bid time and are not refunded on win.
    *
    * After the transaction: checkBadgeEligibility() is called non-blocking (AUC-10 AC).
-   * Note: checkBadgeEligibility() is a stub returning [] — see KNOWN GAP comment above.
    */
   async function resolveAuctionWin(auction: AuctionItem): Promise<void> {
     const now = new Date()

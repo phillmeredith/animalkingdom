@@ -4,6 +4,7 @@
 // Hand-crafted entries (with quiz, facts, etc.) take priority over catalog entries with same id.
 
 import generatedCatalog from './animals_catalog.json'
+import { getEncyclopediaEntry, loadEncyclopedia } from './encyclopediaLookup'
 
 export type AnimalCategory = 'At Home' | 'Stables' | 'Farm' | 'Lost World' | 'Wild' | 'Sea'
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary'
@@ -85,6 +86,51 @@ export interface AnimalEntry {
   /** Expansion sentence for the Lifespan quick stat card (max ~25 words).
    *  Null → stat card shows headline value only. */
   lifespanDetail?: string | null
+
+  // ── Wikipedia enrichment (animal-detail-modal-v3) ────────────────────────────
+  /** Short Wikipedia description paragraph. Source: animal_encyclopedia.json */
+  wikiDescription?: string | null
+  /** Wikipedia Commons thumbnail URL. Source: animal_encyclopedia.json */
+  wikiThumbnail?: string | null
+  /** Full Wikipedia article URL. Source: animal_encyclopedia.json */
+  wikiUrl?: string | null
+
+  // ── Scientific classification ────────────────────────────────────────────────
+  scientificName?: string | null
+  taxonomy?: {
+    kingdom?: string
+    phylum?: string
+    class?: string
+    order?: string
+    family?: string
+    genus?: string
+    species?: string
+  } | null
+
+  // ── Physical measurements ────────────────────────────────────────────────────
+  physicalSize?: { label: string; value: string; comparison?: string } | null
+  physicalWeight?: { value: string; comparison?: string } | null
+  topSpeed?: { value: string; comparison?: string } | null
+  adaptations?: string[] | null
+
+  // ── Reproduction ─────────────────────────────────────────────────────────────
+  reproduction?: {
+    gestationPeriod?: string
+    litterSize?: string
+    offspringName?: string
+    ageAtIndependence?: string
+    parentalCare?: string
+  } | null
+
+  // ── Ecology ──────────────────────────────────────────────────────────────────
+  predators?: string[] | null
+  geographicRange?: string | null
+
+  // ── Cultural ─────────────────────────────────────────────────────────────────
+  culturalSignificance?: string | null
+
+  // ── Gallery ──────────────────────────────────────────────────────────────────
+  gallery?: Array<{ url: string; alt: string }> | null
 }
 
 export const ANIMALS: AnimalEntry[] = [
@@ -1297,6 +1343,29 @@ const catalogEntries = (generatedCatalog as AnimalEntry[]).filter(e => {
   return !handCraftedNames.some(hc => hc.startsWith(nameLower))
 })
 ANIMALS.push(...catalogEntries)
+
+/**
+ * Enrich a single AnimalEntry with Wikipedia data from the lazy-loaded encyclopedia.
+ * Call this when a detail view opens — not at module load time.
+ *
+ * Hand-crafted fields take priority: encyclopedia values are only applied when
+ * the field is undefined (never explicitly set) on the entry. An explicit null
+ * in a hand-crafted entry is preserved as-is.
+ *
+ * Returns the same object reference (mutated in place) for convenience.
+ */
+export async function enrichAnimalWithEncyclopedia(animal: AnimalEntry): Promise<AnimalEntry> {
+  // Load the encyclopedia if it hasn't been fetched yet. Errors are silently
+  // ignored here — the detail view renders fine with missing wiki fields.
+  await loadEncyclopedia().catch(() => undefined)
+
+  const enc = getEncyclopediaEntry(animal.name)
+  if (!enc) return animal
+  if (animal.wikiDescription === undefined) animal.wikiDescription = enc.description
+  if (animal.wikiThumbnail === undefined) animal.wikiThumbnail = enc.thumbnail
+  if (animal.wikiUrl === undefined) animal.wikiUrl = enc.wikiUrl
+  return animal
+}
 
 // Sort A-Z by name (data is already sorted but enforcing here for safety)
 ANIMALS.sort((a, b) => a.name.localeCompare(b.name))

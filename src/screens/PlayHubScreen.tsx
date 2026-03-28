@@ -2,6 +2,7 @@
 // Replaces PuzzleHubScreen at /play route
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -332,7 +333,7 @@ function RaceResultOverlay({ position, prize, raceName, participants, onDone, re
     ? 'You won!'
     : `${position}${position === 2 ? 'nd' : position === 3 ? 'rd' : 'th'} place`
 
-  return (
+  return createPortal(
     <motion.div
       className="fixed inset-0 z-[1100] flex flex-col items-center justify-center px-6 gap-5 overflow-y-auto py-8"
       style={{ background: 'rgba(13,13,17,0.96)' }}
@@ -382,7 +383,8 @@ function RaceResultOverlay({ position, prize, raceName, participants, onDone, re
       <Button variant="primary" size="lg" className="w-full max-w-sm" onClick={onDone}>
         Done
       </Button>
-    </motion.div>
+    </motion.div>,
+    document.body,
   )
 }
 
@@ -671,6 +673,7 @@ function RacingContent() {
 // ─── Screen ───────────────────────────────────────────────────────────────────
 
 export function PlayHubScreen() {
+  const navigate = useNavigate()
   const { coins } = useWallet()
   const [tab, setTab] = useState<Tab>('games')
 

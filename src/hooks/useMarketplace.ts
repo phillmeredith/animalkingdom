@@ -146,45 +146,70 @@ export function useMarketplace() {
   }
 
   // ── Accept NPC sell offer (NPC selling an animal — player buys) ─────────────
+  // Transaction integrity: spend() + marketOffers.update() + savedNames.add() are
+  // inside a single db.transaction() so coins and pet delivery are atomic.
+  // If any write throws, the whole transaction rolls back (spend() is reversed).
   async function acceptSellOffer(offerId: number): Promise<boolean> {
     const offer = await db.marketOffers.get(offerId)
     if (!offer || offer.status !== 'pending') return false
 
-    const paid = await spend(offer.price, `Bought from ${offer.npcName}`, 'marketplace')
-    if (!paid.ok) return false
-
-    const now = new Date()
-    await db.marketOffers.update(offerId, { status: 'accepted', updatedAt: now })
-
     // Look up the correct category from the animal catalogue (QA-005 / QA-037)
+    // Resolved before the transaction — ANIMALS is a synchronous in-memory array.
     const animalDef = ANIMALS.find(
       a => a.animalType === offer.animalType && a.breed === offer.breed,
     )
-    // Name left empty — UI naming modal will set it (naming pending signal)
-    // Add pet to collection
-    await db.savedNames.add({
-      name: '',
-      animalType: offer.animalType,
-      breed: offer.breed,
-      category: animalDef?.category ?? 'At Home',
-      gender: Math.random() > 0.5 ? 'male' : 'female',
-      age: 'Adult',
-      personality: 'Friendly',
-      colour: 'Mixed',
-      rarity: offer.rarity,
-      imageUrl: offer.imageUrl,
-      barnName: null, showName: null, racingName: null, kennelName: null,
-      pedigreeName: null, speciesName: null,
-      discoveryNarrative: `You purchased this ${offer.breed} from ${offer.npcName} at the marketplace.`,
-      siblings: [],
-      source: 'marketplace',
-      status: 'active',
-      equippedSaddleId: null,
-      careStreak: 0,
-      lastFullCareDate: null,
-      createdAt: now,
-      updatedAt: now,
-    })
+
+    try {
+      await db.transaction(
+        'rw',
+        db.marketOffers,
+        db.savedNames,
+        db.playerWallet,
+        db.transactions,
+        async () => {
+          const paid = await spend(offer.price, `Bought from ${offer.npcName}`, 'marketplace')
+          if (!paid.ok) throw new Error('Not enough coins')
+
+          const now = new Date()
+          await db.marketOffers.update(offerId, { status: 'accepted', updatedAt: now })
+
+          // Name left empty — UI naming modal will set it (naming pending signal)
+          await db.savedNames.add({
+            name: '',
+            animalType: offer.animalType,
+            breed: offer.breed,
+            category: animalDef?.category ?? 'At Home',
+            gender: Math.random() > 0.5 ? 'male' : 'female',
+            age: 'Adult',
+            personality: 'Friendly',
+            colour: 'Mixed',
+            rarity: offer.rarity,
+            imageUrl: offer.imageUrl,
+            barnName: null, showName: null, racingName: null, kennelName: null,
+            pedigreeName: null, speciesName: null,
+            discoveryNarrative: `You purchased this ${offer.breed} from ${offer.npcName} at the marketplace.`,
+            siblings: [],
+            source: 'marketplace',
+            status: 'active',
+            equippedSaddleId: null,
+            careStreak: 0,
+            lastFullCareDate: null,
+            createdAt: now,
+            updatedAt: now,
+          })
+        },
+      )
+    } catch (err) {
+      const isInsufficientFunds = err instanceof Error && err.message === 'Not enough coins'
+      toast({
+        type: 'error',
+        title: 'Purchase failed',
+        message: isInsufficientFunds
+          ? 'You do not have enough coins.'
+          : 'Your coins have not been charged.',
+      })
+      return false
+    }
 
     return true
   }

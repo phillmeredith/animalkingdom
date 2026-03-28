@@ -5,6 +5,7 @@ import { useMemo } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db, ensureWallet } from '@/lib/db'
 import { useWallet } from '@/hooks/useWallet'
+import { useToast } from '@/components/ui/Toast'
 import { getItemDef } from '@/data/itemDefs'
 import type { OwnedItem } from '@/lib/db'
 import type { LeMieuxItem } from '@/data/lemieux'
@@ -18,6 +19,7 @@ export interface BuyItemResult {
 
 export function useItemShop() {
   const { spend, undoLastTransaction } = useWallet()
+  const { toast } = useToast()
 
   const ownedItems = useLiveQuery(
     () => db.ownedItems.toArray(),
@@ -33,30 +35,45 @@ export function useItemShop() {
     return ownedItems.find(i => i.equippedToPetId === petId && i.category === category)
   }
 
+  // Transaction integrity: spend() + ownedItems.add() + transactions.update() are
+  // inside a single db.transaction() so coins and item delivery are atomic.
+  // If any write throws, the whole transaction rolls back (spend() is reversed).
   async function buyItem(itemDefId: string): Promise<BuyItemResult> {
     const def = getItemDef(itemDefId)
     if (!def) return { success: false, reason: 'Unknown item' }
 
-    const paid = await spend(def.price, `Bought ${def.name}`, 'items')
-    if (!paid.ok) return { success: false, reason: 'Not enough coins' }
+    let transactionId: number | undefined
 
-    const ownedItemId = await db.ownedItems.add({
-      itemDefId: def.id,
-      category: def.category,
-      name: def.name,
-      rarity: def.rarity,
-      statBoost: def.statBoost,
-      purchasePrice: def.price,
-      remainingUses: def.uses,
-      equippedToPetId: null,
-      purchasedAt: new Date(),
-    })
+    try {
+      await db.transaction('rw', db.playerWallet, db.transactions, db.ownedItems, async () => {
+        const paid = await spend(def.price, `Bought ${def.name}`, 'items')
+        if (!paid.ok) throw new Error('Not enough coins')
 
-    // Store the ownedItem id on the transaction so undoPurchase can find it.
-    // We store it via relatedEntityId by updating the just-created transaction.
-    await db.transactions.update(paid.transactionId, { relatedEntityId: ownedItemId })
+        transactionId = paid.transactionId
 
-    return { success: true, transactionId: paid.transactionId }
+        const ownedItemId = await db.ownedItems.add({
+          itemDefId: def.id,
+          category: def.category,
+          name: def.name,
+          rarity: def.rarity,
+          statBoost: def.statBoost,
+          purchasePrice: def.price,
+          remainingUses: def.uses,
+          equippedToPetId: null,
+          purchasedAt: new Date(),
+        })
+
+        // Store the ownedItem id on the transaction so undoPurchase can find it.
+        await db.transactions.update(paid.transactionId, { relatedEntityId: ownedItemId })
+      })
+    } catch (err) {
+      const isInsufficientFunds = err instanceof Error && err.message === 'Not enough coins'
+      if (isInsufficientFunds) return { success: false, reason: 'Not enough coins' }
+      toast({ type: 'error', title: 'Purchase failed', message: 'Your coins have not been charged.' })
+      return { success: false, reason: 'Purchase failed' }
+    }
+
+    return { success: true, transactionId }
   }
 
   /**

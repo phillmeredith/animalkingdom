@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/Button'
+import { useToast } from '@/components/ui/Toast'
 import { cn } from '@/lib/utils'
 
 interface RenameInputProps {
@@ -15,6 +16,7 @@ export function RenameInput({ currentName, onConfirm, onCancel }: RenameInputPro
   const [hasError, setHasError] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const { toast } = useToast()
 
   useEffect(() => {
     setValue(currentName)
@@ -37,6 +39,7 @@ export function RenameInput({ currentName, onConfirm, onCancel }: RenameInputPro
       await onConfirm(value.trim())
     } catch {
       setValue(currentName)
+      toast({ type: 'error', title: 'Rename failed. Please try again.' })
     } finally {
       setIsSubmitting(false)
     }

@@ -843,3 +843,130 @@ inline — they must be consumed from the `ICON_COLOUR_PRESETS` data constant in
 8. **Hairline labels without proper styling:** Section labels are ALWAYS 11px, 700, uppercase, letter-spacing 1–1.5px, `--t3` colour.
 9. **Missing hover states:** Every interactive element has a hover state. Cards lift + shadow. Buttons brighten or glow. Nothing is inert.
 10. **Touch targets below 44px:** ALL interactive elements must be at least 44px × 44px.
+
+---
+
+## Known Violation Corrections
+
+> This section documents DS rules that have been violated in the built codebase, the correct
+> values, and the rationale. It exists so these violations are never re-introduced.
+> Agents re-read this section when starting any build phase that touches the listed components.
+
+---
+
+### 1. GradientFade — Height and Opacity
+
+**Violation found:** `GradientFade` component rendered with `height: 32px` and an opaque
+`#0D0D11` solid colour instead of a transparent gradient.
+
+**Correct spec:**
+
+```
+Height:       48px  (h-12)  — NOT 32px
+Background:   linear-gradient(to top, rgba(13,13,17,.85), transparent)
+Position:     fixed, bottom: 68px (immediately above the 68px BottomNav)
+Width:        100%
+Pointer-events: none
+z-index:      899  (below BottomNav at z-900)
+```
+
+The gradient fade must use `rgba(13,13,17,.85)` — a semi-transparent value — not the
+solid `#0D0D11`. The purpose of the fade is to create a soft transition between scrolling
+content and the nav bar. A solid colour creates a hard edge; it is not a fade.
+
+Height is 48px, not 32px. At 32px the fade is too short — on iPad at high content density,
+the last card row is clipped by the hard fade edge before it fully disappears. 48px gives
+the fade enough vertical runway to be imperceptible at its top edge.
+
+Any screen where content scrolls behind the BottomNav must have this `GradientFade`
+rendered. A hard edge between content and the nav bar is an incomplete build.
+
+**Tailwind implementation:** `h-12` (48px), `bg-gradient-to-t from-[rgba(13,13,17,.85)] to-transparent`
+
+---
+
+### 2. PageHeader Glass Opacity
+
+**Violation found:** `PageHeader` component used `rgba(13,13,17,.72)` as its background
+opacity.
+
+**Correct spec:**
+
+```
+Background:   rgba(13,13,17,.88) + backdrop-filter: blur(24px)
+Border:       1px solid rgba(255,255,255,.06)  (bottom only)
+```
+
+**Rationale:** The DS glass rule defines two opacity tiers:
+
+| Context | Opacity | When |
+|---------|---------|------|
+| No backdrop (BottomNav, Toast, PageHeader) | `.88` | Element floats over page content with no scrim behind it |
+| With backdrop (Modal, BottomSheet) | `.80` | Element sits above a `bg-black/10` backdrop scrim |
+
+PageHeader has no backdrop scrim. It sits directly above scrolling content. Therefore it
+uses `.88`, not `.80` and not `.72`.
+
+Why `.88` reads correctly without a backdrop: the blur samples the content beneath the
+header. As the user scrolls, the blur source changes. `.88` provides enough fill opacity
+that text on the header remains readable regardless of the content colour behind it, while
+still letting the blur communicate the glass material.
+
+`.72` is too transparent — on light-coloured content (e.g. animal images scrolling behind
+the header), the header text becomes hard to read.
+
+`.80` is the correct value only when a backdrop darkens the blur source first. Without a
+backdrop, `.80` reads as see-through rather than glass.
+
+**Rule:** Any `position: sticky` or `position: fixed` surface that sits above scrolling
+content without a backdrop scrim uses `.88`. No exceptions.
+
+---
+
+### 3. Modal and ConfirmModal Backdrop Opacity
+
+**Violation found:** `SettingsScreen` and other screens applied a modal backdrop of
+`rgba(0,0,0,0.65)`. The correct DS value is `rgba(0,0,0,0.10)`.
+
+**Correct spec:**
+
+```
+Backdrop:     rgba(0,0,0,0.10)   — bg-black/10 in Tailwind
+```
+
+**Rationale — why a dark backdrop is wrong on this design system:**
+
+The DS uses glass surfaces for all overlays. Glass reads as glass because it blurs and
+slightly tints the content beneath it. The opacity chain is:
+
+```
+Page content (--bg: #0D0D11)
+  ↓ softened by: rgba(0,0,0,0.10) backdrop   ← light scrim
+  ↓ blurred by:  backdrop-filter: blur(24px)  ← glass material
+  ↓ tinted by:   rgba(13,13,17,.80)            ← modal surface
+```
+
+If the backdrop is `rgba(0,0,0,0.65)`, the scrim is nearly opaque. The blur has nothing
+to sample — it samples near-black. The modal surface then renders as near-black on
+near-black. The glass material is invisible; the modal looks like a flat opaque panel
+bolted onto a dark smear.
+
+Worse: at `.65` opacity, the entire screen behind the modal is dark grey. On an app with
+a near-black `--bg`, the darkened backdrop is nearly indistinguishable from the page
+background. The modal loses its contextual relationship to the content it overlays.
+
+The correct backdrop is `.10` — barely a hint of darkening. The blur does the visual
+work of separating the modal from the content behind it. The glass surface provides the
+tint. The backdrop's only job is a very slight depth cue.
+
+**Common mistake to avoid:** Copying the backdrop opacity from a light-mode design system
+(where modals traditionally use `.5–.65` backdrop to darken white content). This app has
+a dark page (`#0D0D11`). A `.65` scrim on near-black is over-darkening — it makes the
+background look like a solid black void.
+
+**Any `ConfirmModal`, `Modal`, or `BottomSheet` backdrop must be `bg-black/10` — never higher.**
+This is non-negotiable. If a developer feels the modal "doesn't stand out enough" at `.10`,
+the fix is to increase the modal surface opacity or add the correct `box-shadow`, not to
+darken the backdrop.
+
+---

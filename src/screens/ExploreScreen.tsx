@@ -2,9 +2,22 @@
 // Phase C build per spec/features/explore-directory/
 // Phase C update per spec/features/explore-rarity-filter/
 // Phase C update per spec/features/explore-animal-detail/ (EAD-3: timer integration)
+//
+// Virtualisation strategy:
+//   The scroll container is the flex-1 overflow-y-auto div (scrollContainerRef).
+//   AnimalVirtualGrid groups filteredAnimals into rows of colCount and uses
+//   useVirtualizer relative to that scroll element — matching the SchleichScreen
+//   VirtualGrid pattern exactly.
+//
+// Column counts: 4 @ <768px | 5 @ 768–1023px | 6 @ ≥1024px (matching original grid)
+//
+// AZ rail scroll:
+//   handleLetterPress computes the target row index for each letter and scrolls
+//   the virtualiser scroll element to the correct offset using virtualizer API.
 
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useVirtualizer } from '@tanstack/react-virtual'
 import { Search, Settings, Volume2 } from 'lucide-react'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { SearchBar } from '@/components/ui/SearchBar'
@@ -20,6 +33,150 @@ import { useWallet } from '@/hooks/useWallet'
 import { useExploreFilter } from '@/hooks/useExploreFilter'
 import { useSavedNames } from '@/hooks/useSavedNames'
 import type { AnimalEntry } from '@/data/animals'
+
+// ─── Virtual grid ─────────────────────────────────────────────────────────────
+// Mirrors the SchleichScreen VirtualGrid pattern.
+// scrollRef must point to the overflow-y-auto scroll element (page scroll).
+// Column counts match the original ExploreScreen grid:
+//   4 @ container <768px | 5 @ 768–1023px | 6 @ ≥1024px
+
+interface AnimalVirtualGridProps {
+  items: AnimalEntry[]
+  letterFirstIndex: Map<string, number>
+  onCardTap: (animal: AnimalEntry) => void
+  scrollRef: React.RefObject<HTMLDivElement>
+  /** Imperative handle so ExploreScreen can scroll to a letter */
+  virtualizerRef: React.MutableRefObject<{
+    scrollToIndex: (index: number, opts?: { align?: 'start' }) => void
+  } | null>
+}
+
+function AnimalVirtualGrid({
+  items,
+  letterFirstIndex,
+  onCardTap,
+  scrollRef,
+  virtualizerRef,
+}: AnimalVirtualGridProps) {
+  const measureRef = useRef<HTMLDivElement>(null)
+  const [gridWidth, setGridWidth] = useState(0)
+
+  useEffect(() => {
+    const el = measureRef.current
+    if (!el) return
+    const observer = new ResizeObserver(entries => {
+      setGridWidth(entries[0]?.contentRect.width ?? 0)
+    })
+    observer.observe(el)
+    setGridWidth(el.offsetWidth)
+    return () => observer.disconnect()
+  }, [])
+
+  // Column count matching the original grid breakpoints
+  const colCount = useMemo(() => {
+    if (gridWidth >= 1024) return 6
+    if (gridWidth >= 768) return 5
+    return 4
+  }, [gridWidth])
+
+  const gap = 8 // gap-2 = 8px
+
+  const cardWidth = gridWidth > 0
+    ? (gridWidth - gap * (colCount - 1)) / colCount
+    : 0
+
+  // AnimalCard is aspect-square image + name strip (~28px)
+  const cardHeight = cardWidth > 0 ? cardWidth + 28 : 0
+  const rowHeight = cardHeight + gap
+
+  const rows = useMemo<AnimalEntry[][]>(() => {
+    if (colCount === 0) return []
+    const result: AnimalEntry[][] = []
+    for (let i = 0; i < items.length; i += colCount) {
+      result.push(items.slice(i, i + colCount))
+    }
+    return result
+  }, [items, colCount])
+
+  const virtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => scrollRef.current,
+    estimateSize: () => (rowHeight > 0 ? rowHeight : 220),
+    overscan: 4,
+  })
+
+  // Expose imperative scroll-to-row so handleLetterPress can drive the virtualiser
+  useEffect(() => {
+    virtualizerRef.current = {
+      scrollToIndex: (rowIndex, opts) =>
+        virtualizer.scrollToIndex(rowIndex, opts),
+    }
+  })
+
+  if (cardWidth === 0) {
+    return (
+      <div
+        ref={measureRef}
+        className="w-full pt-1"
+        style={{ minHeight: 4 }}
+        aria-hidden="true"
+      />
+    )
+  }
+
+  return (
+    // pt-1: prevents hover lift from clipping at the scroll container top
+    <div ref={measureRef} className="w-full pt-1">
+      <div
+        style={{
+          height: virtualizer.getTotalSize(),
+          width: '100%',
+          position: 'relative',
+        }}
+      >
+        {virtualizer.getVirtualItems().map(virtualRow => {
+          const row = rows[virtualRow.index]
+          if (!row) return null
+          return (
+            <div
+              key={virtualRow.key}
+              data-index={virtualRow.index}
+              ref={virtualizer.measureElement}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                transform: `translateY(${virtualRow.start}px)`,
+                display: 'grid',
+                gridTemplateColumns: `repeat(${colCount}, 1fr)`,
+                gap: `${gap}px`,
+                paddingBottom: `${gap}px`,
+              }}
+            >
+              {row.map((animal, colIdx) => {
+                const globalIndex = virtualRow.index * colCount + colIdx
+                const letter = animal.name[0].toUpperCase()
+                const isFirst = letterFirstIndex.get(letter) === globalIndex
+                return (
+                  <div
+                    key={animal.id}
+                    {...(isFirst ? { 'data-first-letter': letter } : {})}
+                  >
+                    <AnimalCard
+                      animal={animal}
+                      onTap={() => onCardTap(animal)}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
 
 export function ExploreScreen() {
   const navigate = useNavigate()
@@ -51,9 +208,20 @@ export function ExploreScreen() {
   // detailAnimal is set after the 100ms sheet-exit overlap delay (EAD-3).
   const [detailAnimal, setDetailAnimal] = useState<AnimalEntry | null>(null)
 
+  // scrollContainerRef — the overflow-y-auto flex child; passed to AnimalVirtualGrid
+  // so the virtualiser drives page scroll (not a nested scroll).
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-  // Track the index of the first animal for each letter (for AZ rail scrolling)
+  // Imperative handle to the virtualiser inside AnimalVirtualGrid.
+  // handleLetterPress uses this to scroll to the correct row without DOM queries.
+  const virtualizerRef = useRef<{
+    scrollToIndex: (index: number, opts?: { align?: 'start' }) => void
+  } | null>(null)
+
+  // Track the index of the first animal for each letter (for AZ rail scrolling).
+  // The virtualiser maps animal index → row index by dividing by colCount.
+  // Since colCount is only known inside AnimalVirtualGrid we use animal index here
+  // and let handleLetterPress derive the row index at call time via the same formula.
   const letterFirstIndex = useMemo(() => {
     const map = new Map<string, number>()
     filteredAnimals.forEach((animal, i) => {
@@ -85,18 +253,21 @@ export function ExploreScreen() {
     }, 100)
   }
 
+  // AZ rail scroll — derive the row index for the letter's first animal and call
+  // the virtualiser's scrollToIndex. colCount is computed from the container width
+  // inside AnimalVirtualGrid; we use the same breakpoint logic here to stay in sync.
   function handleLetterPress(letter: string) {
-    const container = scrollContainerRef.current
-    const el = container?.querySelector<HTMLElement>(`[data-first-letter="${letter}"]`)
-    if (!el || !container) return
-    const elTop = el.getBoundingClientRect().top
-    const containerTop = container.getBoundingClientRect().top
-    container.scrollTo({ top: container.scrollTop + elTop - containerTop - 8, behavior: 'smooth' })
+    const animalIndex = letterFirstIndex.get(letter)
+    if (animalIndex == null) return
+    const containerWidth = scrollContainerRef.current?.offsetWidth ?? 0
+    const colCount = containerWidth >= 1024 ? 6 : containerWidth >= 768 ? 5 : 4
+    const rowIndex = Math.floor(animalIndex / colCount)
+    virtualizerRef.current?.scrollToIndex(rowIndex, { align: 'start' })
   }
 
   return (
     <div className="flex h-full bg-[var(--bg)]">
-      {/* Scrollable content column — scroll anywhere in this area */}
+      {/* Scrollable content column — single overflow-y-auto element passed to virtualiser */}
       <div className="flex-1 overflow-y-auto" ref={scrollContainerRef}>
         <PageHeader
           title="Explore"
@@ -165,22 +336,14 @@ export function ExploreScreen() {
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 px-6 pt-4 pb-24">
-            {filteredAnimals.map((animal, i) => {
-              const letter = animal.name[0].toUpperCase()
-              const isFirst = letterFirstIndex.get(letter) === i
-              return (
-                <div
-                  key={animal.id}
-                  {...(isFirst ? { 'data-first-letter': letter } : {})}
-                >
-                  <AnimalCard
-                    animal={animal}
-                    onTap={() => setSelectedAnimal(animal)}
-                  />
-                </div>
-              )
-            })}
+          <div className="px-6 pt-4 pb-24">
+            <AnimalVirtualGrid
+              items={filteredAnimals}
+              letterFirstIndex={letterFirstIndex}
+              onCardTap={setSelectedAnimal}
+              scrollRef={scrollContainerRef}
+              virtualizerRef={virtualizerRef}
+            />
           </div>
         )}
       </div>

@@ -1091,14 +1091,15 @@ function RarityGlow({ rarity, reducedMotion }: { rarity: RarityTier; reducedMoti
 
 function RareFlash({ reducedMotion }: { reducedMotion: boolean }) {
   if (reducedMotion) return null
-  return (
+  return createPortal(
     <motion.div
       className="fixed inset-0 pointer-events-none"
       style={{ zIndex: 1101, background: 'rgba(55,114,255,0.12)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: [0, 0.12, 0] }}
       transition={{ duration: 0.35, ease: 'easeOut', times: [0, 0.3, 1] }}
-    />
+    />,
+    document.body,
   )
 }
 
@@ -1106,7 +1107,7 @@ const RAY_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315]
 
 function LegendarySpectacle({ reducedMotion }: { reducedMotion: boolean }) {
   if (reducedMotion) return null
-  return (
+  return createPortal(
     <>
       <motion.div
         className="fixed inset-0 pointer-events-none"
@@ -1121,11 +1122,11 @@ function LegendarySpectacle({ reducedMotion }: { reducedMotion: boolean }) {
       <motion.div
         className="pointer-events-none"
         style={{
-          position: 'absolute',
+          position: 'fixed',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          zIndex: 1,
+          zIndex: 1100,
           width: 0,
           height: 0,
         }}
@@ -1150,7 +1151,8 @@ function LegendarySpectacle({ reducedMotion }: { reducedMotion: boolean }) {
           />
         ))}
       </motion.div>
-    </>
+    </>,
+    document.body,
   )
 }
 
@@ -1583,7 +1585,7 @@ function CardReveal({ cards, canAfford, openedPackPrice, reducedMotion, onDone, 
 
   const canAffordAnother = canAfford(openedPackPrice)
 
-  return (
+  return createPortal(
     <motion.div
       role="dialog"
       aria-modal="true"
@@ -1617,7 +1619,8 @@ function CardReveal({ cards, canAfford, openedPackPrice, reducedMotion, onDone, 
           />
         )}
       </AnimatePresence>
-    </motion.div>
+    </motion.div>,
+    document.body,
   )
 }
 

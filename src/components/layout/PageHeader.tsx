@@ -16,7 +16,7 @@ export function PageHeader({ title, centre, trailing, below, className = '' }: P
       className={`sticky top-0 z-[100] shrink-0 px-6 ${className}`}
       style={{
         paddingTop: 'calc(24px + env(safe-area-inset-top, 0px))',
-        background: 'rgba(13,13,17,.72)',
+        background: 'rgba(13,13,17,.88)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
         borderBottom: '1px solid rgba(255,255,255,.06)',

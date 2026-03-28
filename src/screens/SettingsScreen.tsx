@@ -11,6 +11,7 @@ import { useWallet } from '@/hooks/useWallet'
 import { useProgress } from '@/hooks/useProgress'
 import { useSavedNames } from '@/hooks/useSavedNames'
 import { usePersonalisation } from '@/hooks/usePersonalisation'
+import { useToast } from '@/components/ui/Toast'
 import { db } from '@/lib/db'
 import { PersonalisationSection } from '@/components/settings/PersonalisationSection'
 
@@ -93,13 +94,13 @@ function ConfirmModal({
   return ReactDOM.createPortal(
     <div
       className="fixed inset-0 z-[1000] flex items-end"
-      style={{ background: 'rgba(0,0,0,0.65)' }}
+      style={{ background: 'rgba(0,0,0,0.10)' }}
       onClick={e => { if (e.target === e.currentTarget) onCancel() }}
     >
       <div
         className="w-full flex flex-col gap-5 p-6 pb-10"
         style={{
-          background: 'rgba(13,13,17,.92)',
+          background: 'rgba(13,13,17,.80)',
           backdropFilter: 'blur(24px)',
           borderTop: '1px solid rgba(255,255,255,.08)',
           borderRadius: '20px 20px 0 0',
@@ -181,6 +182,7 @@ export function SettingsScreen() {
   const { coins } = useWallet()
   const { skills } = useProgress()
   const { pets } = useSavedNames()
+  const { toast } = useToast()
 
   const {
     backgroundUrl,
@@ -253,6 +255,7 @@ export function SettingsScreen() {
     } catch {
       setDeleting(false)
       setShowDeleteModal(false)
+      toast({ type: 'error', title: 'Could not delete data. Please try again.' })
     }
   }
 
@@ -297,7 +300,7 @@ export function SettingsScreen() {
       a.click()
       URL.revokeObjectURL(url)
     } catch {
-      // Export failure is non-fatal
+      toast({ type: 'error', title: 'Export failed. Please try again.' })
     }
   }
 
