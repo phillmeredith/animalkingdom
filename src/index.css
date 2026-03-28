@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0D0D11;
+  --card: #18181D;
+  --elev: #23262F;
+  --border: #353945;
+  --border-s: #2C2F3A;
+
+  --blue: #3772FF;
+  --blue-h: #2B5FD9;
+  --blue-sub: rgba(55,114,255,.12);
+  --blue-t: #6E9BFF;
+
+  --pink: #E8247C;
+  --pink-h: #C91E6A;
+  --pink-sub: rgba(232,36,124,.12);
+  --pink-t: #F06EAB;
+
+  --green: #45B26B;
+  --green-sub: rgba(69,178,107,.12);
+  --green-t: #7DD69B;
+
+  --amber: #F5A623;
+  --amber-sub: rgba(245,166,35,.12);
+  --amber-t: #FCC76E;
+
+  --red: #EF466F;
+  --red-sub: rgba(239,70,111,.12);
+  --red-t: #F5899E;
+
+  --purple: #9757D7;
+  --purple-sub: rgba(151,87,215,.12);
+  --purple-t: #BA8DE9;
+
+  --t1: #FCFCFD;
+  --t2: #B1B5C4;
+  --t3: #777E91;
+  --t4: #52566A;
+
+  --grad-hero: linear-gradient(135deg, #E8247C, #3772FF);
+  --grad-warm: linear-gradient(135deg, #F5A623, #E8247C);
+  --grad-cool: linear-gradient(135deg, #3772FF, #9757D7);
+  --grad-mint: linear-gradient(135deg, #45B26B, #3772FF);
+  --grad-aurora: linear-gradient(135deg, #9757D7, #3772FF 50%, #45B26B);
+
+  --r-xs: 6px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-pill: 100px;
+
+  --sh-card: 0 4px 24px rgba(0,0,0,.25);
+  --sh-elevated: 0 8px 40px rgba(0,0,0,.35);
+  --glow-blue: 0 0 24px rgba(55,114,255,.25);
+  --glow-pink: 0 0 24px rgba(232,36,124,.25);
+
+  --font:      'DM Sans', 'Inter', system-ui, sans-serif;
+  --font-body: 'DM Sans', 'Inter', system-ui, sans-serif; /* personalisation-controlled — written at runtime by usePersonalisation */
+
+  /* Heading case — personalisation-controlled. Default: uppercase (matches DS hairline labels). */
+  --heading-transform: uppercase;
+  --heading-spacing: 0.1em;
+}
+
+/* Custom background image — active when usePersonalisation sets data-has-bg on <html>.
+   Strategy: image lives on <html>; body provides the single dark overlay; all screen-level
+   bg-[var(--bg)] become transparent so stacking doesn't kill the image. */
+html[data-has-bg] {
+  --bg: transparent;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Body overlay alpha is applied via inline style by applyBackgroundToDom in usePersonalisation */
+
+/* Heading case — when set to 'normal', strip uppercase transform from ALL elements app-wide.
+   Targets Tailwind .uppercase class and inline style="text-transform:uppercase" elements.
+   !important is required to beat inline styles and utility-class specificity. */
+html[data-heading-case="normal"] .uppercase {
+  text-transform: none !important;
+}
+html[data-heading-case="normal"] .uppercase.tracking-widest,
+html[data-heading-case="normal"] .uppercase.tracking-wide {
+  letter-spacing: normal !important;
+}
+
+/* Title case — h1–h4 elements */
+html[data-title-case="uppercase"] h1,
+html[data-title-case="uppercase"] h2,
+html[data-title-case="uppercase"] h3,
+html[data-title-case="uppercase"] h4 {
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Body case — p elements */
+html[data-body-case="uppercase"] p {
+  text-transform: uppercase !important;
+}
+
+/* Button case — all button elements */
+html[data-button-case="uppercase"] button {
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Nav case — bottom nav tab labels */
+html[data-nav-case="uppercase"] .nav-label {
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Bold overrides per text category */
+html[data-label-bold="true"] .uppercase {
+  font-weight: 800 !important;
+}
+html[data-heading-bold="true"] h1,
+html[data-heading-bold="true"] h2,
+html[data-heading-bold="true"] h3,
+html[data-heading-bold="true"] h4 {
+  font-weight: 800 !important;
+}
+html[data-body-bold="true"] p {
+  font-weight: 600 !important;
+}
+html[data-button-bold="true"] button {
+  font-weight: 800 !important;
+}
+html[data-nav-bold="true"] .nav-label {
+  font-weight: 800 !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden; /* app-level scroll managed per-screen */
+}
+
+/* Fredoka minimum size floor — Fredoka is a display face; enforce 14px minimum
+   across all text to preserve legibility at Caption and Body Sm sizes.
+   Only active when data-font="fredoka" is set on <html> by usePersonalisation. */
+[data-font="fredoka"] * {
+  font-size: max(14px, 1em);
+}
+
+/* Hide scrollbar utility (used by horizontal pill rows) */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Scrollable containers */
+.scroll-y {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Gradient overlays */
+.grad-hero { background: var(--grad-hero); }
+.grad-warm { background: var(--grad-warm); }
+.grad-cool { background: var(--grad-cool); }
+.grad-mint { background: var(--grad-mint); }
+.grad-aurora { background: var(--grad-aurora); }
+
+/* Rarity shimmer animation (Legendary) */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, var(--amber-sub) 25%, rgba(245,166,35,.3) 50%, var(--amber-sub) 75%);
+  background-size: 200% auto;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Safe area support for iPad */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
