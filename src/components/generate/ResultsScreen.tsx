@@ -2,11 +2,14 @@
 // Shows after GeneratingOverlay; inline replacement of the wizard steps
 
 import { useState } from 'react'
-import { ChevronLeft, RefreshCw } from 'lucide-react'
+import { ChevronLeft, RefreshCw, Loader2, ArrowLeftRight, Award } from 'lucide-react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { AnimalImage } from '@/components/ui/AnimalImage'
 import { Button } from '@/components/ui/Button'
 import { RarityBadge, Badge } from '@/components/ui/Badge'
 import { cn } from '@/lib/utils'
+import { generateNames } from '@/data/generateOptions'
+import { isTradeable } from '@/lib/animalTiers'
 import type { CompleteSelections } from '@/data/generateOptions'
 import type { Rarity } from '@/lib/db'
 
@@ -23,7 +26,7 @@ interface ResultsScreenProps {
 }
 
 export function ResultsScreen({
-  names,
+  names: initialNames,
   narrative,
   imageUrl,
   rarity,
@@ -34,6 +37,32 @@ export function ResultsScreen({
   adopting = false,
 }: ResultsScreenProps) {
   const [selectedName, setSelectedName] = useState<string | null>(null)
+  const [names, setNames] = useState<string[]>(initialNames)
+  // Key changes on each refresh to trigger the AnimatePresence fade
+  const [nameListKey, setNameListKey] = useState(0)
+  const [refreshing, setRefreshing] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
+
+  async function handleGetMoreNames() {
+    if (refreshing) return
+    setRefreshing(true)
+    // Yield to the microtask queue so React commits the refreshing=true frame
+    // before the synchronous generateNames() call runs. Without this yield,
+    // React batches the two setState calls into one render and the loading
+    // state is never painted.
+    await Promise.resolve()
+    const fresh = generateNames(
+      selections.animalType,
+      selections.gender,
+      selections.personality,
+    )
+    setNames(fresh)
+    setSelectedName(null)
+    setNameListKey(k => k + 1)
+    setRefreshing(false)
+  }
+
+  const fadeDuration = prefersReducedMotion ? 0 : 0.15
 
   return (
     <div className="flex flex-col h-full overflow-y-auto bg-[var(--bg)]">
@@ -68,45 +97,129 @@ export function ResultsScreen({
         </div>
       </div>
 
+      {/* Tier disclosure strip — always shown, between badges and name list.
+          Determined solely by isTradeable(selections.category). No hardcoded category strings.
+          At 375px wraps to two lines (max ~60px tall). At 1024px renders on one line. */}
+      <div className="px-6 mb-4 shrink-0 max-w-3xl mx-auto w-full">
+        {isTradeable(selections.category) ? (
+          <div
+            className="flex items-start gap-2 rounded-[var(--r-md)] bg-[var(--green-sub)]"
+            style={{ padding: '10px 14px' }}
+          >
+            <ArrowLeftRight size={14} className="text-[var(--green-t)] shrink-0 mt-[1px]" aria-hidden="true" />
+            <p className="text-[13px] text-t2 leading-snug">
+              This animal can be listed for sale or put up for auction.
+            </p>
+          </div>
+        ) : (
+          <div
+            className="flex items-start gap-2 rounded-[var(--r-md)] bg-[var(--amber-sub)]"
+            style={{ padding: '10px 14px' }}
+          >
+            <Award size={14} className="text-[var(--amber-t)] shrink-0 mt-[1px]" aria-hidden="true" />
+            <p className="text-[13px] text-t2 leading-snug">
+              This is a reward animal. You earned it — it can't be sold.
+            </p>
+          </div>
+        )}
+      </div>
+
       {/* Name selection */}
       <div className="px-6 shrink-0 max-w-3xl mx-auto w-full">
         <h2 className="text-[22px] font-600 text-t1 mb-3">Choose a name</h2>
-        <div className="border border-[var(--border-s)] rounded-lg overflow-hidden">
-          {names.map((name, i) => (
-            <button
-              key={name}
-              onClick={() => setSelectedName(name)}
-              className={cn(
-                'w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors',
-                i < names.length - 1 && 'border-b border-[var(--border-s)]',
-                selectedName === name
-                  ? 'bg-[var(--blue-sub)]'
-                  : 'bg-[var(--card)] hover:bg-[var(--elev)]',
-              )}
+
+        {/* aria-live so screen readers announce the updated list after a refresh */}
+        <div aria-live="polite">
+          <AnimatePresence mode="sync" initial={false}>
+            <motion.div
+              key={nameListKey}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: fadeDuration }}
             >
-              <span
-                className={cn(
-                  'w-4 h-4 rounded-full border-2 shrink-0 transition-colors',
-                  selectedName === name
-                    ? 'border-[var(--blue)] bg-[var(--blue)]'
-                    : 'border-t3',
-                )}
-              />
-              <span
-                className={cn(
-                  'text-[15px] font-500',
-                  selectedName === name ? 'text-t1' : 'text-t2',
-                )}
-              >
-                {name}
-              </span>
-            </button>
-          ))}
+              <div>
+                {names.map((name, i) => (
+                  <button
+                    key={name}
+                    onClick={() => !refreshing && setSelectedName(name)}
+                    className={cn(
+                      'w-full flex items-center gap-3 text-left transition-colors',
+                      refreshing && 'pointer-events-none',
+                    )}
+                    style={{
+                      // Each item is its own card — individual border and radius per spec
+                      minHeight: '52px',
+                      padding: '14px 16px',
+                      marginTop: i === 0 ? 0 : '8px',
+                      borderRadius: 'var(--r-md)',
+                      border: selectedName === name
+                        ? '1px solid var(--blue)'
+                        : '1px solid var(--border-s)',
+                      background: selectedName === name
+                        ? 'var(--blue-sub)'
+                        : 'var(--card)',
+                    }}
+                  >
+                    {/* Radio dot: 10px circle per spec. Unselected: border var(--border). Selected: filled var(--blue). */}
+                    <span
+                      className="shrink-0 transition-colors"
+                      style={{
+                        width: '10px',
+                        height: '10px',
+                        borderRadius: '50%',
+                        border: selectedName === name
+                          ? 'none'
+                          : '2px solid var(--border)',
+                        background: selectedName === name
+                          ? 'var(--blue)'
+                          : 'transparent',
+                        flexShrink: 0,
+                      }}
+                    />
+                    {/* Name text: always var(--t1), 15px/500 per spec */}
+                    <span className="text-[15px] font-500 text-[var(--t1)]">
+                      {name}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
+      {/* "Get more names" button — centred, not full-width */}
+      {/* mt-4 (16px) from name list, mb-4 (16px) before narrative */}
+      <div className="flex justify-center mt-4 mb-4 px-6 shrink-0 max-w-3xl mx-auto w-full">
+        <button
+          onClick={handleGetMoreNames}
+          disabled={refreshing}
+          aria-busy={refreshing}
+          style={{ border: '1.5px solid var(--border)' }}
+          className={cn(
+            'inline-flex items-center justify-center gap-1.5',
+            // min-h-[44px] meets the 44px minimum touch target; visual size stays compact
+            'min-h-[44px] px-4 text-[13px] font-semibold',
+            'rounded-pill',
+            // Outline variant — border is 1.5px per spec (raw button, not Button component)
+            'bg-transparent text-t1',
+            'hover:border-t3 hover:bg-white/[.03]',
+            'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--blue)] focus-visible:outline-offset-2',
+            'active:scale-[.97] transition-all duration-150',
+            refreshing && 'opacity-60 pointer-events-none cursor-not-allowed',
+          )}
+        >
+          {refreshing
+            ? <Loader2 size={14} strokeWidth={2} className="animate-spin" />
+            : <RefreshCw size={14} strokeWidth={2} />
+          }
+          {refreshing ? 'Getting names\u2026' : 'Get more names'}
+        </button>
+      </div>
+
       {/* Narrative */}
-      <p className="px-6 mt-4 text-[13px] text-t2 italic leading-relaxed shrink-0 max-w-3xl mx-auto w-full">
+      <p className="px-6 text-[13px] text-t2 italic leading-relaxed shrink-0 max-w-3xl mx-auto w-full">
         {narrative}
       </p>
 

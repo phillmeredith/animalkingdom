@@ -9,7 +9,7 @@ import {
   Coins, Loader2, Store, CreditCard, Package, Backpack, Crown,
   PackageCheck, ShoppingBag, Sparkles, Zap,
   Wind, Link, Layers, Footprints, Dumbbell, Shield, FlaskConical,
-  Home, Star, Settings,
+  Home, Star, Settings, X,
 } from 'lucide-react'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { CoinDisplay } from '@/components/ui/CoinDisplay'
@@ -30,6 +30,7 @@ import { cn } from '@/lib/utils'
 import type { MarketOffer, SavedName, PlayerListing, NpcBuyerOffer } from '@/lib/db'
 import { AuctionHubScreen, AuctionFilterRow } from '@/screens/AuctionHubScreen'
 import { useAuctions } from '@/hooks/useAuctions'
+import { ListingRetractModal } from '@/components/my-animals/ListingRetractModal'
 import type { Rarity } from '@/lib/db'
 
 // ─── Tab types ────────────────────────────────────────────────────────────────
@@ -482,6 +483,9 @@ function MyListings({ listings, npcOffers, pets, onList, onCancel, onAcceptOffer
   const [listingPet, setListingPet] = useState<SavedName | null>(null)
   const [price, setPrice] = useState('')
   const [busy, setBusy] = useState(false)
+  // auction-retract: state for the ListingRetractModal triggered from listing cards
+  const [retractTarget, setRetractTarget] = useState<{ listing: PlayerListing; pet: SavedName & { id: number } } | null>(null)
+  const cancelBtnRefs = useRef<Record<number, HTMLButtonElement | null>>({})
 
   const available = pets.filter(p => p.status === 'active')
 
@@ -522,20 +526,68 @@ function MyListings({ listings, npcOffers, pets, onList, onCancel, onAcceptOffer
         <div>
           <p className="text-[11px] font-700 uppercase tracking-widest text-t3 mb-3">Active listings</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {listings.map(listing => (
-              <div key={listing.id} className="rounded-xl border border-[var(--border-s)] bg-[var(--card)] p-4 flex items-center gap-3">
-                <AnimalImage src={listing.imageUrl} alt={listing.petName} className="w-12 h-12 rounded-lg object-cover" />
-                <div className="flex-1 min-w-0">
-                  <div className="text-[14px] font-600 text-t1 truncate">{listing.petName}</div>
-                  <div className="flex items-center gap-1 text-[12px] text-[var(--amber-t)]">
-                    <Coins size={11} /> {listing.askingPrice}
+            {listings.map(listing => {
+              const listingPetData = pets.find(p => p.id === listing.petId)
+              return (
+                <div key={listing.id} className="relative rounded-xl border border-[var(--border-s)] bg-[var(--card)] p-4 flex items-center gap-3">
+                  <AnimalImage src={listing.imageUrl} alt={listing.petName} className="w-12 h-12 rounded-lg object-cover" />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[14px] font-600 text-t1 truncate">{listing.petName}</div>
+                    <div className="flex items-center gap-1 text-[12px] text-[var(--amber-t)]">
+                      <Coins size={11} /> {listing.askingPrice}
+                    </div>
                   </div>
+                  {/* Cancel icon button — 32px circle, 44×44px touch target via padding
+                      Only on My Listings tab (not Browse) per spec Story 2 AC */}
+                  <button
+                    ref={el => { cancelBtnRefs.current[listing.id!] = el }}
+                    onClick={() => {
+                      if (listingPetData?.id != null) {
+                        setRetractTarget({
+                          listing,
+                          pet: listingPetData as SavedName & { id: number },
+                        })
+                      }
+                    }}
+                    aria-label={`Cancel listing for ${listing.petName}`}
+                    className={cn(
+                      // 32px visible circle, 44×44px hit area via padding
+                      'flex items-center justify-center w-8 h-8 rounded-full shrink-0',
+                      'transition-colors duration-150 active:scale-[.97]',
+                      'focus-visible:outline-2 focus-visible:outline-[var(--blue)] focus-visible:outline-offset-2',
+                      'hover:bg-[var(--elev)] hover:border-[var(--border)] [&:hover_svg]:text-[var(--t1)]',
+                    )}
+                    style={{
+                      background: 'var(--card)',
+                      border: '1px solid var(--border-s)',
+                      // Extend hit area to 44×44px with negative margin compensation
+                      padding: '6px',
+                      margin: '-6px',
+                    }}
+                  >
+                    <X size={14} strokeWidth={2} className="text-[var(--t3)]" aria-hidden="true" />
+                  </button>
                 </div>
-                <Button variant="outline" size="md" onClick={() => onCancel(listing.id!)}>Remove</Button>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
+      )}
+
+      {/* auction-retract: ListingRetractModal triggered from listing card cancel button */}
+      {retractTarget != null && (
+        <ListingRetractModal
+          listingId={retractTarget.listing.id!}
+          pet={retractTarget.pet}
+          isOpen={retractTarget != null}
+          onClose={() => {
+            const id = retractTarget.listing.id!
+            setRetractTarget(null)
+            // Return focus to the cancel button for this listing
+            setTimeout(() => cancelBtnRefs.current[id]?.focus(), 50)
+          }}
+          onSuccess={() => setRetractTarget(null)}
+        />
       )}
 
       {/* List a pet */}
@@ -1800,6 +1852,13 @@ export function StoreHubScreen() {
         trailing={
           <div className="flex items-center gap-2">
             <CoinDisplay amount={coins} coinsInBids={coinsInBids} />
+            <button
+              onClick={() => navigate('/generate')}
+              className="w-9 h-9 flex items-center justify-center rounded-full text-[var(--blue-t)] bg-[var(--blue-sub)] hover:bg-[var(--blue)] hover:text-white transition-all"
+              aria-label="Generate new animal"
+            >
+              <Sparkles size={16} strokeWidth={2} />
+            </button>
             <button
               onClick={() => navigate('/settings')}
               className="w-9 h-9 flex items-center justify-center rounded-full text-t3 hover:text-t1 hover:bg-white/[.06] transition-all"

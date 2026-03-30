@@ -35,6 +35,7 @@ import {
 } from '@/data/generateOptions'
 import type { CompleteSelections, TraderQuestion } from '@/data/generateOptions'
 import type { AnimalCategory } from '@/data/animals'
+import { isTradeable } from '@/lib/animalTiers'
 
 import { useSavedNames, useNameHistory, useProgress } from '@/hooks'
 import { useReducedMotion } from '@/hooks'
@@ -99,6 +100,9 @@ export function GenerateScreen() {
   // Wizard state
   const [step, setStep] = useState<Step>(1)
   const [selections, setSelections] = useState<Selections>(EMPTY_SELECTIONS)
+  // When the user arrives from an Explore catalog animal (breed pre-filled via URL),
+  // skip step 6 — they already chose the animal, asking them to pick a breed again is wrong.
+  const [breedPrefilled, setBreedPrefilled] = useState(false)
 
   // Post-step-7 state
   const [generating, setGenerating] = useState(false)
@@ -120,6 +124,18 @@ export function GenerateScreen() {
   useEffect(() => {
     const typeParam = searchParams.get('type')
     const breedParam = searchParams.get('breed')
+    const categoryParam = searchParams.get('category')
+
+    // Category-only param: pre-select the category and jump to type selection (step 2).
+    // Used when the catalog animal's type doesn't exist in the wizard (Wild Animal, Pet, etc.).
+    if (categoryParam && !typeParam) {
+      const found = CATEGORIES.find(c => c.value === categoryParam)
+      if (found) {
+        setSelections(s => ({ ...s, category: found.value }))
+        setStep(2)
+      }
+      return
+    }
 
     if (!typeParam) return
 
@@ -134,21 +150,8 @@ export function GenerateScreen() {
     }))
 
     if (breedParam) {
-      // Check if the pre-filled breed is gated — if so, show the locked breed grid
-      // instead of auto-advancing past it, so the player sees the locked card.
-      const breeds = BREEDS_BY_TYPE[typeParam] ?? []
-      const breedData = breeds.find(b => b.value === breedParam)
-      const isGated =
-        breedData?.rarity === 'rare' ||
-        breedData?.rarity === 'epic' ||
-        breedData?.rarity === 'legendary'
-
-      if (isGated) {
-        setStep(6) // stay on breed step — locked card is visible, breed is NOT selected
-        setSelections(s => ({ ...s, breed: null })) // clear the gated breed from selections
-      } else {
-        setStep(3) // skip to gender for unlocked breeds
-      }
+      setBreedPrefilled(true) // breed is set — skip step 6 going forward and back
+      setStep(3)              // jump straight to gender
     } else {
       setStep(6) // skip to breed
     }
@@ -194,7 +197,12 @@ export function GenerateScreen() {
   function buildOptions() {
     switch (step) {
       case 1:
-        return CATEGORIES.map(c => ({ value: c.value, icon: CATEGORY_ICONS[c.value], label: c.value }))
+        return CATEGORIES.map(c => ({
+          value: c.value,
+          icon: CATEGORY_ICONS[c.value],
+          label: c.value,
+          tierPill: (isTradeable(c.value) ? 'tradeable' : 'reward-only') as 'tradeable' | 'reward-only',
+        }))
       case 2: {
         const types = selections.category ? TYPES_BY_CATEGORY[selections.category] : []
         return types.map(t => ({ value: t.value, icon: <PawPrint size={28} />, label: t.value }))
@@ -217,16 +225,12 @@ export function GenerateScreen() {
         }))
       case 6: {
         const breeds = selections.animalType ? (BREEDS_BY_TYPE[selections.animalType] ?? []) : []
-        return breeds.map(b => {
-          const isLocked = b.rarity === 'rare' || b.rarity === 'epic' || b.rarity === 'legendary'
-          return {
-            value: b.value,
-            imageUrl: b.imageUrl,
-            label: b.label,
-            description: b.rarity,
-            locked: isLocked,
-          }
-        })
+        return breeds.map(b => ({
+          value: b.value,
+          imageUrl: b.imageUrl,
+          label: b.label,
+          description: b.rarity,
+        }))
       }
       case 7: {
         const colours = selections.animalType ? getColours(selections.animalType) : []
@@ -260,7 +264,9 @@ export function GenerateScreen() {
 
     if (step < 7) {
       setTimeout(() => {
-        setStep((step + 1) as Step)
+        // Skip breed step when breed was pre-filled from a catalog animal URL
+        const nextStep = (step + 1 === 6 && breedPrefilled) ? 7 : step + 1
+        setStep(nextStep as Step)
       }, 150)
     } else {
       // Step 7 complete — trigger generation
@@ -340,7 +346,9 @@ export function GenerateScreen() {
     // Clear this step's selection and go back
     const key = STEP_KEYS[step]
     setSelections(s => ({ ...s, [key]: null }))
-    setStep((step - 1) as Step)
+    // Skip breed step going back when it was pre-filled
+    const prevStep = (step - 1 === 6 && breedPrefilled) ? 5 : step - 1
+    setStep(prevStep as Step)
   }
 
   // ─── Adopt handler ────────────────────────────────────────────────────────
@@ -442,6 +450,7 @@ export function GenerateScreen() {
     setSelections(EMPTY_SELECTIONS)
     setShowResults(false)
     setGeneratedNames([])
+    setBreedPrefilled(false)
     setStep(1)
   }
 
@@ -506,7 +515,8 @@ export function GenerateScreen() {
       <GeneratingOverlay visible={generating} />
 
       <WizardHeader
-        step={step}
+        step={breedPrefilled && step === 7 ? 6 : step}
+        totalSteps={breedPrefilled ? 6 : 7}
         onBack={handleBack}
         showBack={step > 1}
       />

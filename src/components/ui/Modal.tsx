@@ -9,7 +9,7 @@
 // SCROLL LOCK: Uses reference-counted useScrollLock (not direct body.style.overflow)
 // so two simultaneous overlays do not fight each other over scroll restoration.
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
@@ -46,6 +46,8 @@ interface ModalProps {
 export function Modal({ isOpen, onClose, title, children, className, maxWidth = 'max-w-[420px]' }: ModalProps) {
   const reducedMotion = useReducedMotion()
   const { lock, unlock } = useScrollLock()
+  // dialogRef — used for role/aria-modal and focus trap
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   // Reference-counted scroll lock — safe when Modal and BottomSheet are both open.
   useEffect(() => {
@@ -55,12 +57,41 @@ export function Modal({ isOpen, onClose, title, children, className, maxWidth = 
     }
   }, [isOpen])
 
+  // Focus trap: on open, move focus to the first focusable element.
+  // Tab cycles within the dialog; Shift+Tab wraps from first to last.
+  // On close the trap is removed automatically via cleanup.
+  useEffect(() => {
+    if (!isOpen) return
+    const el = dialogRef.current
+    if (!el) return
+    const focusable = el.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    )
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    first?.focus()
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus() }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first?.focus() }
+      }
+    }
+    el.addEventListener('keydown', handleKeyDown)
+    return () => el.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
+
   const content = (
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
           <Backdrop onClick={onClose} />
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={title ? 'modal-title' : undefined}
             className={cn(
               'relative rounded-2xl p-7 shadow-elevated w-full',
               maxWidth,
@@ -88,7 +119,7 @@ export function Modal({ isOpen, onClose, title, children, className, maxWidth = 
             </button>
 
             {title && (
-              <h2 className="text-[22px] font-bold text-t1 mb-4 pr-8">{title}</h2>
+              <h2 id="modal-title" className="text-[22px] font-bold text-t1 mb-4 pr-8">{title}</h2>
             )}
             {children}
           </motion.div>

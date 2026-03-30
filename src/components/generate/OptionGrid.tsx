@@ -15,6 +15,8 @@ interface Option {
   description?: string
   hex?: string
   locked?: boolean
+  /** Tier sub-label pill for Step 1 category cards. Passed through to OptionCard. */
+  tierPill?: 'tradeable' | 'reward-only'
 }
 
 interface OptionGridProps {
@@ -84,6 +86,7 @@ export function OptionGrid({ options, selected, onSelect, columns }: OptionGridP
                   imageUrl={opt.imageUrl}
                   label={opt.label}
                   description={opt.description}
+                  tierPill={opt.tierPill}
                   colorHex={opt.hex}
                   selected={selected === opt.value}
                   onClick={() => onSelect(opt.value)}
@@ -114,6 +117,7 @@ export function OptionGrid({ options, selected, onSelect, columns }: OptionGridP
             imageUrl={opt.imageUrl}
             label={opt.label}
             description={opt.description}
+            tierPill={opt.tierPill}
             colorHex={opt.hex}
             selected={selected === opt.value}
             onClick={() => onSelect(opt.value)}

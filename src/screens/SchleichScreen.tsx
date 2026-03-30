@@ -34,7 +34,7 @@ import {
 } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Package, Settings } from 'lucide-react'
+import { Search, Package, Settings, Sparkles } from 'lucide-react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 import { PageHeader } from '@/components/layout/PageHeader'
@@ -92,7 +92,7 @@ function TabSwitcher({ active, onChange }: TabSwitcherProps) {
               : 'text-[var(--t3)] hover:text-[var(--t2)]',
           ].join(' ')}
         >
-          {tab === 'all' ? 'All' : 'My Collection'}
+          {tab === 'all' ? 'All' : 'My Figures'}
         </button>
       ))}
     </div>
@@ -380,7 +380,7 @@ export function SchleichScreen() {
 
       {/* Sticky glass PageHeader */}
       <PageHeader
-        title="Collection"
+        title="Figures"
         centre={
           // Tab switcher lives EXCLUSIVELY in the centre slot.
           // It is NOT rendered inside AnimatePresence or inside content areas.
@@ -390,6 +390,13 @@ export function SchleichScreen() {
         trailing={
           <div className="flex items-center gap-2">
             <CoinDisplay amount={coins} />
+            <button
+              onClick={() => navigate('/generate')}
+              className="w-9 h-9 flex items-center justify-center rounded-full text-[var(--blue-t)] bg-[var(--blue-sub)] hover:bg-[var(--blue)] hover:text-white transition-all"
+              aria-label="Generate new animal"
+            >
+              <Sparkles size={16} strokeWidth={2} />
+            </button>
             <button
               onClick={() => navigate('/settings')}
               className="w-9 h-9 flex items-center justify-center rounded-full text-t3 hover:text-t1 hover:bg-white/[.06] transition-all"

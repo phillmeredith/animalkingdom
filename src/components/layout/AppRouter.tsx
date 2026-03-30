@@ -9,6 +9,7 @@ import { PlaceholderScreen } from './PlaceholderScreen'
 import { HomeScreen } from '@/screens/HomeScreen'
 import { ExploreScreen } from '@/screens/ExploreScreen'
 import { GenerateScreen } from '@/screens/GenerateScreen'
+import { AdoptScreen } from '@/screens/AdoptScreen'
 import { MyAnimalsScreen } from '@/screens/MyAnimalsScreen'
 import { PlayHubScreen } from '@/screens/PlayHubScreen'
 import { CoinRushScreen } from '@/screens/CoinRushScreen'
@@ -31,6 +32,7 @@ export function AppRouter() {
           <Route path="/"                      element={<HomeScreen />} />
           <Route path="/explore"               element={<ExploreScreen />} />
           <Route path="/generate"              element={<GenerateScreen />} />
+          <Route path="/adopt"                 element={<AdoptScreen />} />
           <Route path="/animals"               element={<MyAnimalsScreen />} />
           <Route path="/play"                  element={<PlayHubScreen />} />
           <Route path="/play/coin-rush"        element={<CoinRushScreen />} />

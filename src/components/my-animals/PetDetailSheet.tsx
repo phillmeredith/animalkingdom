@@ -8,7 +8,7 @@
 //   - for_sale pet: CarePanel shows inline amber message on button tap (aria-disabled)
 //   - for_sale pet: header shows RarityBadge + amber "Listed for sale" badge side by side
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BottomSheet } from '@/components/ui/Modal'
 import { AnimalImage } from '@/components/ui/AnimalImage'
@@ -19,13 +19,18 @@ import { ReleaseConfirm } from './ReleaseConfirm'
 import { CarePanel } from './CarePanel'
 import { ListForSaleSheet } from '@/components/player-listings/ListForSaleSheet'
 import { ForSaleReleaseBlockModal } from '@/components/player-listings/ForSaleReleaseBlockModal'
-import { Disc } from 'lucide-react'
+import { ListingRetractModal } from './ListingRetractModal'
+import { Disc, Award } from 'lucide-react'
+import { TierBadge } from '@/components/ui/TierBadge'
+import { isTradeable } from '@/lib/animalTiers'
 import { SoundButton } from '@/components/ui/SoundButton'
 import { getSoundUrl } from '@/data/animalSounds'
 import { useSavedNames } from '@/hooks/useSavedNames'
 import { useItemShop } from '@/hooks/useItemShop'
 import { useToast } from '@/components/ui/Toast'
 import { usePlayerListings } from '@/hooks/usePlayerListings'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { db } from '@/lib/db'
 import { getColours } from '@/data/generateOptions'
 import { cn } from '@/lib/utils'
 import type { SavedName } from '@/lib/db'
@@ -63,6 +68,20 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
   const [releaseOpen, setReleaseOpen] = useState(false)
   const [listForSaleOpen, setListForSaleOpen] = useState(false)
   const [releaseBlockOpen, setReleaseBlockOpen] = useState(false)
+  const [retractListingOpen, setRetractListingOpen] = useState(false)
+  // cancelListingBtnRef — focus returns here after the retract modal closes (WCAG 2.1 AA)
+  const cancelListingBtnRef = useRef<HTMLButtonElement>(null)
+
+  // Live-query the active listing for this pet (needed to pass listingId to the modal)
+  const activeListing = useLiveQuery(
+    () => pet?.id
+      ? db.playerListings
+          .where('petId').equals(pet.id)
+          .filter(l => l.status === 'active')
+          .first()
+      : Promise.resolve(undefined),
+    [pet?.id],
+  )
 
   const isForSale = pet?.status === 'for_sale'
 
@@ -72,6 +91,7 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
     setReleaseOpen(false)
     setListForSaleOpen(false)
     setReleaseBlockOpen(false)
+    setRetractListingOpen(false)
   }, [pet, open])
 
   if (!pet) return null
@@ -131,10 +151,11 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
                 <>
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h2 className="text-[20px] font-700 text-t1 leading-tight truncate">{pet.name}</h2>
-                    {/* PL-2: for_sale pets show RarityBadge + amber "Listed for sale" badge side by side */}
-                    <div className="flex items-center gap-2 shrink-0">
+                    {/* Header badges: RarityBadge + TierBadge (always) + for_sale badge */}
+                    <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
                       <SoundButton soundUrl={getSoundUrl(pet.animalType)} />
                       <RarityBadge rarity={pet.rarity} />
+                      <TierBadge category={pet.category} />
                       {isForSale && (
                         <Badge variant="amber">Listed for sale</Badge>
                       )}
@@ -183,6 +204,27 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
             </p>
           )}
 
+          {/* Reward-only informational banner — shown between narrative and footer for reward-only pets.
+              Non-interactive: no tap, hover, or focus. role="note" so screen readers announce it
+              as supplementary information. Only rendered when isTradeable === false. */}
+          {!isTradeable(pet.category) && (
+            <div
+              role="note"
+              className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--amber)] bg-[var(--amber-sub)] mb-4"
+              style={{ padding: '12px 16px' }}
+            >
+              <Award size={16} className="text-[var(--amber-t)] shrink-0 mt-0.5" aria-hidden="true" />
+              <div>
+                <p className="text-[14px] font-semibold text-[var(--amber-t)] leading-snug">
+                  This animal was earned as a reward.
+                </p>
+                <p className="text-[13px] text-t2 mt-2 leading-snug">
+                  Reward-only animals cannot be sold.
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Equipment — saddles */}
           {pet.id && (() => {
             const ownedSaddles = ownedItems.filter(i => i.category === 'saddle')
@@ -225,73 +267,100 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
 
           {/* Actions */}
           {!isRenaming && (
-            <div className="grid grid-cols-2 gap-2">
-              {/* PL-2: Rename hidden when for_sale */}
-              {!isForSale && (
-                <Button
-                  variant="primary"
-                  size="md"
-                  onClick={() => setIsRenaming(true)}
-                >
-                  Rename
-                </Button>
-              )}
+            <>
+              {/* for_sale state: "Rename" hidden, "Release" hidden, "List for Sale" hidden.
+                  Only "Cancel listing" is shown (spec auction-retract Story 1 AC). */}
+              {isForSale ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {/* Left col on iPad: empty spacer keeps "Cancel listing" right-aligned */}
+                  <div className="hidden md:block" />
+                  {/* "Cancel listing" — outline variant, right col on iPad / full-width on mobile */}
+                  <Button
+                    ref={cancelListingBtnRef}
+                    variant="outline"
+                    size="md"
+                    className="w-full"
+                    onClick={() => setRetractListingOpen(true)}
+                  >
+                    Cancel listing
+                  </Button>
+                </div>
+              ) : isTradeable(pet.category) ? (
+                /* Tradeable pet — full action set: Rename, Release, Dress Up (Stables), List for Sale, Compare */
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    variant="primary"
+                    size="md"
+                    onClick={() => setIsRenaming(true)}
+                  >
+                    Rename
+                  </Button>
 
-              {/* PL-4: Release always visible but opens ForSaleReleaseBlockModal when for_sale */}
-              <Button
-                variant="outline"
-                size="md"
-                className="border-[var(--red)] text-[var(--red-t)] hover:bg-[var(--red-sub)]"
-                onClick={() => {
-                  if (isForSale) {
-                    setReleaseBlockOpen(true)
-                  } else {
-                    setReleaseOpen(true)
-                  }
-                }}
-              >
-                Release
-              </Button>
+                  <Button
+                    variant="outline"
+                    size="md"
+                    className="border-[var(--red)] text-[var(--red-t)] hover:bg-[var(--red-sub)]"
+                    onClick={() => setReleaseOpen(true)}
+                  >
+                    Release
+                  </Button>
 
-              {/* PL-2: Dress up hidden when for_sale (only for Stables horses) */}
-              {pet.category === 'Stables' && pet.id != null && !isForSale && (
-                <Button
-                  variant="primary"
-                  size="md"
-                  onClick={() => {
-                    onClose()
-                    navigate(`/equip/${pet.id}`)
-                  }}
-                >
-                  Dress up
-                </Button>
-              )}
+                  {/* Dress up — only for Stables horses */}
+                  {pet.category === 'Stables' && pet.id != null && (
+                    <Button
+                      variant="primary"
+                      size="md"
+                      onClick={() => {
+                        onClose()
+                        navigate(`/equip/${pet.id}`)
+                      }}
+                    >
+                      Dress up
+                    </Button>
+                  )}
 
-              {/* PL-01: "List for Sale" when active; amber badge when for_sale */}
-              {!isForSale ? (
-                <Button
-                  variant="primary"
-                  size="md"
-                  onClick={() => setListForSaleOpen(true)}
-                >
-                  List for Sale
-                </Button>
+                  {/* PL-01: "List for Sale" — tradeable pets only (not rendered for reward-only) */}
+                  <Button
+                    variant="primary"
+                    size="md"
+                    onClick={() => setListForSaleOpen(true)}
+                  >
+                    List for Sale
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    size="md"
+                    disabled
+                    className="opacity-40 cursor-not-allowed"
+                  >
+                    Compare
+                  </Button>
+                </div>
               ) : (
-                // Non-interactive amber "Listed for sale" badge replaces the button
-                <div className="flex items-center justify-center">
-                  <Badge variant="amber">Listed for sale</Badge>
+                /* Reward-only pet — restricted action set: Rename (col 1) + Release (col 2).
+                   "List for Sale" is absent from the DOM entirely (not disabled, not hidden).
+                   The informational banner above the footer explains the absence. */
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    variant="primary"
+                    size="md"
+                    onClick={() => setIsRenaming(true)}
+                  >
+                    Rename
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    size="md"
+                    className="border-[var(--red)] text-[var(--red-t)] hover:bg-[var(--red-sub)]"
+                    onClick={() => setReleaseOpen(true)}
+                  >
+                    Release
+                  </Button>
                 </div>
               )}
-
-              <Button
-                variant="outline"
-                size="md"
-                disabled
-                className="opacity-40 cursor-not-allowed"
-              >
-                Compare
-              </Button>
-            </div>
+            </>
           )}
         </div>
       </BottomSheet>
@@ -327,6 +396,22 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
           navigate('/marketplace', { state: { tab: 'listings' } })
         }}
       />
+
+      {/* auction-retract: ListingRetractModal — cancels an active listing.
+          Only rendered when the active listing is confirmed (id is defined). */}
+      {activeListing?.id != null && pet.id != null && (
+        <ListingRetractModal
+          listingId={activeListing.id}
+          pet={pet as SavedName & { id: number }}
+          isOpen={retractListingOpen}
+          onClose={() => setRetractListingOpen(false)}
+          onSuccess={() => {
+            setRetractListingOpen(false)
+            // PetDetailSheet footer refreshes reactively via pet.status via useLiveQuery
+          }}
+          triggerRef={cancelListingBtnRef as React.RefObject<HTMLElement>}
+        />
+      )}
     </>
   )
 }

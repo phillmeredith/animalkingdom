@@ -5,7 +5,6 @@ import { useEffect } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db, ensureSkillProgress } from '@/lib/db'
 import type { SkillProgress, Badge, SkillArea } from '@/lib/db'
-import { useToast } from '@/components/ui/Toast'
 import { BADGE_CATALOGUE } from '@/data/badges'
 
 // XP thresholds per tier boundary (cumulative)
@@ -20,8 +19,6 @@ function xpToTier(xp: number): number {
 }
 
 export function useProgress() {
-  const { toast } = useToast()
-
   // Initialise skill rows once on mount (separate from the live query)
   useEffect(() => {
     ensureSkillProgress()
@@ -306,11 +303,9 @@ export function useProgress() {
 
       return newlyAwarded
     } catch (err) {
-      toast({
-        type:        'error',
-        title:       'Could not check badges',
-        description: 'Something went wrong.',
-      })
+      // Badge checks are non-critical — never surface to the user as a toast.
+      // Log to console so errors remain diagnosable without interrupting gameplay.
+      console.error('[checkBadgeEligibility]', err)
       return []
     }
   }

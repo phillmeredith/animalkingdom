@@ -15,6 +15,7 @@ import { useProgress } from '@/hooks/useProgress'
 import { useToast } from '@/components/ui/Toast'
 import { ANIMALS } from '@/data/animals'
 import { BREEDS_BY_TYPE } from '@/data/generateOptions'
+import { isTradeable } from '@/lib/animalTiers'
 // Rarity is imported only from db.ts. animals.ts defines an identical Rarity type
 // but importing from both would create a structural duplicate — db.ts is the canonical source.
 import type { AuctionItem, AuctionBid, Rarity, SavedName } from '@/lib/db'
@@ -224,10 +225,14 @@ export function useAuctions() {
       )
       if (todaysActive.length > 0) return
 
-      // Build eligible animal pool: uncommon+ from ANIMALS catalogue
+      // Build eligible animal pool: uncommon+ from ANIMALS catalogue, tradeable only.
+      // Animal economy tiers: reward-only animals (Wild, Sea, Lost World) are excluded
+      // at the data layer so they never appear in auctions.
       const eligibleAnimals = ANIMALS.filter(
-        a => a.rarity === 'uncommon' || a.rarity === 'rare' ||
-             a.rarity === 'epic' || a.rarity === 'legendary'
+        a => isTradeable(a.category) && (
+          a.rarity === 'uncommon' || a.rarity === 'rare' ||
+          a.rarity === 'epic' || a.rarity === 'legendary'
+        )
       )
 
       const exclusiveAnimals = eligibleAnimals.filter(isExclusiveBreed)
@@ -961,11 +966,87 @@ export function useAuctions() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // ── retractBid (auction-retract feature) ──────────────────────────────────
+  //
+  // Withdraws Harry's active bid on an auction and refunds the bid amount.
+  //
+  // CRITICAL TRANSACTION RULE (CLAUDE.md — spend-before-write, same principle for
+  // refunds): earn(bidAmount) AND bid record deletion must be inside a single
+  // db.transaction('rw', ...). If bid deletion fails after earn() succeeds, the
+  // entire transaction rolls back — Harry does NOT receive coins for a bid that
+  // still exists. Violating this boundary is a build defect.
+  //
+  // earn() internally accesses db.playerWallet and db.transactions — both listed
+  // in the transaction table set so Dexie nests the inner transaction correctly.
+  //
+  // On success: returns { success: true }. The calling modal fires success toast.
+  // On error:   toast type:'error' + rethrow so the modal stays open (TRANS-3).
+
+  async function retractBid(
+    auctionId: number,
+    bidId: number,
+    bidAmount: number,
+  ): Promise<{ success: true }> {
+    try {
+      // Pre-condition read — outside the write transaction
+      const auction = await db.auctionItems.get(auctionId)
+      if (!auction || auction.status !== 'active') {
+        throw new Error('Auction is no longer active.')
+      }
+
+      const bid = await db.auctionBids.get(bidId)
+      if (!bid || bid.bidStatus !== 'active') {
+        throw new Error('Bid is no longer active.')
+      }
+
+      const now = new Date()
+
+      // earn() + bid deletion inside ONE transaction — build defect if split
+      await db.transaction(
+        'rw',
+        db.auctionBids,
+        db.auctionItems,
+        db.playerWallet,
+        db.transactions,
+        async () => {
+          // Refund the bid amount to Harry's wallet
+          await earn(
+            bidAmount,
+            `Auction bid withdrawn: ${auction.name}`,
+            'auction',
+            auctionId,
+          )
+
+          // Mark the bid record as superseded (soft delete — preserves history)
+          await db.auctionBids.update(bidId, {
+            bidStatus: 'superseded',
+          } as Partial<AuctionBid>)
+
+          // Revert the auction's currentBidder to the NPC seller if Harry was
+          // the leading bidder, so the auction remains well-formed.
+          if (auction.currentBidder === 'player') {
+            await db.auctionItems.update(auctionId, {
+              currentBidder: auction.npcSeller,
+              currentBid:    auction.startingBid,
+              updatedAt:     now,
+            })
+          }
+        },
+      )
+
+      return { success: true }
+    } catch (err) {
+      toast({ type: 'error', title: 'Could not cancel — please try again.' })
+      throw err
+    }
+  }
+
   // ── Public API ─────────────────────────────────────────────────────────────
 
   return {
-    /** All auction items (active, won, lost, expired). Sorted by endsAt ascending. */
-    auctions: auctions ?? [],
+    /** All auction items (active, won, lost, expired). Sorted by endsAt ascending.
+     *  Reward-only animals are excluded — only tradeable categories surface here. */
+    auctions: (auctions ?? []).filter(a => isTradeable(a.category)),
     /** Map of auctionId → player's current active bid amount (active auctions only). */
     playerBids,
     /**
@@ -976,6 +1057,7 @@ export function useAuctions() {
     coinsInBids,
     placeBid,
     buyNow,
+    retractBid,
     resolveAuction,
     refreshAuctions,
     resolveExpiredAuctions,

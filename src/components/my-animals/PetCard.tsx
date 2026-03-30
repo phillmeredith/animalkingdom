@@ -3,6 +3,7 @@
 import { CheckCircle, AlertCircle } from 'lucide-react'
 import { AnimalImage } from '@/components/ui/AnimalImage'
 import { RarityBadge, Badge } from '@/components/ui/Badge'
+import { TierBadge } from '@/components/ui/TierBadge'
 import { cn } from '@/lib/utils'
 import type { SavedName } from '@/lib/db'
 
@@ -65,14 +66,16 @@ export function PetCard({ pet, onClick, careState = 'unknown' }: PetCardProps) {
 
       {/* Card body */}
       <div className="p-3">
-        <div className="flex items-center justify-between gap-1 mb-1">
-          <span className="text-[15px] font-600 text-t1 truncate leading-tight">
-            {pet.name}
-          </span>
-          <RarityBadge rarity={pet.rarity} className="shrink-0" />
+        <p className="text-[15px] font-600 text-t1 truncate leading-tight mb-1">
+          {pet.name}
+        </p>
+        {/* Badge row — flex-wrap so TierBadge wraps to second line at 375px if needed */}
+        <div className="flex items-center gap-1.5 flex-wrap mb-1">
+          <RarityBadge rarity={pet.rarity} />
+          <TierBadge category={pet.category} />
         </div>
-        <p className="text-[13px] text-t3 truncate">
-          {pet.breed} · {pet.category}
+        <p className="text-[11px] text-t3 truncate uppercase tracking-wide">
+          {pet.category}
         </p>
       </div>
     </button>

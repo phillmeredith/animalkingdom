@@ -153,7 +153,7 @@ export const BREEDS_BY_TYPE: Record<string, BreedOption[]> = {
     { value: 'Maine Coon',  label: 'Maine Coon',    rarity: 'uncommon',  imageUrl: '/Animals/Home_Pets/Maine_Coon.jpg' },
     { value: 'Siamese',     label: 'Siamese',       rarity: 'uncommon',  imageUrl: '/Animals/Home_Pets/Siamese.jpg' },
     { value: 'Ragdoll',     label: 'Ragdoll',       rarity: 'common',    imageUrl: '/Animals/Home_Pets/Ragdoll.jpg' },
-    { value: 'Scottish Fold', label: 'Scottish Fold', rarity: 'rare',    imageUrl: '/Animals/Home_Pets/Scottish_Fold.jpg' },
+    { value: 'Scottish Fold', label: 'Scottish Fold', rarity: 'rare',    imageUrl: '/Animals/Home_Pets/Scottishfold_Cats_Scottish_Fold.jpg' },
     { value: 'Sphynx',     label: 'Sphynx',        rarity: 'epic',      imageUrl: '/Animals/Home_Pets/Sphynx.jpg' },
   ],
   'Rabbit': [
@@ -173,23 +173,23 @@ export const BREEDS_BY_TYPE: Record<string, BreedOption[]> = {
     { value: 'African Grey',    label: 'African Grey',      rarity: 'epic',      imageUrl: '/Animals/Home_Pets/African_Grey_Parrot.jpg' },
     { value: 'Budgerigar',      label: 'Budgerigar',        rarity: 'common',    imageUrl: '/Animals/Home_Pets/Budgerigar.jpg' },
     { value: 'Cockatiel',       label: 'Cockatiel',         rarity: 'common',    imageUrl: '/Animals/Home_Pets/Cockatiel.jpg' },
-    { value: 'Macaw',           label: 'Blue and Gold Macaw', rarity: 'legendary', imageUrl: '/Animals/Home_Pets/Blue_and_Gold_Macaw.jpg' },
-    { value: 'Conure',          label: 'Sun Conure',        rarity: 'rare',      imageUrl: '/Animals/Home_Pets/Sun_Conure.jpg' },
+    { value: 'Macaw',           label: 'Blue and Gold Macaw', rarity: 'legendary', imageUrl: '/Animals/Home_Pets/Macaw.jpg' },
+    { value: 'Conure',          label: 'Sun Conure',        rarity: 'rare',      imageUrl: '/Animals/Home_Pets/Conure.jpg' },
   ],
   'Hamster': [
     { value: 'Syrian',          label: 'Syrian Hamster',    rarity: 'common',    imageUrl: '/Animals/Home_Pets/Syrian_Hamster.jpg' },
-    { value: 'Roborovski',      label: 'Roborovski Dwarf',  rarity: 'uncommon',  imageUrl: '/Animals/Home_Pets/Roborovski_Hamster.jpg' },
-    { value: 'Chinese',         label: 'Chinese Hamster',   rarity: 'rare',      imageUrl: '/Animals/Home_Pets/Chinese_Hamster.jpg' },
+    { value: 'Roborovski',      label: 'Roborovski Dwarf',  rarity: 'uncommon',  imageUrl: '/Animals/Home_Pets/Dwarf_Hamster.jpg' },
+    { value: 'Chinese',         label: 'Chinese Hamster',   rarity: 'rare',      imageUrl: '/Animals/Home_Pets/Hamster.jpg' },
   ],
   'Horse': [
     { value: 'Andalusian',    label: 'Andalusian',       rarity: 'rare',      imageUrl: '/Animals/Stables/Andalusian_horse.jpg' },
     { value: 'Arabian',       label: 'Arabian',          rarity: 'epic',      imageUrl: '/Animals/Stables/Arabian_horse.jpg' },
     { value: 'Thoroughbred',  label: 'Thoroughbred',     rarity: 'rare',      imageUrl: '/Animals/Stables/Thoroughbred_horse.jpg' },
     { value: 'Shire',         label: 'Shire Horse',      rarity: 'uncommon',  imageUrl: '/Animals/Stables/Shire_Horse_1.jpg' },
-    { value: 'Appaloosa',     label: 'Appaloosa',        rarity: 'uncommon',  imageUrl: '/Animals/Stables/Appaloosa.jpg' },
-    { value: 'Friesian',      label: 'Friesian',         rarity: 'rare',      imageUrl: '/Animals/Stables/Friesian.jpg' },
-    { value: 'Mustang',       label: 'Mustang',          rarity: 'epic',      imageUrl: '/Animals/Stables/Mustang.jpg' },
-    { value: 'Lipizzaner',    label: 'Lipizzaner',       rarity: 'legendary', imageUrl: '/Animals/Stables/Lipizzaner.jpg' },
+    { value: 'Appaloosa',     label: 'Appaloosa',        rarity: 'uncommon',  imageUrl: '/Animals/Stables/Appaloosa_horse.jpg' },
+    { value: 'Friesian',      label: 'Friesian',         rarity: 'rare',      imageUrl: '/Animals/Stables/Friesian_horse.jpg' },
+    { value: 'Mustang',       label: 'Mustang',          rarity: 'epic',      imageUrl: '/Animals/Stables/Mustang_horse.jpg' },
+    { value: 'Lipizzaner',    label: 'Lipizzaner',       rarity: 'legendary', imageUrl: '/Animals/Stables/Lipizzaner_horse.jpg' },
   ],
   'Pony': [
     { value: 'Shetland',      label: 'Shetland Pony',   rarity: 'common',    imageUrl: '/Animals/Stables/Shetland_Pony.jpg' },
@@ -198,16 +198,16 @@ export const BREEDS_BY_TYPE: Record<string, BreedOption[]> = {
     { value: 'Connemara',     label: 'Connemara Pony',   rarity: 'rare',      imageUrl: '/Animals/Stables/Connemara_Pony.jpg' },
   ],
   'Donkey': [
-    { value: 'Miniature Donkey', label: 'Miniature Donkey', rarity: 'common',  imageUrl: '/Animals/Stables/Miniature_Donkey.jpg' },
+    { value: 'Miniature Donkey', label: 'Miniature Donkey', rarity: 'common',  imageUrl: '/Animals/Stables/Donkey.jpg' },
     { value: 'Standard',         label: 'Standard Donkey',  rarity: 'common',  imageUrl: '/Animals/Stables/Donkey.jpg' },
-    { value: 'Mammoth',          label: 'Mammoth Jackstock', rarity: 'rare',   imageUrl: '/Animals/Stables/Mammoth_Donkey.jpg' },
+    { value: 'Mammoth',          label: 'Mammoth Jackstock', rarity: 'rare',   imageUrl: '/Animals/Stables/Donkey.jpg' },
   ],
   'Cow': [
     { value: 'Angus',         label: 'Angus',            rarity: 'common',    imageUrl: '/Animals/Farm/Cow.jpg' },
     { value: 'Hereford',      label: 'Hereford',         rarity: 'common',    imageUrl: '/Animals/Farm/Hereford Cow.jpg' },
     { value: 'Highland',      label: 'Highland',         rarity: 'rare',      imageUrl: '/Animals/Farm/Highland_Cattle.jpg' },
     { value: 'Holstein',      label: 'Holstein',         rarity: 'common',    imageUrl: '/Animals/Farm/Holstein Cow.jpg' },
-    { value: 'Longhorn',      label: 'Texas Longhorn',   rarity: 'uncommon',  imageUrl: '/Animals/Farm/Texas_Longhorn.jpg' },
+    { value: 'Longhorn',      label: 'Texas Longhorn',   rarity: 'uncommon',  imageUrl: '/Animals/Farm/English_Longhorn_Cattle.jpg' },
   ],
   'Pig': [
     { value: 'Old Spots',     label: 'Gloucestershire Old Spots', rarity: 'uncommon', imageUrl: '/Animals/Farm/Pig.jpg' },
@@ -284,7 +284,7 @@ export const BREEDS_BY_TYPE: Record<string, BreedOption[]> = {
     { value: 'Polar',          label: 'Polar Bear',          rarity: 'epic',      imageUrl: '/Animals/Wildlife/Polar_Bear.jpg' },
     { value: 'Grizzly',        label: 'Grizzly Bear',        rarity: 'rare',      imageUrl: '/Animals/Wildlife/Grizzly_Bear.jpg' },
     { value: 'Panda',          label: 'Giant Panda',         rarity: 'legendary', imageUrl: '/Animals/Wildlife/Giant_Panda_Bear.jpg' },
-    { value: 'Black',          label: 'American Black Bear', rarity: 'uncommon',  imageUrl: '/Animals/Wildlife/Black_Bear.jpg' },
+    { value: 'Black',          label: 'American Black Bear', rarity: 'uncommon',  imageUrl: '/Animals/Wildlife/North_American_Black_Bear.jpg' },
   ],
   'Panda': [
     { value: 'Giant',          label: 'Giant Panda',         rarity: 'legendary', imageUrl: '/Animals/Wildlife/Giant_Panda_Bear.jpg' },
@@ -434,22 +434,30 @@ function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-function uniqueThree(pools: string[][]): string[] {
+// Picks 4 unique names by cycling through pools twice.
+// Pool depth verified 2026-03-29: smallest pool (GENTLE_NAMES) has 13 entries;
+// three consecutive calls to generateNames() with the same parameters will
+// almost certainly return different sets because each pool is independently
+// shuffled per call. No thin-pool risk at 4 names.
+function uniqueFour(pools: string[][]): string[] {
   const result: string[] = []
   const used = new Set<string>()
-  for (const pool of pools) {
-    const shuffled = [...pool].sort(() => Math.random() - 0.5)
-    for (const name of shuffled) {
-      if (!used.has(name)) {
-        result.push(name)
-        used.add(name)
-        break
+  // Two passes over the pool list to reach 4 unique picks
+  for (let pass = 0; pass < 2 && result.length < 4; pass++) {
+    for (const pool of pools) {
+      const shuffled = [...pool].sort(() => Math.random() - 0.5)
+      for (const name of shuffled) {
+        if (!used.has(name)) {
+          result.push(name)
+          used.add(name)
+          break
+        }
       }
+      if (result.length === 4) break
     }
-    if (result.length === 3) break
   }
   // Fallback if pools exhausted
-  while (result.length < 3) result.push(pickRandom(CLASSIC_NAMES_M))
+  while (result.length < 4) result.push(pickRandom(CLASSIC_NAMES_M))
   return result
 }
 
@@ -463,9 +471,9 @@ export function generateNames(
   const isDino = ['Dinosaur', 'Pterosaur', 'Mammoth'].includes(animalType)
 
   if (isDino) {
-    return uniqueThree([DINO_NAMES, NATURE_WORDS, classicPool])
+    return uniqueFour([DINO_NAMES, NATURE_WORDS, classicPool])
   }
-  return uniqueThree([classicPool, NATURE_WORDS, personalityPool])
+  return uniqueFour([classicPool, NATURE_WORDS, personalityPool])
 }
 
 // ─── Discovery narrative ──────────────────────────────────────────────────────

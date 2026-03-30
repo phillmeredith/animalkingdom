@@ -12,8 +12,13 @@ import { useWallet } from '@/hooks/useWallet'
 import { useProgress } from '@/hooks/useProgress'
 import { useToast } from '@/components/ui/Toast'
 import { ANIMALS } from '@/data/animals'
+import { isTradeable } from '@/lib/animalTiers'
 import { LISTING_EXPIRY_DAYS } from '@/hooks/usePlayerListings'
 import type { MarketOffer, PlayerListing, NpcBuyerOffer, Rarity, SavedName } from '@/lib/db'
+
+// Animal economy tiers: NPC marketplace offers only surface tradeable animals.
+// Reward-only categories (Wild, Sea, Lost World) are excluded at the data layer.
+const TRADEABLE_ANIMALS = ANIMALS.filter(a => isTradeable(a.category))
 
 // ─── NPC name pool ────────────────────────────────────────────────────────────
 
@@ -41,7 +46,7 @@ function randomBetween(min: number, max: number): number {
 }
 
 function generateOffer(type: 'buy' | 'sell'): Omit<MarketOffer, 'id'> {
-  const animal = ANIMALS[Math.floor(Math.random() * ANIMALS.length)]
+  const animal = TRADEABLE_ANIMALS[Math.floor(Math.random() * TRADEABLE_ANIMALS.length)]
   const rarities: Rarity[] = ['common', 'uncommon', 'rare', 'epic', 'legendary']
   const weights = [40, 30, 20, 8, 2]
   let roll = Math.random() * 100
@@ -376,8 +381,15 @@ export function useMarketplace() {
     }
   }
 
+  // Filter existing DB records: old offers for reward-only animals must not surface.
+  // MarketOffer has no category field, so look up via animalType from the catalogue.
+  const tradeableOffers = offers.filter(o => {
+    const def = ANIMALS.find(a => a.animalType === o.animalType)
+    return def ? isTradeable(def.category) : false
+  })
+
   return {
-    offers,
+    offers: tradeableOffers,
     listings,
     npcOffers,
     refreshOffers,

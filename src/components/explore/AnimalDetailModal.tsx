@@ -9,7 +9,7 @@
 // ancestor transform/opacity/filter creates a new stacking context that traps
 // position:fixed children (see CLAUDE.md portal rule).
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrollLock } from '@/hooks/useScrollLock'
@@ -17,6 +17,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { AnimalDetailHeader } from './AnimalDetailHeader'
 import { AnimalDetailContent } from './AnimalDetailContent'
 import { getSoundUrl } from '@/data/animalSounds'
+import { enrichAnimalWithEncyclopedia } from '@/data/animals'
 import type { AnimalEntry } from '@/data/animals'
 
 export interface AnimalDetailModalProps {
@@ -58,11 +59,25 @@ function buildVariants(prefersReducedMotion: boolean) {
 
 // ── ModalContent — rendered inside the portal ──────────────────────────────────
 
-function ModalContent({ animal, isOwned, onClose }: AnimalDetailModalProps & { animal: AnimalEntry }) {
+function ModalContent({ animal: initialAnimal, isOwned, onClose }: AnimalDetailModalProps & { animal: AnimalEntry }) {
   const prefersReducedMotion = useReducedMotion()
   const { lock, unlock } = useScrollLock()
   const variants = buildVariants(prefersReducedMotion)
   const modalRef = useRef<HTMLDivElement>(null)
+
+  // Enrich the animal with encyclopedia data (lazy-loaded JSON, ~1.8MB).
+  // Starts with the base catalog entry and upgrades to the enriched version when ready.
+  // Non-critical: if the fetch fails, the modal still renders with base data.
+  const [animal, setAnimal] = useState<AnimalEntry>(initialAnimal)
+  useEffect(() => {
+    let cancelled = false
+    enrichAnimalWithEncyclopedia(initialAnimal)
+      .then(enriched => { if (!cancelled) setAnimal({ ...enriched }) })
+      .catch(() => undefined)
+    return () => { cancelled = true }
+  // Re-enrich when the animal changes (different modal opened)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialAnimal.id])
 
   // Apply body scroll lock for the lifetime of this component.
   // useScrollLock is reference-counted: safe to call alongside other overlays.

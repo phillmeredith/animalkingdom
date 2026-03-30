@@ -2,6 +2,7 @@
 // Auto-dismisses after 2s or on tap. Triggers TraderPuzzle at 50% chance.
 
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Heart } from 'lucide-react'
 import { useReducedMotion } from '@/hooks'
@@ -21,12 +22,12 @@ export function AdoptionOverlay({ visible, petName, onDismiss }: AdoptionOverlay
     return () => clearTimeout(t)
   }, [visible, onDismiss])
 
-  return (
+  const overlay = (
     <AnimatePresence>
       {visible && (
         <motion.div
           key="adoption-overlay"
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center cursor-pointer"
+          className="fixed inset-0 z-[1200] flex flex-col items-center justify-center cursor-pointer"
           style={{
             background: 'linear-gradient(135deg, rgba(232,36,124,.65), rgba(55,114,255,.65))',
             backdropFilter: 'blur(20px)',
@@ -61,4 +62,6 @@ export function AdoptionOverlay({ visible, petName, onDismiss }: AdoptionOverlay
       )}
     </AnimatePresence>
   )
+
+  return createPortal(overlay, document.body)
 }

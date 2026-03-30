@@ -2,6 +2,7 @@
 // 50% chance after adoption. One attempt, no retry.
 
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
 import { Check, Coins } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -62,9 +63,9 @@ export function TraderPuzzle({ visible, question, onComplete }: TraderPuzzleProp
     return 'w-full p-3.5 rounded-lg border text-left text-[14px] font-500 bg-[var(--elev)] border-[var(--border-s)] text-t3 opacity-60'
   }
 
-  return (
+  const content = (
     <motion.div
-      className="fixed inset-0 z-[90] flex items-end"
+      className="fixed inset-0 z-[1200] flex items-end"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       style={{ background: 'rgba(0,0,0,.65)' }}
@@ -129,4 +130,6 @@ export function TraderPuzzle({ visible, question, onComplete }: TraderPuzzleProp
       </motion.div>
     </motion.div>
   )
+
+  return createPortal(content, document.body)
 }

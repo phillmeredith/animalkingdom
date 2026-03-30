@@ -1,0 +1,8824 @@
+[
+  {
+    "id": "card_001",
+    "name": "Beagle Dog",
+    "animalType": "Dog",
+    "breed": "Beagle",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.5,
+      "lng": -1.5
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 62,
+      "strength": 30,
+      "stamina": 78,
+      "agility": 65,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "scent",
+      "hound",
+      "pack",
+      "trail",
+      "burrow"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 48,
+      "weightKg": 10,
+      "scentReceptors": 300000000
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "rabbit",
+      "squirrel"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "England, United Kingdom",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_002",
+    "name": "Border Collie Dog",
+    "animalType": "Dog",
+    "breed": "Border Collie",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 55.5,
+      "lng": -2.5
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 68,
+      "strength": 32,
+      "stamina": 90,
+      "agility": 88,
+      "intelligence": 95
+    },
+    "wordSafariVocab": [
+      "herding",
+      "instinct",
+      "obedience",
+      "breed",
+      "shepherd"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 56,
+      "sheepHerdedPerDay": 300,
+      "commandsLearned": 1022
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "rabbit",
+      "mouse"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Scottish/English Border, United Kingdom",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_003",
+    "name": "French Bulldog Dog",
+    "animalType": "Dog",
+    "breed": "French Bulldog",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "France"
+    ],
+    "coordinates": {
+      "lat": 48.8,
+      "lng": 2.3
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 28,
+      "strength": 28,
+      "stamina": 22,
+      "agility": 38,
+      "intelligence": 58
+    },
+    "wordSafariVocab": [
+      "brachycephalic",
+      "companion",
+      "breed",
+      "domesticated",
+      "pedigree"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 25,
+      "weightKg": 11,
+      "exerciseMinutesPerDay": 30
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Paris, France",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_004",
+    "name": "Golden Retriever Dog",
+    "animalType": "Dog",
+    "breed": "Golden Retriever",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 57.2,
+      "lng": -4.5
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 55,
+      "strength": 42,
+      "stamina": 82,
+      "agility": 68,
+      "intelligence": 85
+    },
+    "wordSafariVocab": [
+      "retrieve",
+      "loyal",
+      "breed",
+      "pedigree",
+      "guide"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 56,
+      "weightKg": 30,
+      "retrieveDistanceM": 55
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "rabbit",
+      "bird"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Scottish Highlands, United Kingdom",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_005",
+    "name": "Abyssinian Cat",
+    "animalType": "Cat",
+    "breed": "Abyssinian",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Ethiopia"
+    ],
+    "coordinates": {
+      "lat": 9.0,
+      "lng": 38.7
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 48,
+      "strength": 18,
+      "stamina": 55,
+      "agility": 82,
+      "intelligence": 68
+    },
+    "wordSafariVocab": [
+      "crepuscular",
+      "pedigree",
+      "ticked",
+      "carnivore",
+      "agile"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 48,
+      "weightKg": 4,
+      "verticalJumpM": 1.8
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "mouse",
+      "bird"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Ethiopia, East Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_006",
+    "name": "Bengal Cat",
+    "animalType": "Cat",
+    "breed": "Bengal",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Bangladesh"
+    ],
+    "coordinates": {
+      "lat": 23.7,
+      "lng": 90.4
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 52,
+      "strength": 22,
+      "stamina": 58,
+      "agility": 85,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "hybrid",
+      "rosette",
+      "nocturnal",
+      "territorial",
+      "pedigree"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 52,
+      "weightKg": 5.5,
+      "litterSize": 4
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "mouse",
+      "fish"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "South Asia (breed ancestry)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_007",
+    "name": "Maine Coon Cat",
+    "animalType": "Cat",
+    "breed": "Maine Coon",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 44.5,
+      "lng": -69.5
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 48,
+      "strength": 30,
+      "stamina": 60,
+      "agility": 70,
+      "intelligence": 70
+    },
+    "wordSafariVocab": [
+      "pedigree",
+      "carnivore",
+      "nocturnal",
+      "domesticated",
+      "tufted"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 48,
+      "weightKg": 8,
+      "bodyLengthCm": 100
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "mouse",
+      "bird"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Maine, United States",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_008",
+    "name": "Persian Cat",
+    "animalType": "Cat",
+    "breed": "Persian",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "Iran"
+    ],
+    "coordinates": {
+      "lat": 32.4,
+      "lng": 53.7
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 30,
+      "strength": 18,
+      "stamina": 25,
+      "agility": 40,
+      "intelligence": 50
+    },
+    "wordSafariVocab": [
+      "brachycephalic",
+      "grooming",
+      "sedentary",
+      "pedigree",
+      "longhaired"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 28,
+      "weightKg": 4.5,
+      "lifespanYears": 15
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "mouse"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Persia (Iran), Middle East",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_009",
+    "name": "Budgerigar Bird",
+    "animalType": "Bird",
+    "breed": "Budgerigar",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Oceania",
+    "countries": [
+      "Australia"
+    ],
+    "coordinates": {
+      "lat": -25.0,
+      "lng": 135.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 45,
+      "strength": 5,
+      "stamina": 55,
+      "agility": 72,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "mimic",
+      "flock",
+      "plumage",
+      "avian",
+      "nomadic"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 0.035,
+      "wordsLearned": 100
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "seed",
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "snake"
+    ],
+    "worldQuestRegion": "Australian Interior",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Nomadic across interior Australia following rainfall and food"
+  },
+  {
+    "id": "card_010",
+    "name": "Holland Lop Rabbit",
+    "animalType": "Rabbit",
+    "breed": "Holland Lop",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Netherlands"
+    ],
+    "coordinates": {
+      "lat": 52.1,
+      "lng": 5.3
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 35,
+      "strength": 8,
+      "stamina": 40,
+      "agility": 55,
+      "intelligence": 40
+    },
+    "wordSafariVocab": [
+      "lop",
+      "herbivore",
+      "crepuscular",
+      "kit",
+      "warren"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 1.5,
+      "litterSize": 4
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "vegetable"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "hawk"
+    ],
+    "worldQuestRegion": "Netherlands, Western Europe",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_011",
+    "name": "Labrador Retriever Dog",
+    "animalType": "Dog",
+    "breed": "Labrador",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "Canada"
+    ],
+    "coordinates": {
+      "lat": 53.0,
+      "lng": -60.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 55,
+      "strength": 45,
+      "stamina": 80,
+      "agility": 70,
+      "intelligence": 88
+    },
+    "wordSafariVocab": [
+      "retrieve",
+      "guide",
+      "loyal",
+      "breed",
+      "waterfowl"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 56,
+      "weightKg": 32,
+      "lifespanYears": 12
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "bird"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Labrador, Canada",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_012",
+    "name": "Dachshund Dog",
+    "animalType": "Dog",
+    "breed": "Dachshund",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Germany"
+    ],
+    "coordinates": {
+      "lat": 51.2,
+      "lng": 10.5
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 32,
+      "strength": 22,
+      "stamina": 55,
+      "agility": 45,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "burrow",
+      "hound",
+      "scent",
+      "breed",
+      "tenacious"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 32,
+      "weightKg": 8,
+      "bodyLengthCm": 55
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "badger",
+      "rabbit"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Germany, Central Europe",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_013",
+    "name": "Siamese Cat",
+    "animalType": "Cat",
+    "breed": "Siamese",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "Thailand"
+    ],
+    "coordinates": {
+      "lat": 15.9,
+      "lng": 100.9
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 45,
+      "strength": 16,
+      "stamina": 50,
+      "agility": 78,
+      "intelligence": 75
+    },
+    "wordSafariVocab": [
+      "vocal",
+      "pedigree",
+      "nocturnal",
+      "carnivore",
+      "territorial"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 4,
+      "lifespanYears": 15
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "mouse",
+      "bird"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Thailand (formerly Siam), Southeast Asia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_014",
+    "name": "Ragdoll Cat",
+    "animalType": "Cat",
+    "breed": "Ragdoll",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 34.0,
+      "lng": -118.2
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 35,
+      "strength": 20,
+      "stamina": 38,
+      "agility": 55,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "docile",
+      "pedigree",
+      "carnivore",
+      "domesticated",
+      "companion"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 7,
+      "lifespanYears": 15
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "mouse"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "California, United States",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_015",
+    "name": "Syrian Hamster",
+    "animalType": "Hamster",
+    "breed": "Syrian",
+    "category": "At Home",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "Syria",
+      "Turkey"
+    ],
+    "coordinates": {
+      "lat": 36.5,
+      "lng": 37.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 18,
+      "strength": 5,
+      "stamina": 35,
+      "agility": 45,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "nocturnal",
+      "burrow",
+      "hibernate",
+      "pouch",
+      "hoard"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 8,
+      "weightKg": 0.12,
+      "pouchCapacityGrams": 20
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "seed",
+      "insect"
+    ],
+    "habitatBuilderPredators": [
+      "owl",
+      "snake",
+      "fox"
+    ],
+    "worldQuestRegion": "Aleppo, Syria",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_016",
+    "name": "Guinea Pig",
+    "animalType": "Guinea Pig",
+    "breed": "Abyssinian Guinea Pig",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Peru",
+      "Bolivia"
+    ],
+    "coordinates": {
+      "lat": -13.0,
+      "lng": -75.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 12,
+      "strength": 5,
+      "stamina": 25,
+      "agility": 35,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "herbivore",
+      "social",
+      "domesticated",
+      "popcorning",
+      "burrow"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 9,
+      "weightKg": 0.9,
+      "lifespanYears": 7
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "vegetable"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "fox",
+      "snake"
+    ],
+    "worldQuestRegion": "Andes Mountains, South America",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_017",
+    "name": "Corn Snake",
+    "animalType": "Snake",
+    "breed": "Corn Snake",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 30.0,
+      "lng": -85.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 8,
+      "strength": 12,
+      "stamina": 48,
+      "agility": 62,
+      "intelligence": 28
+    },
+    "wordSafariVocab": [
+      "constrictor",
+      "reptile",
+      "ectotherm",
+      "shed",
+      "nocturnal"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 8,
+      "weightKg": 0.35,
+      "bodyLengthCm": 120
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "mouse",
+      "lizard"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "fox"
+    ],
+    "worldQuestRegion": "Southeastern United States",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_018",
+    "name": "Leopard Gecko",
+    "animalType": "Gecko",
+    "breed": "Leopard Gecko",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "Pakistan",
+      "India",
+      "Afghanistan"
+    ],
+    "coordinates": {
+      "lat": 30.0,
+      "lng": 68.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 10,
+      "strength": 4,
+      "stamina": 32,
+      "agility": 58,
+      "intelligence": 30
+    },
+    "wordSafariVocab": [
+      "nocturnal",
+      "reptile",
+      "desert",
+      "ectotherm",
+      "camouflage"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 8,
+      "weightKg": 0.07,
+      "lifespanYears": 20
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "insect",
+      "cricket"
+    ],
+    "habitatBuilderPredators": [
+      "snake",
+      "owl"
+    ],
+    "worldQuestRegion": "Balochistan, Pakistan",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_019",
+    "name": "African Grey Parrot",
+    "animalType": "Parrot",
+    "breed": "African Grey",
+    "category": "At Home",
+    "conservationStatus": "Endangered",
+    "region": "Africa",
+    "countries": [
+      "Democratic Republic of Congo",
+      "Cameroon",
+      "Ghana"
+    ],
+    "coordinates": {
+      "lat": 0.0,
+      "lng": 20.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 35,
+      "strength": 5,
+      "stamina": 55,
+      "agility": 65,
+      "intelligence": 88
+    },
+    "wordSafariVocab": [
+      "mimic",
+      "endangered",
+      "avian",
+      "vocabulary",
+      "social"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 40,
+      "weightKg": 0.45,
+      "wordsLearned": 1000
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "seed",
+      "fruit",
+      "nut"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "eagle"
+    ],
+    "worldQuestRegion": "Central Africa (Congo Basin)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_020",
+    "name": "Cockatiel",
+    "animalType": "Cockatiel",
+    "breed": "Cockatiel",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Oceania",
+    "countries": [
+      "Australia"
+    ],
+    "coordinates": {
+      "lat": -28.0,
+      "lng": 134.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 42,
+      "strength": 4,
+      "stamina": 50,
+      "agility": 65,
+      "intelligence": 58
+    },
+    "wordSafariVocab": [
+      "flock",
+      "mimic",
+      "nomadic",
+      "avian",
+      "crest"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 0.1,
+      "lifespanYears": 20
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "seed",
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "snake"
+    ],
+    "worldQuestRegion": "Australian Interior",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Nomadic across inland Australia following rainfall"
+  },
+  {
+    "id": "card_021",
+    "name": "Ferret",
+    "animalType": "Ferret",
+    "breed": "Domestic Ferret",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.0,
+      "lng": -1.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 30,
+      "strength": 18,
+      "stamina": 58,
+      "agility": 78,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "mustelid",
+      "burrow",
+      "nocturnal",
+      "domesticated",
+      "carnivore"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 20,
+      "weightKg": 1.5,
+      "lifespanYears": 8
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "rabbit",
+      "mouse"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "England, United Kingdom",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_022",
+    "name": "Pug Dog",
+    "animalType": "Dog",
+    "breed": "Pug",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "China"
+    ],
+    "coordinates": {
+      "lat": 35.0,
+      "lng": 105.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 22,
+      "strength": 18,
+      "stamina": 20,
+      "agility": 30,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "brachycephalic",
+      "companion",
+      "breed",
+      "domesticated",
+      "wrinkle"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 18,
+      "weightKg": 7,
+      "lifespanYears": 13
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "China, East Asia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_023",
+    "name": "Husky Dog",
+    "animalType": "Dog",
+    "breed": "Siberian Husky",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "Russia"
+    ],
+    "coordinates": {
+      "lat": 64.0,
+      "lng": 143.0
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 62,
+      "strength": 40,
+      "stamina": 90,
+      "agility": 72,
+      "intelligence": 68
+    },
+    "wordSafariVocab": [
+      "sled",
+      "arctic",
+      "musher",
+      "stamina",
+      "breed"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 25,
+      "distancePerDayKm": 150
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "small mammal"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Siberia, Russia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_024",
+    "name": "Chinchilla",
+    "animalType": "Chinchilla",
+    "breed": "Long-tailed Chinchilla",
+    "category": "At Home",
+    "conservationStatus": "Endangered",
+    "region": "South America",
+    "countries": [
+      "Chile",
+      "Peru",
+      "Bolivia"
+    ],
+    "coordinates": {
+      "lat": -26.0,
+      "lng": -69.0
+    },
+    "biome": "urban",
+    "altitudeRange": [
+      3000,
+      5000
+    ],
+    "stats": {
+      "speed": 22,
+      "strength": 5,
+      "stamina": 35,
+      "agility": 60,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "fur",
+      "endangered",
+      "nocturnal",
+      "Andes",
+      "dust-bath"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 15,
+      "weightKg": 0.55,
+      "lifespan": 15
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "seed",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "condor",
+      "fox",
+      "snake"
+    ],
+    "worldQuestRegion": "Andes Mountains, Chile/Peru",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_025",
+    "name": "Lop-Eared Rabbit",
+    "animalType": "Rabbit",
+    "breed": "English Lop",
+    "category": "At Home",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.0,
+      "lng": -1.5
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 38,
+      "strength": 8,
+      "stamina": 42,
+      "agility": 52,
+      "intelligence": 40
+    },
+    "wordSafariVocab": [
+      "lop",
+      "herbivore",
+      "warren",
+      "kit",
+      "breed"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 3.5,
+      "earLengthCm": 70
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "vegetable"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "hawk",
+      "stoat"
+    ],
+    "worldQuestRegion": "England, United Kingdom",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_026",
+    "name": "Andalusian Horse",
+    "animalType": "Horse",
+    "breed": "Andalusian",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Spain"
+    ],
+    "coordinates": {
+      "lat": 37.4,
+      "lng": -5.9
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 70,
+      "strength": 72,
+      "stamina": 72,
+      "agility": 80,
+      "intelligence": 70
+    },
+    "wordSafariVocab": [
+      "dressage",
+      "stallion",
+      "breed",
+      "Iberian",
+      "collection"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 65,
+      "weightKg": 500,
+      "heightHands": 16
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "bear"
+    ],
+    "worldQuestRegion": "Andalusia, Spain",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_027",
+    "name": "Arabian Horse",
+    "animalType": "Horse",
+    "breed": "Arabian",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "Saudi Arabia",
+      "UAE"
+    ],
+    "coordinates": {
+      "lat": 24.5,
+      "lng": 46.7
+    },
+    "biome": "desert",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 78,
+      "strength": 65,
+      "stamina": 92,
+      "agility": 75,
+      "intelligence": 78
+    },
+    "wordSafariVocab": [
+      "endurance",
+      "breed",
+      "pedigree",
+      "desert-adapted",
+      "ancient"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 70,
+      "enduranceRaceKm": 160,
+      "weightKg": 450
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "lion"
+    ],
+    "worldQuestRegion": "Arabian Peninsula, Middle East",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_028",
+    "name": "Shire Horse",
+    "animalType": "Horse",
+    "breed": "Shire",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.8,
+      "lng": -1.5
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 45,
+      "strength": 90,
+      "stamina": 68,
+      "agility": 35,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "draught",
+      "breed",
+      "farrier",
+      "plough",
+      "feathering"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 975,
+      "pullWeightKg": 45000
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "English Midlands, United Kingdom",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_029",
+    "name": "Thoroughbred Horse",
+    "animalType": "Horse",
+    "breed": "Thoroughbred",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 51.5,
+      "lng": -0.1
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 88,
+      "strength": 60,
+      "stamina": 62,
+      "agility": 72,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "thoroughbred",
+      "gallop",
+      "furlong",
+      "jockey",
+      "pedigree"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 88,
+      "weightKg": 500,
+      "heartWeightKg": 4.5
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "England, United Kingdom",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_030",
+    "name": "Miniature Pony",
+    "animalType": "Pony",
+    "breed": "Miniature",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 60.2,
+      "lng": -1.3
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 38,
+      "strength": 28,
+      "stamina": 55,
+      "agility": 52,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "miniature",
+      "hardy",
+      "breed",
+      "hay",
+      "farrier"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 130,
+      "heightCm": 86
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "Shetland Isles, Scotland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_031",
+    "name": "Shetland Pony",
+    "animalType": "Pony",
+    "breed": "Shetland",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 60.2,
+      "lng": -1.3
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 35,
+      "strength": 45,
+      "stamina": 68,
+      "agility": 55,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "hardy",
+      "breed",
+      "island",
+      "draught",
+      "mane"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 32,
+      "weightKg": 180,
+      "strengthTimesBodyWeight": 2
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "Shetland Islands, Scotland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_032",
+    "name": "Welsh Pony",
+    "animalType": "Pony",
+    "breed": "Welsh Mountain",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.2,
+      "lng": -3.9
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      200,
+      900
+    ],
+    "stats": {
+      "speed": 42,
+      "strength": 40,
+      "stamina": 70,
+      "agility": 60,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "breed",
+      "mountain",
+      "hardy",
+      "native",
+      "cob"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 38,
+      "weightKg": 200,
+      "lifespanYears": 30
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "heather"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "Welsh Mountains, Wales, UK",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_033",
+    "name": "Clydesdale Horse",
+    "animalType": "Horse",
+    "breed": "Clydesdale",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 55.8,
+      "lng": -3.9
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 42,
+      "strength": 88,
+      "stamina": 65,
+      "agility": 32,
+      "intelligence": 58
+    },
+    "wordSafariVocab": [
+      "draught",
+      "feathering",
+      "breed",
+      "Scotland",
+      "harness"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 42,
+      "weightKg": 900,
+      "heightHandsMin": 16
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "Clyde Valley, Scotland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_034",
+    "name": "Friesian Horse",
+    "animalType": "Horse",
+    "breed": "Friesian",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Netherlands"
+    ],
+    "coordinates": {
+      "lat": 53.1,
+      "lng": 5.8
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 58,
+      "strength": 68,
+      "stamina": 68,
+      "agility": 65,
+      "intelligence": 68
+    },
+    "wordSafariVocab": [
+      "baroque",
+      "breed",
+      "feathering",
+      "carriage",
+      "stallion"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 55,
+      "weightKg": 550,
+      "lifespanYears": 16
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "Friesland, Netherlands",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_035",
+    "name": "Lipizzaner Horse",
+    "animalType": "Horse",
+    "breed": "Lipizzaner",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Austria",
+      "Slovenia"
+    ],
+    "coordinates": {
+      "lat": 45.8,
+      "lng": 13.9
+    },
+    "biome": "urban",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 60,
+      "strength": 70,
+      "stamina": 70,
+      "agility": 78,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "dressage",
+      "baroque",
+      "breed",
+      "airs-above-ground",
+      "levade"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 58,
+      "weightKg": 520,
+      "trainingYears": 8
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "Lipica, Slovenia / Vienna, Austria",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_036",
+    "name": "Akhal-Teke Horse",
+    "animalType": "Horse",
+    "breed": "Akhal-Teke",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "Turkmenistan"
+    ],
+    "coordinates": {
+      "lat": 38.0,
+      "lng": 58.4
+    },
+    "biome": "desert",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 75,
+      "strength": 58,
+      "stamina": 85,
+      "agility": 70,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "metallic",
+      "breed",
+      "endurance",
+      "desert",
+      "ancient"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 70,
+      "weightKg": 450,
+      "coatShimmer": "golden metallic"
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "Karakum Desert, Turkmenistan",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_037",
+    "name": "Quarter Horse",
+    "animalType": "Horse",
+    "breed": "American Quarter Horse",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 35.0,
+      "lng": -97.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 82,
+      "strength": 65,
+      "stamina": 58,
+      "agility": 75,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "ranch",
+      "rodeo",
+      "breed",
+      "sprint",
+      "quarter-mile"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 88,
+      "weightKg": 500,
+      "quarterMileRecordSec": 21
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "mountain lion",
+      "wolf"
+    ],
+    "worldQuestRegion": "Great Plains, United States",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_038",
+    "name": "Appaloosa Horse",
+    "animalType": "Horse",
+    "breed": "Appaloosa",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 46.0,
+      "lng": -116.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 65,
+      "strength": 60,
+      "stamina": 72,
+      "agility": 68,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "spotted",
+      "breed",
+      "Native-American",
+      "ranch",
+      "hardy"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 60,
+      "weightKg": 480,
+      "lifespanYears": 30
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "mountain lion",
+      "wolf"
+    ],
+    "worldQuestRegion": "Palouse Country, Idaho, USA",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_039",
+    "name": "Donkey",
+    "animalType": "Donkey",
+    "breed": "Domestic Donkey",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Ethiopia",
+      "Egypt"
+    ],
+    "coordinates": {
+      "lat": 11.0,
+      "lng": 40.0
+    },
+    "biome": "desert",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 40,
+      "strength": 55,
+      "stamina": 78,
+      "agility": 50,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "beast-of-burden",
+      "hardy",
+      "braying",
+      "domesticated",
+      "sure-footed"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 40,
+      "weightKg": 200,
+      "carryWeightKg": 80
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay",
+      "shrub"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "hyena"
+    ],
+    "worldQuestRegion": "Northeast Africa (domesticated in Ethiopia/Egypt region)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_040",
+    "name": "Falabella",
+    "animalType": "Pony",
+    "breed": "Falabella",
+    "category": "Stables",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Argentina"
+    ],
+    "coordinates": {
+      "lat": -34.6,
+      "lng": -58.4
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 28,
+      "strength": 15,
+      "stamina": 40,
+      "agility": 42,
+      "intelligence": 55
+    },
+    "wordSafariVocab": [
+      "miniature",
+      "breed",
+      "Argentina",
+      "pedigree",
+      "heritage"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 28,
+      "weightKg": 55,
+      "heightCm": 76
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "puma",
+      "wolf"
+    ],
+    "worldQuestRegion": "Buenos Aires Province, Argentina",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_041",
+    "name": "Angus Cow",
+    "animalType": "Cow",
+    "breed": "Angus",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 57.5,
+      "lng": -2.5
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 32,
+      "strength": 65,
+      "stamina": 50,
+      "agility": 22,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "bovine",
+      "pasture",
+      "herd",
+      "ruminant",
+      "cud"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 625,
+      "cudChewingHoursPerDay": 8
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "bear"
+    ],
+    "worldQuestRegion": "Aberdeenshire, Scotland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_042",
+    "name": "Gloucestershire Old Spots Pig",
+    "animalType": "Pig",
+    "breed": "Gloucestershire Old Spots",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 51.8,
+      "lng": -2.2
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 25,
+      "strength": 55,
+      "stamina": 42,
+      "agility": 35,
+      "intelligence": 80
+    },
+    "wordSafariVocab": [
+      "omnivore",
+      "swine",
+      "litter",
+      "rooter",
+      "sow"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 29,
+      "weightKg": 250,
+      "soilRootingDepthCm": 15
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "root",
+      "insect",
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "bear"
+    ],
+    "worldQuestRegion": "Gloucestershire, England",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_043",
+    "name": "Khaki Campbell Duck",
+    "animalType": "Duck",
+    "breed": "Khaki Campbell",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 51.3,
+      "lng": 1.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 42,
+      "strength": 8,
+      "stamina": 60,
+      "agility": 45,
+      "intelligence": 35
+    },
+    "wordSafariVocab": [
+      "waterfowl",
+      "drake",
+      "clutch",
+      "incubate",
+      "laying"
+    ],
+    "coinRushFacts": {
+      "eggsPerYear": 340,
+      "weightKg": 2.2,
+      "wingspanCm": 60
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "insect",
+      "slug",
+      "seed"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "hawk"
+    ],
+    "worldQuestRegion": "Kent, England",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_044",
+    "name": "Suffolk Sheep",
+    "animalType": "Sheep",
+    "breed": "Suffolk",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.1,
+      "lng": 1.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 30,
+      "strength": 48,
+      "stamina": 48,
+      "agility": 32,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "fleece",
+      "ewe",
+      "ram",
+      "flock",
+      "pasture"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 100,
+      "fleeceYieldKg": 3.5
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "fox"
+    ],
+    "worldQuestRegion": "Suffolk, England",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_045",
+    "name": "Holstein Cow",
+    "animalType": "Cow",
+    "breed": "Holstein-Friesian",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Netherlands",
+      "Germany"
+    ],
+    "coordinates": {
+      "lat": 53.2,
+      "lng": 8.8
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 30,
+      "strength": 60,
+      "stamina": 48,
+      "agility": 18,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "dairy",
+      "bovine",
+      "herd",
+      "milking",
+      "ruminant"
+    ],
+    "coinRushFacts": {
+      "milkLitresPerYear": 10000,
+      "weightKg": 680,
+      "numberOfStomachs": 4
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "wolf"
+    ],
+    "worldQuestRegion": "Friesland, Netherlands",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_046",
+    "name": "Tamworth Pig",
+    "animalType": "Pig",
+    "breed": "Tamworth",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.6,
+      "lng": -1.7
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 28,
+      "strength": 50,
+      "stamina": 45,
+      "agility": 32,
+      "intelligence": 78
+    },
+    "wordSafariVocab": [
+      "heritage",
+      "breed",
+      "snout",
+      "omnivore",
+      "ginger"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 28,
+      "weightKg": 200,
+      "breedAgeYears": 3000
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "root",
+      "insect",
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "bear"
+    ],
+    "worldQuestRegion": "Tamworth, Staffordshire, England",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_047",
+    "name": "Soay Sheep",
+    "animalType": "Sheep",
+    "breed": "Soay",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 57.8,
+      "lng": -8.7
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      400
+    ],
+    "stats": {
+      "speed": 35,
+      "strength": 30,
+      "stamina": 65,
+      "agility": 55,
+      "intelligence": 40
+    },
+    "wordSafariVocab": [
+      "primitive",
+      "island",
+      "hardy",
+      "breed",
+      "mouflon"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 32,
+      "weightKg": 25,
+      "islandPopulation": 2000
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "heather",
+      "seaweed"
+    ],
+    "habitatBuilderPredators": [
+      "eagle"
+    ],
+    "worldQuestRegion": "St Kilda, Outer Hebrides, Scotland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_048",
+    "name": "Chicken",
+    "animalType": "Chicken",
+    "breed": "Rhode Island Red",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 41.7,
+      "lng": -71.5
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 15,
+      "strength": 6,
+      "stamina": 38,
+      "agility": 28,
+      "intelligence": 35
+    },
+    "wordSafariVocab": [
+      "poultry",
+      "roost",
+      "clutch",
+      "hen",
+      "cockerel"
+    ],
+    "coinRushFacts": {
+      "eggsPerYear": 300,
+      "weightKg": 3.5,
+      "chickenPopulationWorld": 33000000000
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "seed",
+      "insect",
+      "worm"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "hawk",
+      "weasel"
+    ],
+    "worldQuestRegion": "Rhode Island, United States",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_049",
+    "name": "Goat",
+    "animalType": "Goat",
+    "breed": "Boer Goat",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "South Africa"
+    ],
+    "coordinates": {
+      "lat": -29.0,
+      "lng": 25.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 32,
+      "strength": 38,
+      "stamina": 55,
+      "agility": 65,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "ruminant",
+      "kid",
+      "browse",
+      "hardy",
+      "herd"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 32,
+      "weightKg": 100,
+      "pregnancyDays": 150
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "shrub",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "leopard",
+      "lion",
+      "hyena"
+    ],
+    "worldQuestRegion": "Eastern Cape, South Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_050",
+    "name": "Turkey",
+    "animalType": "Turkey",
+    "breed": "Bronze Turkey",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 38.0,
+      "lng": -95.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 25,
+      "strength": 18,
+      "stamina": 42,
+      "agility": 30,
+      "intelligence": 32
+    },
+    "wordSafariVocab": [
+      "gobble",
+      "poultry",
+      "wattle",
+      "domesticated",
+      "plumage"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 25,
+      "weightKg": 10,
+      "flyingSpeedKph": 88
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "seed",
+      "insect",
+      "berry"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "coyote",
+      "eagle"
+    ],
+    "worldQuestRegion": "Central United States",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_051",
+    "name": "Llama",
+    "animalType": "Llama",
+    "breed": "Llama",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Peru",
+      "Bolivia"
+    ],
+    "coordinates": {
+      "lat": -14.0,
+      "lng": -75.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      2300,
+      4500
+    ],
+    "stats": {
+      "speed": 45,
+      "strength": 50,
+      "stamina": 80,
+      "agility": 52,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "camelid",
+      "Andes",
+      "pack-animal",
+      "altitude",
+      "fibre"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 130,
+      "carryWeightKg": 45
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "shrub"
+    ],
+    "habitatBuilderPredators": [
+      "puma",
+      "condor"
+    ],
+    "worldQuestRegion": "Andes Mountains, Peru/Bolivia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_052",
+    "name": "Alpaca",
+    "animalType": "Alpaca",
+    "breed": "Huacaya Alpaca",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Peru",
+      "Chile"
+    ],
+    "coordinates": {
+      "lat": -15.0,
+      "lng": -70.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      3500,
+      5000
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 28,
+      "stamina": 72,
+      "agility": 45,
+      "intelligence": 45
+    },
+    "wordSafariVocab": [
+      "fleece",
+      "camelid",
+      "Andes",
+      "fibre",
+      "altitude"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 65,
+      "fleeceYieldKg": 3
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "hay"
+    ],
+    "habitatBuilderPredators": [
+      "puma",
+      "condor"
+    ],
+    "worldQuestRegion": "Altiplano, Peru",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_053",
+    "name": "Water Buffalo",
+    "animalType": "Buffalo",
+    "breed": "Water Buffalo",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Thailand",
+      "Vietnam"
+    ],
+    "coordinates": {
+      "lat": 20.0,
+      "lng": 100.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 30,
+      "strength": 78,
+      "stamina": 62,
+      "agility": 18,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "bovine",
+      "draft",
+      "paddy",
+      "Asia",
+      "herd"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 30,
+      "weightKg": 800,
+      "milkFatPercent": 8
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "water-plant"
+    ],
+    "habitatBuilderPredators": [
+      "tiger",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Mekong Delta, Southeast Asia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_054",
+    "name": "Yak",
+    "animalType": "Yak",
+    "breed": "Domestic Yak",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "China",
+      "Nepal",
+      "Tibet"
+    ],
+    "coordinates": {
+      "lat": 31.0,
+      "lng": 87.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      3000,
+      5500
+    ],
+    "stats": {
+      "speed": 28,
+      "strength": 72,
+      "stamina": 88,
+      "agility": 32,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "altitude",
+      "Himalayan",
+      "draft",
+      "fibre",
+      "hardy"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 28,
+      "weightKg": 400,
+      "altitudeMaxM": 5500
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "lichen"
+    ],
+    "habitatBuilderPredators": [
+      "snow leopard",
+      "wolf"
+    ],
+    "worldQuestRegion": "Tibetan Plateau, China",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_055",
+    "name": "Indian Peafowl",
+    "animalType": "Peafowl",
+    "breed": "Indian Peafowl",
+    "category": "Farm",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Sri Lanka"
+    ],
+    "coordinates": {
+      "lat": 20.0,
+      "lng": 78.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 18,
+      "strength": 10,
+      "stamina": 38,
+      "agility": 35,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "plumage",
+      "display",
+      "iridescent",
+      "feather",
+      "courtship"
+    ],
+    "coinRushFacts": {
+      "tailFeatherLengthCm": 180,
+      "weightKg": 4.5,
+      "tailFeatherCount": 200
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "insect",
+      "seed",
+      "snake"
+    ],
+    "habitatBuilderPredators": [
+      "tiger",
+      "leopard"
+    ],
+    "worldQuestRegion": "Indian Subcontinent",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_056",
+    "name": "African Elephant",
+    "animalType": "Elephant",
+    "breed": "African",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "Botswana"
+    ],
+    "coordinates": {
+      "lat": -2.0,
+      "lng": 35.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 40,
+      "strength": 98,
+      "stamina": 70,
+      "agility": 28,
+      "intelligence": 88
+    },
+    "wordSafariVocab": [
+      "savanna",
+      "matriarch",
+      "tusks",
+      "migration",
+      "herd"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 40,
+      "weightKg": 5500,
+      "trunkMuscles": 150000
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "tree-bark",
+      "leaves"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa (Serengeti / Amboseli)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Seasonal movements up to 30 km daily following rainfall across savanna"
+  },
+  {
+    "id": "card_057",
+    "name": "Cheetah",
+    "animalType": "Cheetah",
+    "breed": "Cheetah",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Namibia",
+      "Tanzania"
+    ],
+    "coordinates": {
+      "lat": -2.0,
+      "lng": 37.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 95,
+      "strength": 38,
+      "stamina": 32,
+      "agility": 90,
+      "intelligence": 55
+    },
+    "wordSafariVocab": [
+      "acceleration",
+      "sprint",
+      "camouflage",
+      "predator",
+      "savanna"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 120,
+      "accelerationSec": 3,
+      "maxSprintSec": 30
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "gazelle",
+      "impala"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "hyena"
+    ],
+    "worldQuestRegion": "East and Southern Africa (Serengeti / Namibia)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_058",
+    "name": "African Lion",
+    "animalType": "Lion",
+    "breed": "African",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "South Africa"
+    ],
+    "coordinates": {
+      "lat": -2.5,
+      "lng": 35.5
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 70,
+      "strength": 78,
+      "stamina": 42,
+      "agility": 72,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "pride",
+      "mane",
+      "savanna",
+      "apex predator",
+      "nocturnal"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 80,
+      "weightKg": 185,
+      "roarDistanceKm": 8
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "zebra",
+      "wildebeest",
+      "buffalo"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Sub-Saharan Africa (Masai Mara, Serengeti)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_059",
+    "name": "Western Lowland Gorilla",
+    "animalType": "Gorilla",
+    "breed": "Western Lowland",
+    "category": "Wild",
+    "conservationStatus": "Critically Endangered",
+    "region": "Africa",
+    "countries": [
+      "Cameroon",
+      "Republic of Congo",
+      "Gabon"
+    ],
+    "coordinates": {
+      "lat": 0.0,
+      "lng": 13.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1600
+    ],
+    "stats": {
+      "speed": 40,
+      "strength": 85,
+      "stamina": 55,
+      "agility": 55,
+      "intelligence": 85
+    },
+    "wordSafariVocab": [
+      "primate",
+      "silverback",
+      "knuckle-walk",
+      "endangered",
+      "troop"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 40,
+      "weightKg": 170,
+      "armSpanCm": 250
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "leaf",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "leopard",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Central Africa (Congo Basin)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_060",
+    "name": "Plains Zebra",
+    "animalType": "Zebra",
+    "breed": "Plains Zebra",
+    "category": "Wild",
+    "conservationStatus": "Near Threatened",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "Zambia"
+    ],
+    "coordinates": {
+      "lat": -2.0,
+      "lng": 36.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 65,
+      "strength": 52,
+      "stamina": 68,
+      "agility": 60,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "stripe",
+      "herd",
+      "savanna",
+      "migration",
+      "camouflage"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 65,
+      "weightKg": 350,
+      "stripePatternUnique": true
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "cheetah",
+      "hyena"
+    ],
+    "worldQuestRegion": "East Africa (Serengeti, Masai Mara)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Annual Great Migration 1,800 km circuit between Serengeti and Masai Mara"
+  },
+  {
+    "id": "card_061",
+    "name": "Reticulated Giraffe",
+    "animalType": "Giraffe",
+    "breed": "Reticulated Giraffe",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Ethiopia"
+    ],
+    "coordinates": {
+      "lat": 2.0,
+      "lng": 40.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 52,
+      "strength": 70,
+      "stamina": 55,
+      "agility": 22,
+      "intelligence": 50
+    },
+    "wordSafariVocab": [
+      "tallest",
+      "ossicones",
+      "acacia",
+      "ungulate",
+      "browse"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 52,
+      "heightM": 5.8,
+      "neckLengthM": 1.8
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "acacia leaf",
+      "tree branch"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "leopard",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Northern Kenya and Ethiopia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_062",
+    "name": "Hippopotamus",
+    "animalType": "Hippo",
+    "breed": "Common Hippo",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "Uganda",
+      "Kenya",
+      "Zambia"
+    ],
+    "coordinates": {
+      "lat": 0.5,
+      "lng": 31.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      1800
+    ],
+    "stats": {
+      "speed": 48,
+      "strength": 88,
+      "stamina": 55,
+      "agility": 20,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "semi-aquatic",
+      "territory",
+      "amphibious",
+      "grazing",
+      "pod"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 48,
+      "weightKg": 3600,
+      "mouthOpenDegrees": 180
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "crocodile",
+      "lion"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa (Nile, Victoria Lake region)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_063",
+    "name": "White Rhinoceros",
+    "animalType": "Rhino",
+    "breed": "White Rhino",
+    "category": "Wild",
+    "conservationStatus": "Near Threatened",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Kenya",
+      "Zimbabwe"
+    ],
+    "coordinates": {
+      "lat": -25.0,
+      "lng": 31.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 50,
+      "strength": 90,
+      "stamina": 55,
+      "agility": 18,
+      "intelligence": 45
+    },
+    "wordSafariVocab": [
+      "horn",
+      "poaching",
+      "grazer",
+      "conservation",
+      "territory"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 50,
+      "weightKg": 2300,
+      "hornLengthCm": 150
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Southern Africa (Kruger National Park, South Africa)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_064",
+    "name": "African Wild Dog",
+    "animalType": "Wild Dog",
+    "breed": "African Wild Dog",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Africa",
+    "countries": [
+      "Tanzania",
+      "Kenya",
+      "Botswana"
+    ],
+    "coordinates": {
+      "lat": -5.0,
+      "lng": 35.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 72,
+      "strength": 45,
+      "stamina": 90,
+      "agility": 78,
+      "intelligence": 80
+    },
+    "wordSafariVocab": [
+      "pack",
+      "hunt",
+      "endangered",
+      "painted",
+      "territory"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 72,
+      "huntSuccessRate": 80,
+      "packSizeMax": 30
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "impala",
+      "gazelle",
+      "wildebeest"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "hyena"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa (Selous, Botswana)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_065",
+    "name": "Spotted Hyena",
+    "animalType": "Hyena",
+    "breed": "Spotted Hyena",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "Botswana"
+    ],
+    "coordinates": {
+      "lat": -3.0,
+      "lng": 36.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      4000
+    ],
+    "stats": {
+      "speed": 60,
+      "strength": 65,
+      "stamina": 80,
+      "agility": 58,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "scavenger",
+      "clan",
+      "matriarch",
+      "nocturnal",
+      "bone-crusher"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 60,
+      "weightKg": 65,
+      "biteForcePsi": 1100
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "wildebeest",
+      "zebra",
+      "carcass"
+    ],
+    "habitatBuilderPredators": [
+      "lion"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_066",
+    "name": "Nile Crocodile",
+    "animalType": "Crocodile",
+    "breed": "Nile Crocodile",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "Egypt"
+    ],
+    "coordinates": {
+      "lat": 0.0,
+      "lng": 36.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      500
+    ],
+    "stats": {
+      "speed": 32,
+      "strength": 80,
+      "stamina": 55,
+      "agility": 35,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "reptile",
+      "ambush",
+      "amphibious",
+      "ancient",
+      "ectotherm"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 32,
+      "weightKg": 750,
+      "biteForcePsi": 5000
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "fish",
+      "zebra",
+      "wildebeest"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Sub-Saharan Africa (Nile River, Mara River)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_067",
+    "name": "Meerkat",
+    "animalType": "Meerkat",
+    "breed": "Meerkat",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Botswana",
+      "Namibia"
+    ],
+    "coordinates": {
+      "lat": -25.0,
+      "lng": 22.0
+    },
+    "biome": "desert",
+    "altitudeRange": [
+      0,
+      1200
+    ],
+    "stats": {
+      "speed": 32,
+      "strength": 8,
+      "stamina": 55,
+      "agility": 65,
+      "intelligence": 68
+    },
+    "wordSafariVocab": [
+      "sentinel",
+      "burrow",
+      "mob",
+      "foraging",
+      "venom-immune"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 32,
+      "weightKg": 0.75,
+      "lookoutShiftMinutes": 60
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "scorpion",
+      "insect",
+      "lizard"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "eagle",
+      "snake"
+    ],
+    "worldQuestRegion": "Kalahari Desert, Southern Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_068",
+    "name": "Mandrill",
+    "animalType": "Mandrill",
+    "breed": "Mandrill",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "Cameroon",
+      "Gabon",
+      "Equatorial Guinea"
+    ],
+    "coordinates": {
+      "lat": 0.0,
+      "lng": 12.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 55,
+      "stamina": 48,
+      "agility": 65,
+      "intelligence": 68
+    },
+    "wordSafariVocab": [
+      "primate",
+      "troop",
+      "colourful",
+      "forest",
+      "canine"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 33,
+      "fangLengthCm": 4.5
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "insect",
+      "small vertebrate"
+    ],
+    "habitatBuilderPredators": [
+      "leopard",
+      "eagle"
+    ],
+    "worldQuestRegion": "Central Africa (Equatorial Forest)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_069",
+    "name": "African Penguin",
+    "animalType": "Penguin",
+    "breed": "African Penguin",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Namibia"
+    ],
+    "coordinates": {
+      "lat": -34.0,
+      "lng": 26.0
+    },
+    "biome": "aquatic_marine",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 12,
+      "strength": 8,
+      "stamina": 68,
+      "agility": 52,
+      "intelligence": 50
+    },
+    "wordSafariVocab": [
+      "colony",
+      "penguin",
+      "endangered",
+      "flipper",
+      "burrow"
+    ],
+    "coinRushFacts": {
+      "swimSpeedKph": 20,
+      "weightKg": 3,
+      "diveDepthM": 60
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "squid"
+    ],
+    "habitatBuilderPredators": [
+      "shark",
+      "seal",
+      "kelp gull"
+    ],
+    "worldQuestRegion": "South African Coastline (Boulders Beach, Cape Town)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_070",
+    "name": "Greater Flamingo",
+    "animalType": "Flamingo",
+    "breed": "Greater Flamingo",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "Ethiopia"
+    ],
+    "coordinates": {
+      "lat": -1.0,
+      "lng": 36.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 58,
+      "strength": 8,
+      "stamina": 72,
+      "agility": 45,
+      "intelligence": 40
+    },
+    "wordSafariVocab": [
+      "filter-feeder",
+      "flock",
+      "migration",
+      "lagoon",
+      "carotenoid"
+    ],
+    "coinRushFacts": {
+      "flyingSpeedKph": 60,
+      "weightKg": 3.5,
+      "colonySize": 1000000
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "algae",
+      "shrimp",
+      "crustacean"
+    ],
+    "habitatBuilderPredators": [
+      "eagle",
+      "stork",
+      "jackal"
+    ],
+    "worldQuestRegion": "East African Rift Valley Lakes (Lake Nakuru, Kenya)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Seasonal movements between salt lakes in East Africa and Mediterranean"
+  },
+  {
+    "id": "card_071",
+    "name": "Common Ostrich",
+    "animalType": "Ostrich",
+    "breed": "Common Ostrich",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "South Africa"
+    ],
+    "coordinates": {
+      "lat": -5.0,
+      "lng": 35.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 72,
+      "strength": 42,
+      "stamina": 68,
+      "agility": 35,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "flightless",
+      "savanna",
+      "stride",
+      "ratite",
+      "territory"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 72,
+      "weightKg": 120,
+      "strideLengthM": 5
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "seed",
+      "insect",
+      "lizard"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "cheetah",
+      "hyena"
+    ],
+    "worldQuestRegion": "East and Southern Africa (savanna)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_072",
+    "name": "Black Mamba",
+    "animalType": "Snake",
+    "breed": "Black Mamba",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Kenya",
+      "Mozambique"
+    ],
+    "coordinates": {
+      "lat": -20.0,
+      "lng": 33.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      1800
+    ],
+    "stats": {
+      "speed": 28,
+      "strength": 15,
+      "stamina": 55,
+      "agility": 72,
+      "intelligence": 30
+    },
+    "wordSafariVocab": [
+      "venom",
+      "reptile",
+      "arboreal",
+      "neurotoxin",
+      "ambush"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 20,
+      "venomLethalMgPerKg": 0.32,
+      "bodyLengthM": 4
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "rodent",
+      "bird",
+      "lizard"
+    ],
+    "habitatBuilderPredators": [
+      "mongoose",
+      "eagle"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_073",
+    "name": "Common Chimpanzee",
+    "animalType": "Chimpanzee",
+    "breed": "Common Chimpanzee",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Africa",
+    "countries": [
+      "Uganda",
+      "Tanzania",
+      "Ivory Coast"
+    ],
+    "coordinates": {
+      "lat": 3.0,
+      "lng": 22.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2800
+    ],
+    "stats": {
+      "speed": 45,
+      "strength": 72,
+      "stamina": 60,
+      "agility": 72,
+      "intelligence": 92
+    },
+    "wordSafariVocab": [
+      "primate",
+      "tool-use",
+      "troop",
+      "endangered",
+      "culture"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 50,
+      "toolTypesUsed": 65
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "nut",
+      "monkey",
+      "insect"
+    ],
+    "habitatBuilderPredators": [
+      "leopard",
+      "eagle"
+    ],
+    "worldQuestRegion": "Central and West Africa (Congo Basin, Gombe)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_074",
+    "name": "African Leopard",
+    "animalType": "Leopard",
+    "breed": "African Leopard",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "South Africa",
+      "Zambia"
+    ],
+    "coordinates": {
+      "lat": -3.0,
+      "lng": 36.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 60,
+      "strength": 68,
+      "stamina": 58,
+      "agility": 85,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "rosette",
+      "nocturnal",
+      "solitary",
+      "cache",
+      "territory"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 60,
+      "weightKg": 60,
+      "treeCarryWeightKg": 90
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "impala",
+      "baboon",
+      "warthog"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "hyena"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_075",
+    "name": "Common Warthog",
+    "animalType": "Warthog",
+    "breed": "Common Warthog",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "South Africa"
+    ],
+    "coordinates": {
+      "lat": -2.0,
+      "lng": 36.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 48,
+      "strength": 42,
+      "stamina": 55,
+      "agility": 48,
+      "intelligence": 45
+    },
+    "wordSafariVocab": [
+      "tusk",
+      "burrow",
+      "omnivore",
+      "savanna",
+      "wart"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 48,
+      "weightKg": 90,
+      "tuskCount": 4
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "root",
+      "insect"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "leopard",
+      "cheetah"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa (savanna and woodland)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_076",
+    "name": "Cape Buffalo",
+    "animalType": "Buffalo",
+    "breed": "Cape Buffalo",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "South Africa"
+    ],
+    "coordinates": {
+      "lat": -5.0,
+      "lng": 35.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2500
+    ],
+    "stats": {
+      "speed": 55,
+      "strength": 85,
+      "stamina": 65,
+      "agility": 32,
+      "intelligence": 50
+    },
+    "wordSafariVocab": [
+      "herd",
+      "bovine",
+      "charge",
+      "Africa",
+      "horn"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 57,
+      "weightKg": 750,
+      "hornSpanCm": 160
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa (Serengeti, Kruger)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_077",
+    "name": "Serval",
+    "animalType": "Serval",
+    "breed": "Serval",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania",
+      "South Africa"
+    ],
+    "coordinates": {
+      "lat": -3.0,
+      "lng": 36.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 62,
+      "strength": 28,
+      "stamina": 50,
+      "agility": 88,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "savanna",
+      "pounce",
+      "nocturnal",
+      "hunting-success",
+      "cat"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 62,
+      "jumpHeightM": 2.5,
+      "huntingSuccessRate": 50
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "rodent",
+      "bird",
+      "frog"
+    ],
+    "habitatBuilderPredators": [
+      "leopard",
+      "wild dog"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa (savanna wetlands)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_078",
+    "name": "Okapi",
+    "animalType": "Okapi",
+    "breed": "Okapi",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Africa",
+    "countries": [
+      "Democratic Republic of Congo"
+    ],
+    "coordinates": {
+      "lat": 1.0,
+      "lng": 28.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      500,
+      1500
+    ],
+    "stats": {
+      "speed": 48,
+      "strength": 55,
+      "stamina": 52,
+      "agility": 45,
+      "intelligence": 50
+    },
+    "wordSafariVocab": [
+      "giraffe-family",
+      "Congo",
+      "nocturnal",
+      "stripe",
+      "endangered"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 250,
+      "tongueLengthCm": 45
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "leaf",
+      "fruit",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "leopard"
+    ],
+    "worldQuestRegion": "Ituri Rainforest, Democratic Republic of Congo",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_079",
+    "name": "Aardvark",
+    "animalType": "Aardvark",
+    "breed": "Aardvark",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Kenya",
+      "Zambia"
+    ],
+    "coordinates": {
+      "lat": -15.0,
+      "lng": 28.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 28,
+      "strength": 38,
+      "stamina": 55,
+      "agility": 35,
+      "intelligence": 45
+    },
+    "wordSafariVocab": [
+      "nocturnal",
+      "termite",
+      "burrow",
+      "insectivore",
+      "Africa"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 25,
+      "weightKg": 60,
+      "termitesPerNight": 50000
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "termite",
+      "ant"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "leopard",
+      "hyena"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_080",
+    "name": "Pangolin",
+    "animalType": "Pangolin",
+    "breed": "Ground Pangolin",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Zimbabwe",
+      "Kenya"
+    ],
+    "coordinates": {
+      "lat": -20.0,
+      "lng": 30.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 5,
+      "strength": 38,
+      "stamina": 45,
+      "agility": 28,
+      "intelligence": 40
+    },
+    "wordSafariVocab": [
+      "scale",
+      "nocturnal",
+      "termite",
+      "endangered",
+      "trafficked"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 5,
+      "weightKg": 15,
+      "tongueReachCm": 40
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "termite",
+      "ant"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "leopard",
+      "hyena"
+    ],
+    "worldQuestRegion": "Southern and East Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_081",
+    "name": "Shoebill",
+    "animalType": "Bird",
+    "breed": "Shoebill",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "Uganda",
+      "Sudan",
+      "Congo"
+    ],
+    "coordinates": {
+      "lat": 3.0,
+      "lng": 32.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      600
+    ],
+    "stats": {
+      "speed": 8,
+      "strength": 22,
+      "stamina": 42,
+      "agility": 18,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "wading-bird",
+      "predator",
+      "swamp",
+      "Africa",
+      "prehistoric"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 240,
+      "weightKg": 5,
+      "billWidthCm": 23
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "frog",
+      "lungfish"
+    ],
+    "habitatBuilderPredators": [
+      "crocodile",
+      "eagle"
+    ],
+    "worldQuestRegion": "Central African Swamps (Sudd, South Sudan)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_082",
+    "name": "Thomson's Gazelle",
+    "animalType": "Gazelle",
+    "breed": "Thomson's Gazelle",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Kenya",
+      "Tanzania"
+    ],
+    "coordinates": {
+      "lat": -2.0,
+      "lng": 36.5
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 78,
+      "strength": 22,
+      "stamina": 72,
+      "agility": 80,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "stotting",
+      "migration",
+      "herd",
+      "savanna",
+      "prey"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 78,
+      "weightKg": 22,
+      "migrationDistanceKm": 1800
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "seed"
+    ],
+    "habitatBuilderPredators": [
+      "cheetah",
+      "wild dog",
+      "lion"
+    ],
+    "worldQuestRegion": "East Africa (Serengeti, Masai Mara)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Part of the Great Migration across East African savanna"
+  },
+  {
+    "id": "card_083",
+    "name": "Nile Monitor",
+    "animalType": "Monitor",
+    "breed": "Nile Monitor",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "Egypt",
+      "Sudan",
+      "Kenya"
+    ],
+    "coordinates": {
+      "lat": 5.0,
+      "lng": 32.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 28,
+      "strength": 45,
+      "stamina": 48,
+      "agility": 55,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "reptile",
+      "monitor",
+      "Nile",
+      "ectotherm",
+      "forked-tongue"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 30,
+      "weightKg": 15,
+      "bodyLengthM": 2
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "frog",
+      "egg",
+      "rodent"
+    ],
+    "habitatBuilderPredators": [
+      "crocodile",
+      "eagle"
+    ],
+    "worldQuestRegion": "Nile River and Sub-Saharan Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_084",
+    "name": "Caracal",
+    "animalType": "Cat",
+    "breed": "Caracal",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Kenya",
+      "India"
+    ],
+    "coordinates": {
+      "lat": -25.0,
+      "lng": 28.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 65,
+      "strength": 32,
+      "stamina": 55,
+      "agility": 90,
+      "intelligence": 58
+    },
+    "wordSafariVocab": [
+      "tufted-ear",
+      "pounce",
+      "nocturnal",
+      "Africa",
+      "agile"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 65,
+      "verticalJumpM": 3,
+      "weightKg": 18
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "bird",
+      "rodent",
+      "hare"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "leopard"
+    ],
+    "worldQuestRegion": "Southern Africa and South Asia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_085",
+    "name": "Bonobo",
+    "animalType": "Bonobo",
+    "breed": "Bonobo",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Africa",
+    "countries": [
+      "Democratic Republic of Congo"
+    ],
+    "coordinates": {
+      "lat": -3.0,
+      "lng": 23.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 65,
+      "stamina": 52,
+      "agility": 68,
+      "intelligence": 90
+    },
+    "wordSafariVocab": [
+      "primate",
+      "matriarch",
+      "endangered",
+      "Congo",
+      "social"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 40,
+      "dnaMatchHuman": 98.7
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "nut",
+      "insect"
+    ],
+    "habitatBuilderPredators": [
+      "leopard"
+    ],
+    "worldQuestRegion": "Congo Basin, Democratic Republic of Congo",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_086",
+    "name": "Rock Hyrax",
+    "animalType": "Hyrax",
+    "breed": "Rock Hyrax",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Kenya",
+      "Tanzania"
+    ],
+    "coordinates": {
+      "lat": -5.0,
+      "lng": 37.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      0,
+      4200
+    ],
+    "stats": {
+      "speed": 22,
+      "strength": 12,
+      "stamina": 40,
+      "agility": 58,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "colony",
+      "Africa",
+      "mammoth-relative",
+      "rocky",
+      "vocalize"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 22,
+      "weightKg": 3.5,
+      "closestRelativeElephant": true
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "leaf",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "eagle",
+      "leopard",
+      "snake"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa and Middle East (rocky outcrops)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_087",
+    "name": "Secretary Bird",
+    "animalType": "Bird",
+    "breed": "Secretary Bird",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Kenya",
+      "Tanzania"
+    ],
+    "coordinates": {
+      "lat": -10.0,
+      "lng": 32.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 30,
+      "strength": 28,
+      "stamina": 72,
+      "agility": 52,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "raptor",
+      "savanna",
+      "stamp",
+      "stomp",
+      "predator"
+    ],
+    "coinRushFacts": {
+      "stompForceN": 360,
+      "legLengthCm": 60,
+      "distanceWalkedKmPerDay": 30
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "snake",
+      "lizard",
+      "rodent"
+    ],
+    "habitatBuilderPredators": [
+      "eagle"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa (open savanna)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_088",
+    "name": "African Forest Elephant",
+    "animalType": "Elephant",
+    "breed": "African Forest",
+    "category": "Wild",
+    "conservationStatus": "Critically Endangered",
+    "region": "Africa",
+    "countries": [
+      "Gabon",
+      "Congo",
+      "Cameroon"
+    ],
+    "coordinates": {
+      "lat": 0.0,
+      "lng": 13.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 35,
+      "strength": 88,
+      "stamina": 65,
+      "agility": 32,
+      "intelligence": 85
+    },
+    "wordSafariVocab": [
+      "critically-endangered",
+      "Congo",
+      "forest",
+      "seed-dispersal",
+      "elephant"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 2700,
+      "tusksMoreVertical": true
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "leaf",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "leopard",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Central African Rainforest (Congo Basin)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Seasonal forest movements following fruiting trees"
+  },
+  {
+    "id": "card_089",
+    "name": "Martial Eagle",
+    "animalType": "Eagle",
+    "breed": "Martial Eagle",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Kenya",
+      "Tanzania"
+    ],
+    "coordinates": {
+      "lat": -10.0,
+      "lng": 30.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 72,
+      "strength": 45,
+      "stamina": 65,
+      "agility": 72,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "raptor",
+      "aerial",
+      "Africa",
+      "wingspan",
+      "predator"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 260,
+      "weightKg": 6.2,
+      "sightDistanceKm": 6
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "monitor lizard",
+      "small antelope",
+      "mongoose"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Sub-Saharan Africa (open savanna)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_090",
+    "name": "African Porcupine",
+    "animalType": "Porcupine",
+    "breed": "African Crested Porcupine",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Africa",
+    "countries": [
+      "South Africa",
+      "Kenya",
+      "Nigeria"
+    ],
+    "coordinates": {
+      "lat": -15.0,
+      "lng": 30.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3500
+    ],
+    "stats": {
+      "speed": 18,
+      "strength": 28,
+      "stamina": 45,
+      "agility": 25,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "quill",
+      "nocturnal",
+      "rodent",
+      "defence",
+      "Africa"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 15,
+      "weightKg": 20,
+      "quillLengthCm": 50
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "root",
+      "bulb",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "lion",
+      "leopard"
+    ],
+    "worldQuestRegion": "Sub-Saharan Africa and North Africa",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_091",
+    "name": "Bengal Tiger",
+    "animalType": "Tiger",
+    "breed": "Bengal",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Bangladesh"
+    ],
+    "coordinates": {
+      "lat": 20.0,
+      "lng": 80.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 72,
+      "strength": 82,
+      "stamina": 48,
+      "agility": 80,
+      "intelligence": 70
+    },
+    "wordSafariVocab": [
+      "apex predator",
+      "territory",
+      "nocturnal",
+      "camouflage",
+      "solitary"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 65,
+      "weightKg": 220,
+      "leapDistanceM": 8
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "deer",
+      "wild pig",
+      "buffalo"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Indian Subcontinent (Sundarbans, Ranthambore)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_092",
+    "name": "Giant Panda",
+    "animalType": "Panda",
+    "breed": "Giant Panda",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "China"
+    ],
+    "coordinates": {
+      "lat": 30.0,
+      "lng": 103.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      1200,
+      3100
+    ],
+    "stats": {
+      "speed": 22,
+      "strength": 62,
+      "stamina": 28,
+      "agility": 45,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "bamboo",
+      "endangered",
+      "conservation",
+      "forage",
+      "China"
+    ],
+    "coinRushFacts": {
+      "bambooKgPerDay": 25,
+      "weightKg": 110,
+      "sleepHoursPerDay": 12
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "bamboo"
+    ],
+    "habitatBuilderPredators": [
+      "leopard",
+      "snow leopard"
+    ],
+    "worldQuestRegion": "Sichuan Mountains, China",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_093",
+    "name": "Red Panda",
+    "animalType": "Panda",
+    "breed": "Red Panda",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "China",
+      "Nepal",
+      "Bhutan"
+    ],
+    "coordinates": {
+      "lat": 27.0,
+      "lng": 88.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      1500,
+      4800
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 18,
+      "stamina": 48,
+      "agility": 68,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "arboreal",
+      "bamboo",
+      "endangered",
+      "nocturnal",
+      "Himalayas"
+    ],
+    "coinRushFacts": {
+      "tailRotationDegrees": 360,
+      "weightKg": 5,
+      "bambooKgPerDay": 1.5
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "bamboo",
+      "berry",
+      "insect"
+    ],
+    "habitatBuilderPredators": [
+      "snow leopard",
+      "clouded leopard"
+    ],
+    "worldQuestRegion": "Himalayan Foothills (Nepal, Bhutan, Sichuan)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_094",
+    "name": "Snow Leopard",
+    "animalType": "Leopard",
+    "breed": "Snow Leopard",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "Mongolia",
+      "China",
+      "India"
+    ],
+    "coordinates": {
+      "lat": 35.0,
+      "lng": 88.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      3000,
+      5500
+    ],
+    "stats": {
+      "speed": 62,
+      "strength": 65,
+      "stamina": 62,
+      "agility": 88,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "camouflage",
+      "altitude",
+      "elusive",
+      "montane",
+      "Himalayas"
+    ],
+    "coinRushFacts": {
+      "horizontalJumpM": 15,
+      "tailLengthCm": 100,
+      "weightKg": 38
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "blue sheep",
+      "ibex",
+      "marmot"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Central Asian Mountains (Himalayas, Tian Shan, Altai)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_095",
+    "name": "Bornean Orangutan",
+    "animalType": "Orangutan",
+    "breed": "Bornean Orangutan",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "Malaysia",
+      "Indonesia"
+    ],
+    "coordinates": {
+      "lat": 1.0,
+      "lng": 114.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 20,
+      "strength": 65,
+      "stamina": 45,
+      "agility": 72,
+      "intelligence": 88
+    },
+    "wordSafariVocab": [
+      "primate",
+      "arboreal",
+      "deforestation",
+      "tool-use",
+      "Borneo"
+    ],
+    "coinRushFacts": {
+      "armSpanCm": 200,
+      "weightKg": 70,
+      "fruitTreesKnown": 400
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "insect",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "clouded leopard"
+    ],
+    "worldQuestRegion": "Borneo, Malaysia/Indonesia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_096",
+    "name": "Asian Elephant",
+    "animalType": "Elephant",
+    "breed": "Asian",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Sri Lanka",
+      "Thailand"
+    ],
+    "coordinates": {
+      "lat": 15.0,
+      "lng": 80.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 95,
+      "stamina": 68,
+      "agility": 25,
+      "intelligence": 88
+    },
+    "wordSafariVocab": [
+      "Asia",
+      "matriarch",
+      "herd",
+      "endangered",
+      "working-animal"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 38,
+      "weightKg": 4000,
+      "liftingTrunkKg": 270
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "fruit",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "tiger",
+      "crocodile"
+    ],
+    "worldQuestRegion": "South and Southeast Asia (India, Sri Lanka)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Seasonal movements following monsoon rains across South Asia"
+  },
+  {
+    "id": "card_097",
+    "name": "Komodo Dragon",
+    "animalType": "Lizard",
+    "breed": "Komodo Dragon",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "Indonesia"
+    ],
+    "coordinates": {
+      "lat": -8.5,
+      "lng": 119.5
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      700
+    ],
+    "stats": {
+      "speed": 20,
+      "strength": 55,
+      "stamina": 38,
+      "agility": 28,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "reptile",
+      "venomous",
+      "Indonesia",
+      "monitor",
+      "apex predator"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 20,
+      "weightKg": 80,
+      "tongueSenseRangeKm": 10
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "deer",
+      "pig",
+      "goat"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Komodo Island, Indonesia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_098",
+    "name": "Japanese Macaque",
+    "animalType": "Monkey",
+    "breed": "Japanese Macaque",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "Japan"
+    ],
+    "coordinates": {
+      "lat": 36.0,
+      "lng": 138.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 32,
+      "stamina": 55,
+      "agility": 72,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "primate",
+      "troop",
+      "culture",
+      "Japan",
+      "hot-spring"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 38,
+      "weightKg": 12,
+      "snowTemperatureSurvived": -15
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "insect",
+      "seed"
+    ],
+    "habitatBuilderPredators": [
+      "eagle",
+      "wolf",
+      "wildcat"
+    ],
+    "worldQuestRegion": "Japanese Alps and Northern Japan",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_099",
+    "name": "King Cobra",
+    "animalType": "Snake",
+    "breed": "King Cobra",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Thailand",
+      "Vietnam"
+    ],
+    "coordinates": {
+      "lat": 15.0,
+      "lng": 100.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 12,
+      "strength": 22,
+      "stamina": 55,
+      "agility": 65,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "venomous",
+      "reptile",
+      "hood",
+      "neurotoxin",
+      "India"
+    ],
+    "coinRushFacts": {
+      "bodyLengthM": 5.5,
+      "venomYieldMl": 7,
+      "weightKg": 10
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "snake",
+      "lizard",
+      "rodent"
+    ],
+    "habitatBuilderPredators": [
+      "mongoose",
+      "eagle"
+    ],
+    "worldQuestRegion": "South and Southeast Asia (India, SE Asia)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_100",
+    "name": "Clouded Leopard",
+    "animalType": "Cat",
+    "breed": "Clouded Leopard",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "Thailand",
+      "Malaysia",
+      "China"
+    ],
+    "coordinates": {
+      "lat": 18.0,
+      "lng": 100.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2500
+    ],
+    "stats": {
+      "speed": 58,
+      "strength": 55,
+      "stamina": 55,
+      "agility": 85,
+      "intelligence": 58
+    },
+    "wordSafariVocab": [
+      "canine-teeth",
+      "arboreal",
+      "nocturnal",
+      "Southeast-Asia",
+      "cat"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 55,
+      "canineLengthCm": 4.5,
+      "weightKg": 22
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "deer",
+      "pig",
+      "bird"
+    ],
+    "habitatBuilderPredators": [
+      "tiger"
+    ],
+    "worldQuestRegion": "Southeast Asian Rainforest (Thailand, Borneo, Sumatra)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_101",
+    "name": "Proboscis Monkey",
+    "animalType": "Monkey",
+    "breed": "Proboscis Monkey",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "Malaysia",
+      "Indonesia"
+    ],
+    "coordinates": {
+      "lat": 4.0,
+      "lng": 115.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      300
+    ],
+    "stats": {
+      "speed": 30,
+      "strength": 28,
+      "stamina": 48,
+      "agility": 62,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "primate",
+      "Borneo",
+      "mangrove",
+      "nose",
+      "endangered"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 24,
+      "weightKg": 22,
+      "swimSpeedKph": 10
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "leaf",
+      "fruit",
+      "seed"
+    ],
+    "habitatBuilderPredators": [
+      "clouded leopard",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Borneo Mangrove and Riverine Forest",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_102",
+    "name": "Gharial",
+    "animalType": "Crocodilian",
+    "breed": "Gharial",
+    "category": "Wild",
+    "conservationStatus": "Critically Endangered",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Nepal"
+    ],
+    "coordinates": {
+      "lat": 26.0,
+      "lng": 82.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      300
+    ],
+    "stats": {
+      "speed": 18,
+      "strength": 55,
+      "stamina": 48,
+      "agility": 35,
+      "intelligence": 35
+    },
+    "wordSafariVocab": [
+      "reptile",
+      "critically-endangered",
+      "river",
+      "India",
+      "snout"
+    ],
+    "coinRushFacts": {
+      "bodyLengthM": 6,
+      "weightKg": 200,
+      "teethCount": 110
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Chambal and Gandak Rivers, India/Nepal",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_103",
+    "name": "Amur Leopard",
+    "animalType": "Cat",
+    "breed": "Amur Leopard",
+    "category": "Wild",
+    "conservationStatus": "Critically Endangered",
+    "region": "Asia",
+    "countries": [
+      "Russia",
+      "China"
+    ],
+    "coordinates": {
+      "lat": 43.0,
+      "lng": 133.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 60,
+      "strength": 62,
+      "stamina": 60,
+      "agility": 85,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "critically-endangered",
+      "Russia",
+      "solitary",
+      "nocturnal",
+      "leopard"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 60,
+      "weightKg": 48,
+      "wildPopulation": 100
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "deer",
+      "hare",
+      "wild pig"
+    ],
+    "habitatBuilderPredators": [
+      "tiger"
+    ],
+    "worldQuestRegion": "Russian Far East (Primorsky Krai)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_104",
+    "name": "Malayan Tapir",
+    "animalType": "Tapir",
+    "breed": "Malayan Tapir",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "Malaysia",
+      "Thailand",
+      "Indonesia"
+    ],
+    "coordinates": {
+      "lat": 4.0,
+      "lng": 102.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 40,
+      "strength": 52,
+      "stamina": 55,
+      "agility": 38,
+      "intelligence": 50
+    },
+    "wordSafariVocab": [
+      "tapir",
+      "Malaysia",
+      "nocturnal",
+      "prehensile-nose",
+      "endangered"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 40,
+      "weightKg": 350,
+      "pregnancyDays": 390
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "leaf",
+      "water-plant"
+    ],
+    "habitatBuilderPredators": [
+      "tiger",
+      "leopard"
+    ],
+    "worldQuestRegion": "Malay Peninsula and Sumatra",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_105",
+    "name": "Indian Rhinoceros",
+    "animalType": "Rhino",
+    "breed": "Indian Rhino",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Nepal"
+    ],
+    "coordinates": {
+      "lat": 26.5,
+      "lng": 92.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 40,
+      "strength": 88,
+      "stamina": 52,
+      "agility": 20,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "horn",
+      "India",
+      "one-horned",
+      "conservation",
+      "armoured"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 40,
+      "weightKg": 2000,
+      "hornCount": 1
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "reed"
+    ],
+    "habitatBuilderPredators": [
+      "tiger",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Kaziranga National Park, Assam, India",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_106",
+    "name": "Siberian Tiger",
+    "animalType": "Tiger",
+    "breed": "Siberian",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "Russia",
+      "China"
+    ],
+    "coordinates": {
+      "lat": 45.0,
+      "lng": 133.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 68,
+      "strength": 85,
+      "stamina": 58,
+      "agility": 75,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "Siberia",
+      "endangered",
+      "taiga",
+      "territory",
+      "largest-cat"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 68,
+      "weightKg": 300,
+      "territoryKm2": 1000
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "deer",
+      "wild boar",
+      "elk"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Russian Far East Taiga",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_107",
+    "name": "Sun Bear",
+    "animalType": "Bear",
+    "breed": "Sun Bear",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "Malaysia",
+      "Indonesia",
+      "Thailand"
+    ],
+    "coordinates": {
+      "lat": 3.0,
+      "lng": 112.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2400
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 55,
+      "stamina": 52,
+      "agility": 65,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "honey",
+      "Southeast-Asia",
+      "arboreal",
+      "nocturnal",
+      "smallest-bear"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 38,
+      "weightKg": 70,
+      "tongueLengthCm": 25
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "honey",
+      "insect",
+      "fruit"
+    ],
+    "habitatBuilderPredators": [
+      "tiger",
+      "clouded leopard"
+    ],
+    "worldQuestRegion": "Southeast Asian Rainforest (Borneo, Sumatra)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_108",
+    "name": "Dhole",
+    "animalType": "Dog",
+    "breed": "Dhole",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Bhutan",
+      "Russia"
+    ],
+    "coordinates": {
+      "lat": 22.0,
+      "lng": 82.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      3500
+    ],
+    "stats": {
+      "speed": 65,
+      "strength": 38,
+      "stamina": 82,
+      "agility": 78,
+      "intelligence": 78
+    },
+    "wordSafariVocab": [
+      "pack",
+      "whistle",
+      "India",
+      "predator",
+      "clan"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 65,
+      "weightKg": 17,
+      "packSizeMax": 40
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "deer",
+      "boar",
+      "monkey"
+    ],
+    "habitatBuilderPredators": [
+      "tiger",
+      "leopard"
+    ],
+    "worldQuestRegion": "South and Southeast Asia (Indian subcontinent to Siberia)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_109",
+    "name": "Bactrian Camel",
+    "animalType": "Camel",
+    "breed": "Wild Bactrian Camel",
+    "category": "Wild",
+    "conservationStatus": "Critically Endangered",
+    "region": "Asia",
+    "countries": [
+      "Mongolia",
+      "China"
+    ],
+    "coordinates": {
+      "lat": 42.0,
+      "lng": 96.0
+    },
+    "biome": "desert",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 42,
+      "strength": 65,
+      "stamina": 88,
+      "agility": 28,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "desert",
+      "hump",
+      "Gobi",
+      "adaptation",
+      "critically-endangered"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 65,
+      "weightKg": 600,
+      "waterStoreL": 0
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "shrub",
+      "salt-plant"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "snow leopard"
+    ],
+    "worldQuestRegion": "Gobi Desert, Mongolia and China",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_110",
+    "name": "Binturong",
+    "animalType": "Binturong",
+    "breed": "Binturong",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "Malaysia",
+      "Thailand",
+      "India"
+    ],
+    "coordinates": {
+      "lat": 5.0,
+      "lng": 110.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2300
+    ],
+    "stats": {
+      "speed": 18,
+      "strength": 28,
+      "stamina": 42,
+      "agility": 60,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "arboreal",
+      "prehensile-tail",
+      "nocturnal",
+      "Southeast-Asia",
+      "omnivore"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 15,
+      "weightKg": 14,
+      "smellLike": "popcorn"
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "fish",
+      "rodent"
+    ],
+    "habitatBuilderPredators": [
+      "clouded leopard",
+      "eagle"
+    ],
+    "worldQuestRegion": "Southeast Asian Rainforest",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_111",
+    "name": "Philippine Eagle",
+    "animalType": "Eagle",
+    "breed": "Philippine Eagle",
+    "category": "Wild",
+    "conservationStatus": "Critically Endangered",
+    "region": "Asia",
+    "countries": [
+      "Philippines"
+    ],
+    "coordinates": {
+      "lat": 8.0,
+      "lng": 126.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1800
+    ],
+    "stats": {
+      "speed": 68,
+      "strength": 48,
+      "stamina": 62,
+      "agility": 72,
+      "intelligence": 50
+    },
+    "wordSafariVocab": [
+      "critically-endangered",
+      "Philippines",
+      "raptor",
+      "apex",
+      "forest"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 220,
+      "weightKg": 7,
+      "wildPopulation": 800
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "flying lemur",
+      "monkey",
+      "large lizard"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Mindanao, Philippines",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_112",
+    "name": "Saiga Antelope",
+    "animalType": "Antelope",
+    "breed": "Saiga",
+    "category": "Wild",
+    "conservationStatus": "Near Threatened",
+    "region": "Asia",
+    "countries": [
+      "Kazakhstan",
+      "Russia",
+      "Mongolia"
+    ],
+    "coordinates": {
+      "lat": 48.0,
+      "lng": 62.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 78,
+      "strength": 32,
+      "stamina": 72,
+      "agility": 68,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "steppe",
+      "migration",
+      "nose",
+      "Eurasia",
+      "herd"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 78,
+      "migrationKm": 1000,
+      "weightKg": 50
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "shrub"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "snow leopard"
+    ],
+    "worldQuestRegion": "Eurasian Steppe (Kazakhstan, Russia)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Seasonal migration up to 1,000 km across Eurasian steppe"
+  },
+  {
+    "id": "card_113",
+    "name": "Great Hornbill",
+    "animalType": "Bird",
+    "breed": "Great Hornbill",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Thailand",
+      "Malaysia"
+    ],
+    "coordinates": {
+      "lat": 15.0,
+      "lng": 100.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 40,
+      "strength": 18,
+      "stamina": 55,
+      "agility": 48,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "casque",
+      "hornbill",
+      "Asia",
+      "vulnerable",
+      "forest"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 180,
+      "weightKg": 3.7,
+      "casqueUsedFor": "amplify calls"
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "lizard",
+      "rodent"
+    ],
+    "habitatBuilderPredators": [
+      "eagle"
+    ],
+    "worldQuestRegion": "South and Southeast Asia (India to Borneo)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_114",
+    "name": "Water Monitor",
+    "animalType": "Monitor",
+    "breed": "Water Monitor",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "Asia",
+    "countries": [
+      "Thailand",
+      "Malaysia",
+      "Sri Lanka"
+    ],
+    "coordinates": {
+      "lat": 8.0,
+      "lng": 101.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 30,
+      "strength": 48,
+      "stamina": 52,
+      "agility": 58,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "reptile",
+      "Southeast-Asia",
+      "swimmer",
+      "monitor",
+      "venom"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 30,
+      "bodyLengthM": 2.5,
+      "weightKg": 50
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "frog",
+      "crab",
+      "bird"
+    ],
+    "habitatBuilderPredators": [
+      "crocodile",
+      "python"
+    ],
+    "worldQuestRegion": "Southeast Asia (rivers and mangroves)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_115",
+    "name": "Fishing Cat",
+    "animalType": "Cat",
+    "breed": "Fishing Cat",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "Asia",
+    "countries": [
+      "India",
+      "Sri Lanka",
+      "Bangladesh"
+    ],
+    "coordinates": {
+      "lat": 15.0,
+      "lng": 84.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 52,
+      "strength": 38,
+      "stamina": 58,
+      "agility": 78,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "wetland",
+      "fishing",
+      "India",
+      "vulnerable",
+      "nocturnal"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 50,
+      "weightKg": 11,
+      "clawsPartiallyWebbed": true
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "frog",
+      "crab"
+    ],
+    "habitatBuilderPredators": [
+      "crocodile",
+      "leopard"
+    ],
+    "worldQuestRegion": "South Asian wetlands (India, Sri Lanka, Bangladesh)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_116",
+    "name": "Red Fox",
+    "animalType": "Fox",
+    "breed": "Red Fox",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 51.5,
+      "lng": -1.0
+    },
+    "biome": "urban",
+    "altitudeRange": [
+      0,
+      2500
+    ],
+    "stats": {
+      "speed": 50,
+      "strength": 22,
+      "stamina": 65,
+      "agility": 78,
+      "intelligence": 70
+    },
+    "wordSafariVocab": [
+      "nocturnal",
+      "urban",
+      "territory",
+      "omnivore",
+      "den"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 50,
+      "weightKg": 6,
+      "cubsPerLitter": 4
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "rabbit",
+      "mouse",
+      "bird"
+    ],
+    "habitatBuilderPredators": [
+      "eagle",
+      "badger"
+    ],
+    "worldQuestRegion": "United Kingdom (urban and rural)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_117",
+    "name": "European Badger",
+    "animalType": "Badger",
+    "breed": "Eurasian Badger",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.0,
+      "lng": -1.5
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 30,
+      "strength": 40,
+      "stamina": 55,
+      "agility": 38,
+      "intelligence": 55
+    },
+    "wordSafariVocab": [
+      "sett",
+      "nocturnal",
+      "clan",
+      "mustelid",
+      "protected"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 30,
+      "weightKg": 12,
+      "earthwormsPerNight": 200
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "earthworm",
+      "rabbit",
+      "berry"
+    ],
+    "habitatBuilderPredators": [
+      "eagle",
+      "fox"
+    ],
+    "worldQuestRegion": "England, Wales and Scotland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_118",
+    "name": "Roe Deer",
+    "animalType": "Deer",
+    "breed": "Roe Deer",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 53.0,
+      "lng": -1.5
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 62,
+      "strength": 25,
+      "stamina": 58,
+      "agility": 72,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "woodland",
+      "rut",
+      "antler",
+      "fawn",
+      "Britain"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 62,
+      "weightKg": 22,
+      "antlerLengthCm": 25
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "leaf",
+      "berry",
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "lynx",
+      "eagle"
+    ],
+    "worldQuestRegion": "Woodland Britain and mainland Europe",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_119",
+    "name": "Hedgehog",
+    "animalType": "Hedgehog",
+    "breed": "West European Hedgehog",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.0,
+      "lng": -1.0
+    },
+    "biome": "urban",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 8,
+      "strength": 10,
+      "stamina": 35,
+      "agility": 22,
+      "intelligence": 35
+    },
+    "wordSafariVocab": [
+      "spine",
+      "nocturnal",
+      "hibernate",
+      "Britain",
+      "garden"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 9,
+      "spineCount": 7000,
+      "nightRangeKm": 3
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "earthworm",
+      "insect",
+      "slug"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "badger",
+      "eagle"
+    ],
+    "worldQuestRegion": "Britain (gardens, hedgerows)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_120",
+    "name": "Red Squirrel",
+    "animalType": "Squirrel",
+    "breed": "Eurasian Red Squirrel",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 55.0,
+      "lng": -3.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 22,
+      "strength": 5,
+      "stamina": 45,
+      "agility": 82,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "native",
+      "woodland",
+      "cache",
+      "Britain",
+      "conifer"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 22,
+      "weightKg": 0.32,
+      "cacheHiddenPerYear": 10000
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "nut",
+      "seed",
+      "fungus"
+    ],
+    "habitatBuilderPredators": [
+      "pine marten",
+      "hawk",
+      "stoat"
+    ],
+    "worldQuestRegion": "Northern England and Scotland (Kielder Forest, Scottish Highlands)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_121",
+    "name": "European Otter",
+    "animalType": "Otter",
+    "breed": "Eurasian Otter",
+    "category": "Wild",
+    "conservationStatus": "Near Threatened",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.0,
+      "lng": -3.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 28,
+      "stamina": 65,
+      "agility": 78,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "mustelid",
+      "river",
+      "Britain",
+      "conservation",
+      "holt"
+    ],
+    "coinRushFacts": {
+      "swimSpeedKph": 12,
+      "weightKg": 10,
+      "diveTimeSeconds": 180
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "frog",
+      "crayfish"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "eagle"
+    ],
+    "worldQuestRegion": "British Rivers and Coastline",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_122",
+    "name": "Atlantic Puffin",
+    "animalType": "Bird",
+    "breed": "Atlantic Puffin",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom",
+      "Iceland"
+    ],
+    "coordinates": {
+      "lat": 61.0,
+      "lng": -1.5
+    },
+    "biome": "aquatic_marine",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 75,
+      "strength": 8,
+      "stamina": 72,
+      "agility": 68,
+      "intelligence": 45
+    },
+    "wordSafariVocab": [
+      "seabird",
+      "burrow",
+      "colony",
+      "migration",
+      "Britain"
+    ],
+    "coinRushFacts": {
+      "flyingSpeedKph": 88,
+      "diveDepthM": 60,
+      "fishCarriedPerTripMax": 62
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "sand eel",
+      "herring",
+      "sprat"
+    ],
+    "habitatBuilderPredators": [
+      "great skua",
+      "hawk",
+      "fox"
+    ],
+    "worldQuestRegion": "North Atlantic coastline (Shetland, Iceland, Newfoundland)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Winter migration to open Atlantic Ocean; return to breeding colonies spring"
+  },
+  {
+    "id": "card_123",
+    "name": "Peregrine Falcon",
+    "animalType": "Bird",
+    "breed": "Peregrine Falcon",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 54.0,
+      "lng": -2.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 99,
+      "strength": 20,
+      "stamina": 65,
+      "agility": 85,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "stoop",
+      "raptor",
+      "falcon",
+      "Britain",
+      "fastest"
+    ],
+    "coinRushFacts": {
+      "stoopSpeedKph": 389,
+      "weightKg": 0.95,
+      "preyWeightMaxKg": 0.7
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "pigeon",
+      "starling",
+      "duck"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "UK Cities, Cliffs and Moorland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_124",
+    "name": "Red Deer",
+    "animalType": "Deer",
+    "breed": "Red Deer",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 57.0,
+      "lng": -4.5
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      0,
+      1200
+    ],
+    "stats": {
+      "speed": 65,
+      "strength": 52,
+      "stamina": 65,
+      "agility": 60,
+      "intelligence": 45
+    },
+    "wordSafariVocab": [
+      "antler",
+      "rut",
+      "stag",
+      "Britain",
+      "Highland"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 65,
+      "weightKg": 200,
+      "antlerLengthCm": 90
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "heather",
+      "bark"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "golden eagle"
+    ],
+    "worldQuestRegion": "Scottish Highlands, United Kingdom",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_125",
+    "name": "Grey Wolf",
+    "animalType": "Wolf",
+    "breed": "Grey Wolf",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Poland",
+      "Romania",
+      "Italy"
+    ],
+    "coordinates": {
+      "lat": 45.0,
+      "lng": 23.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 65,
+      "strength": 50,
+      "stamina": 88,
+      "agility": 72,
+      "intelligence": 78
+    },
+    "wordSafariVocab": [
+      "pack",
+      "howl",
+      "territory",
+      "apex predator",
+      "Europe"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 60,
+      "dailyTravelKm": 80,
+      "weightKg": 55
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "deer",
+      "elk",
+      "rabbit"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Carpathian Mountains and Eastern Europe",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_126",
+    "name": "European Brown Hare",
+    "animalType": "Hare",
+    "breed": "European Brown Hare",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.0,
+      "lng": -1.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 68,
+      "strength": 10,
+      "stamina": 62,
+      "agility": 80,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "leveret",
+      "boxing",
+      "nocturnal",
+      "Britain",
+      "field"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 68,
+      "weightKg": 3.5,
+      "marchtBoxing": true
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "crop"
+    ],
+    "habitatBuilderPredators": [
+      "fox",
+      "hawk",
+      "stoat"
+    ],
+    "worldQuestRegion": "British Farmland and Grassland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_127",
+    "name": "Pine Marten",
+    "animalType": "Marten",
+    "breed": "Pine Marten",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 57.0,
+      "lng": -4.5
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 32,
+      "strength": 18,
+      "stamina": 55,
+      "agility": 85,
+      "intelligence": 62
+    },
+    "wordSafariVocab": [
+      "mustelid",
+      "arboreal",
+      "Scotland",
+      "nocturnal",
+      "rare"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 30,
+      "weightKg": 1.5,
+      "scottishPopulation": 3700
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "red squirrel",
+      "rabbit",
+      "berry"
+    ],
+    "habitatBuilderPredators": [
+      "eagle",
+      "fox"
+    ],
+    "worldQuestRegion": "Scottish Highlands and Northwest England",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_128",
+    "name": "Barn Owl",
+    "animalType": "Bird",
+    "breed": "Barn Owl",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.5,
+      "lng": -1.5
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 35,
+      "strength": 8,
+      "stamina": 55,
+      "agility": 72,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "nocturnal",
+      "silent-flight",
+      "farmland",
+      "Britain",
+      "raptor"
+    ],
+    "coinRushFacts": {
+      "flightSpeedKph": 35,
+      "weightKg": 0.35,
+      "hearingRangeM": 30
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "vole",
+      "mouse",
+      "shrew"
+    ],
+    "habitatBuilderPredators": [
+      "tawny owl",
+      "fox"
+    ],
+    "worldQuestRegion": "British Farmland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_129",
+    "name": "Red Kite",
+    "animalType": "Bird",
+    "breed": "Red Kite",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.0,
+      "lng": -3.5
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      600
+    ],
+    "stats": {
+      "speed": 55,
+      "strength": 18,
+      "stamina": 65,
+      "agility": 78,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "raptor",
+      "soaring",
+      "reintroduction",
+      "Wales",
+      "scavenger"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 185,
+      "weightKg": 1.1,
+      "reintroductionYear": 1989
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "earthworm",
+      "carrion",
+      "rabbit"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Mid-Wales and Southern England",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_130",
+    "name": "White-tailed Eagle",
+    "animalType": "Eagle",
+    "breed": "White-tailed Eagle",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 57.0,
+      "lng": -6.0
+    },
+    "biome": "aquatic_marine",
+    "altitudeRange": [
+      0,
+      600
+    ],
+    "stats": {
+      "speed": 70,
+      "strength": 52,
+      "stamina": 68,
+      "agility": 65,
+      "intelligence": 55
+    },
+    "wordSafariVocab": [
+      "raptor",
+      "reintroduction",
+      "Scotland",
+      "fishing",
+      "largest-bird"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 240,
+      "weightKg": 6.5,
+      "reintroductionYear": 1975
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "rabbit",
+      "waterfowl"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Scottish Islands and West Coast",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_131",
+    "name": "Common Harbour Seal",
+    "animalType": "Seal",
+    "breed": "Harbour Seal",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 57.5,
+      "lng": -4.0
+    },
+    "biome": "aquatic_marine",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 32,
+      "strength": 38,
+      "stamina": 70,
+      "agility": 72,
+      "intelligence": 58
+    },
+    "wordSafariVocab": [
+      "colony",
+      "North-Sea",
+      "flipper",
+      "blubber",
+      "marine"
+    ],
+    "coinRushFacts": {
+      "swimSpeedKph": 35,
+      "weightKg": 90,
+      "diveDepthM": 500
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "squid",
+      "crustacean"
+    ],
+    "habitatBuilderPredators": [
+      "orca",
+      "shark"
+    ],
+    "worldQuestRegion": "UK Coastline (North Sea, Scottish coast)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_132",
+    "name": "Eurasian Lynx",
+    "animalType": "Cat",
+    "breed": "Eurasian Lynx",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Norway",
+      "Romania",
+      "Switzerland"
+    ],
+    "coordinates": {
+      "lat": 47.0,
+      "lng": 10.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      2500
+    ],
+    "stats": {
+      "speed": 65,
+      "strength": 42,
+      "stamina": 60,
+      "agility": 82,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "solitary",
+      "nocturnal",
+      "Europe",
+      "reintroduction",
+      "cat"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 65,
+      "weightKg": 25,
+      "leapDistanceM": 8
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "roe deer",
+      "rabbit",
+      "hare"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "brown bear"
+    ],
+    "worldQuestRegion": "European Mountain Forests (Alps, Carpathians, Scandinavia)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_133",
+    "name": "Common Adder",
+    "animalType": "Snake",
+    "breed": "Common Adder",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.0,
+      "lng": -1.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 6,
+      "strength": 8,
+      "stamina": 42,
+      "agility": 55,
+      "intelligence": 20
+    },
+    "wordSafariVocab": [
+      "venom",
+      "Britain",
+      "reptile",
+      "hibernate",
+      "heathland"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 6,
+      "weightKg": 0.18,
+      "onlyVenomousSnakeUK": true
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "vole",
+      "lizard",
+      "frog"
+    ],
+    "habitatBuilderPredators": [
+      "hedgehog",
+      "kestrel",
+      "badger"
+    ],
+    "worldQuestRegion": "British Heathland and Moorland",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_134",
+    "name": "Great Crested Newt",
+    "animalType": "Amphibian",
+    "breed": "Great Crested Newt",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "United Kingdom"
+    ],
+    "coordinates": {
+      "lat": 52.5,
+      "lng": -1.5
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 2,
+      "strength": 3,
+      "stamina": 35,
+      "agility": 30,
+      "intelligence": 18
+    },
+    "wordSafariVocab": [
+      "amphibian",
+      "pond",
+      "protected",
+      "Britain",
+      "crest"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 2,
+      "weightKg": 0.015,
+      "protected": true
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "frog",
+      "tadpole",
+      "insect"
+    ],
+    "habitatBuilderPredators": [
+      "heron",
+      "grass snake",
+      "hedgehog"
+    ],
+    "worldQuestRegion": "England (ponds and hedgerows)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_135",
+    "name": "European Brown Bear",
+    "animalType": "Bear",
+    "breed": "Brown Bear",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "UK & Europe",
+    "countries": [
+      "Romania",
+      "Russia",
+      "Finland"
+    ],
+    "coordinates": {
+      "lat": 60.0,
+      "lng": 25.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 52,
+      "strength": 85,
+      "stamina": 72,
+      "agility": 40,
+      "intelligence": 68
+    },
+    "wordSafariVocab": [
+      "omnivore",
+      "hibernate",
+      "Europe",
+      "bear",
+      "forest"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 56,
+      "weightKg": 250,
+      "hibernationMonths": 5
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "berry",
+      "deer"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Eastern Europe and Scandinavia",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_136",
+    "name": "American Bison",
+    "animalType": "Bison",
+    "breed": "American Bison",
+    "category": "Wild",
+    "conservationStatus": "Near Threatened",
+    "region": "North America",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "coordinates": {
+      "lat": 44.0,
+      "lng": -103.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 65,
+      "strength": 88,
+      "stamina": 68,
+      "agility": 30,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "plains",
+      "herd",
+      "conservation",
+      "North-America",
+      "graze"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 64,
+      "weightKg": 900,
+      "historicPopulation": 60000000
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "grizzly bear"
+    ],
+    "worldQuestRegion": "Great Plains, USA (Yellowstone National Park)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Seasonal movement across Great Plains following grass growth"
+  },
+  {
+    "id": "card_137",
+    "name": "Moose",
+    "animalType": "Moose",
+    "breed": "Moose",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "Canada",
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 55.0,
+      "lng": -100.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      2500
+    ],
+    "stats": {
+      "speed": 55,
+      "strength": 75,
+      "stamina": 62,
+      "agility": 28,
+      "intelligence": 45
+    },
+    "wordSafariVocab": [
+      "antler",
+      "Canada",
+      "moose",
+      "aquatic",
+      "ungulate"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 56,
+      "weightKg": 600,
+      "antlerSpanCm": 180
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "willow",
+      "water-plant",
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "grizzly bear"
+    ],
+    "worldQuestRegion": "Canadian Boreal Forest and Northern USA",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_138",
+    "name": "Grizzly Bear",
+    "animalType": "Bear",
+    "breed": "Brown Bear (Grizzly)",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "coordinates": {
+      "lat": 56.0,
+      "lng": -134.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      2500
+    ],
+    "stats": {
+      "speed": 52,
+      "strength": 90,
+      "stamina": 72,
+      "agility": 38,
+      "intelligence": 68
+    },
+    "wordSafariVocab": [
+      "omnivore",
+      "hibernate",
+      "Alaska",
+      "salmon",
+      "North-America"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 56,
+      "weightKg": 360,
+      "salmonCaughtPerDay": 30
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "salmon",
+      "berry",
+      "ground squirrel"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Alaska and Canadian Rockies",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_139",
+    "name": "Bald Eagle",
+    "animalType": "Eagle",
+    "breed": "Bald Eagle",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 48.0,
+      "lng": -120.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 72,
+      "strength": 40,
+      "stamina": 72,
+      "agility": 70,
+      "intelligence": 55
+    },
+    "wordSafariVocab": [
+      "raptor",
+      "USA",
+      "national-symbol",
+      "conservation",
+      "fishing"
+    ],
+    "coinRushFacts": {
+      "diveSpeedKph": 160,
+      "wingspanCm": 210,
+      "nestWeightKg": 900
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "rabbit",
+      "duck"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "North America (Alaska, Pacific Northwest)",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Partial migration south in winter from northern breeding grounds"
+  },
+  {
+    "id": "card_140",
+    "name": "Pronghorn",
+    "animalType": "Antelope",
+    "breed": "Pronghorn",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 43.0,
+      "lng": -108.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 88,
+      "strength": 28,
+      "stamina": 90,
+      "agility": 72,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "speed",
+      "plains",
+      "North-America",
+      "migration",
+      "antelope"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 88,
+      "sustainedSpeedKph": 70,
+      "migrationKm": 500
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "shrub"
+    ],
+    "habitatBuilderPredators": [
+      "coyote",
+      "mountain lion"
+    ],
+    "worldQuestRegion": "Great Plains, Western USA",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "One of longest terrestrial migrations in North America \u2014 500 km between seasonal ranges"
+  },
+  {
+    "id": "card_141",
+    "name": "Mountain Lion",
+    "animalType": "Cat",
+    "breed": "Cougar/Puma",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "coordinates": {
+      "lat": 37.0,
+      "lng": -115.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      0,
+      4000
+    ],
+    "stats": {
+      "speed": 68,
+      "strength": 65,
+      "stamina": 60,
+      "agility": 85,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "puma",
+      "solitary",
+      "territory",
+      "North-America",
+      "apex-predator"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 72,
+      "weightKg": 68,
+      "verticalJumpM": 5
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "deer",
+      "elk",
+      "rabbit"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Western North America (Rockies to Andes)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_142",
+    "name": "Wolverine",
+    "animalType": "Wolverine",
+    "breed": "Wolverine",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "coordinates": {
+      "lat": 55.0,
+      "lng": -110.0
+    },
+    "biome": "arctic_polar",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 48,
+      "strength": 52,
+      "stamina": 85,
+      "agility": 65,
+      "intelligence": 55
+    },
+    "wordSafariVocab": [
+      "mustelid",
+      "boreal",
+      "ferocious",
+      "North-America",
+      "territory"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 48,
+      "weightKg": 18,
+      "dailyRangeKm": 25
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "caribou",
+      "rabbit",
+      "carrion"
+    ],
+    "habitatBuilderPredators": [
+      "wolf",
+      "mountain lion"
+    ],
+    "worldQuestRegion": "Canadian Boreal and Rocky Mountain forests",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_143",
+    "name": "Raccoon",
+    "animalType": "Raccoon",
+    "breed": "Raccoon",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 40.0,
+      "lng": -88.0
+    },
+    "biome": "urban",
+    "altitudeRange": [
+      0,
+      2500
+    ],
+    "stats": {
+      "speed": 25,
+      "strength": 18,
+      "stamina": 45,
+      "agility": 68,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "nocturnal",
+      "omnivore",
+      "urban",
+      "mask",
+      "dexterous"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 25,
+      "weightKg": 8,
+      "fingerDexterity": "near-primate"
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "insect",
+      "berry"
+    ],
+    "habitatBuilderPredators": [
+      "coyote",
+      "mountain lion",
+      "eagle"
+    ],
+    "worldQuestRegion": "Eastern and Central North America",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_144",
+    "name": "American Alligator",
+    "animalType": "Reptile",
+    "breed": "American Alligator",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 30.0,
+      "lng": -84.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      500
+    ],
+    "stats": {
+      "speed": 22,
+      "strength": 75,
+      "stamina": 50,
+      "agility": 30,
+      "intelligence": 40
+    },
+    "wordSafariVocab": [
+      "reptile",
+      "Florida",
+      "conservation",
+      "ectotherm",
+      "apex-predator"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 32,
+      "weightKg": 450,
+      "biteForcePsi": 2125
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "fish",
+      "turtle",
+      "deer"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Southeastern USA (Florida Everglades)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_145",
+    "name": "Prairie Dog",
+    "animalType": "Dog",
+    "breed": "Black-tailed Prairie Dog",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States"
+    ],
+    "coordinates": {
+      "lat": 40.0,
+      "lng": -102.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 35,
+      "strength": 8,
+      "stamina": 48,
+      "agility": 60,
+      "intelligence": 68
+    },
+    "wordSafariVocab": [
+      "burrow",
+      "colony",
+      "language",
+      "prairie",
+      "alarm"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 1.2,
+      "wordTypeCount": 100
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "seed"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "coyote",
+      "black-footed ferret"
+    ],
+    "worldQuestRegion": "Great Plains, USA",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_146",
+    "name": "Nine-banded Armadillo",
+    "animalType": "Armadillo",
+    "breed": "Nine-banded Armadillo",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States",
+      "Mexico"
+    ],
+    "coordinates": {
+      "lat": 30.0,
+      "lng": -98.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 48,
+      "strength": 18,
+      "stamina": 45,
+      "agility": 35,
+      "intelligence": 32
+    },
+    "wordSafariVocab": [
+      "armour",
+      "burrow",
+      "nocturnal",
+      "South-America",
+      "shell"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 48,
+      "weightKg": 4.5,
+      "jumpHeightM": 1.2
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "insect",
+      "worm",
+      "ant"
+    ],
+    "habitatBuilderPredators": [
+      "coyote",
+      "hawk",
+      "mountain lion"
+    ],
+    "worldQuestRegion": "Southern USA and Mexico",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_147",
+    "name": "Axolotl",
+    "animalType": "Amphibian",
+    "breed": "Axolotl",
+    "category": "Wild",
+    "conservationStatus": "Critically Endangered",
+    "region": "North America",
+    "countries": [
+      "Mexico"
+    ],
+    "coordinates": {
+      "lat": 19.3,
+      "lng": -99.1
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      2240,
+      2240
+    ],
+    "stats": {
+      "speed": 2,
+      "strength": 2,
+      "stamina": 30,
+      "agility": 25,
+      "intelligence": 32
+    },
+    "wordSafariVocab": [
+      "neoteny",
+      "regeneration",
+      "Mexico",
+      "critically-endangered",
+      "amphibian"
+    ],
+    "coinRushFacts": {
+      "regeneratesLimbs": true,
+      "weightKg": 0.3,
+      "wildPopulationEstimate": 1000
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "worm",
+      "small fish",
+      "crustacean"
+    ],
+    "habitatBuilderPredators": [
+      "heron",
+      "carp"
+    ],
+    "worldQuestRegion": "Lake Xochimilco, Mexico City, Mexico",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_148",
+    "name": "Manatee",
+    "animalType": "Manatee",
+    "breed": "West Indian Manatee",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "North America",
+    "countries": [
+      "United States",
+      "Caribbean"
+    ],
+    "coordinates": {
+      "lat": 27.0,
+      "lng": -82.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": null,
+    "stats": {
+      "speed": 8,
+      "strength": 35,
+      "stamina": 55,
+      "agility": 22,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "sea-cow",
+      "Florida",
+      "endangered",
+      "herbivore",
+      "dugong"
+    ],
+    "coinRushFacts": {
+      "swimSpeedKph": 8,
+      "weightKg": 600,
+      "closestRelative": "elephant"
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "seagrass",
+      "water-plant"
+    ],
+    "habitatBuilderPredators": [
+      "shark",
+      "crocodile"
+    ],
+    "worldQuestRegion": "Florida and Caribbean coastline",
+    "worldQuestMigrates": true,
+    "worldQuestMigrationRoute": "Seasonal movement north in summer along US Atlantic coast"
+  },
+  {
+    "id": "card_149",
+    "name": "Black Bear",
+    "animalType": "Bear",
+    "breed": "American Black Bear",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "coordinates": {
+      "lat": 45.0,
+      "lng": -80.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 48,
+      "strength": 72,
+      "stamina": 65,
+      "agility": 42,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "omnivore",
+      "hibernate",
+      "North-America",
+      "forest",
+      "berry"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 50,
+      "weightKg": 200,
+      "caloriesPerDayAutumn": 20000
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "berry",
+      "fish",
+      "insect"
+    ],
+    "habitatBuilderPredators": [
+      "grizzly bear"
+    ],
+    "worldQuestRegion": "North American Forest (Eastern USA, Canada)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_150",
+    "name": "Great Horned Owl",
+    "animalType": "Owl",
+    "breed": "Great Horned Owl",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "North America",
+    "countries": [
+      "United States",
+      "Canada"
+    ],
+    "coordinates": {
+      "lat": 45.0,
+      "lng": -93.0
+    },
+    "biome": "temperate_forest",
+    "altitudeRange": [
+      0,
+      3000
+    ],
+    "stats": {
+      "speed": 45,
+      "strength": 22,
+      "stamina": 55,
+      "agility": 72,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "nocturnal",
+      "raptor",
+      "North-America",
+      "silent-flight",
+      "territory"
+    ],
+    "coinRushFacts": {
+      "flyingSpeedKph": 65,
+      "headRotationDeg": 270,
+      "weightKg": 1.8
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "rabbit",
+      "skunk",
+      "mouse"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "North America (forest and grassland)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_151",
+    "name": "Jaguar",
+    "animalType": "Cat",
+    "breed": "Jaguar",
+    "category": "Wild",
+    "conservationStatus": "Near Threatened",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Peru",
+      "Colombia"
+    ],
+    "coordinates": {
+      "lat": -10.0,
+      "lng": -60.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2700
+    ],
+    "stats": {
+      "speed": 78,
+      "strength": 82,
+      "stamina": 58,
+      "agility": 82,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "apex-predator",
+      "Amazon",
+      "rosette",
+      "solitary",
+      "jaguar"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 80,
+      "weightKg": 100,
+      "biteForcePsi": 2000
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "capybara",
+      "caiman",
+      "deer"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Amazon Basin and Pantanal, Brazil",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_152",
+    "name": "Giant Anteater",
+    "animalType": "Anteater",
+    "breed": "Giant Anteater",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Argentina"
+    ],
+    "coordinates": {
+      "lat": -15.0,
+      "lng": -55.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 22,
+      "strength": 45,
+      "stamina": 52,
+      "agility": 28,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "tongue",
+      "insectivore",
+      "South-America",
+      "termite",
+      "vulnerable"
+    ],
+    "coinRushFacts": {
+      "tongueLengthCm": 60,
+      "antsPerDay": 35000,
+      "weightKg": 35
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "ant",
+      "termite"
+    ],
+    "habitatBuilderPredators": [
+      "jaguar",
+      "puma"
+    ],
+    "worldQuestRegion": "Brazilian Cerrado and Pantanal",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_153",
+    "name": "Capybara",
+    "animalType": "Rodent",
+    "breed": "Capybara",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Venezuela"
+    ],
+    "coordinates": {
+      "lat": -5.0,
+      "lng": -55.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      1300
+    ],
+    "stats": {
+      "speed": 18,
+      "strength": 28,
+      "stamina": 55,
+      "agility": 32,
+      "intelligence": 48
+    },
+    "wordSafariVocab": [
+      "rodent",
+      "semi-aquatic",
+      "South-America",
+      "social",
+      "herd"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 35,
+      "weightKg": 60,
+      "groupSizeMax": 40
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass",
+      "water-plant"
+    ],
+    "habitatBuilderPredators": [
+      "jaguar",
+      "anaconda",
+      "caiman"
+    ],
+    "worldQuestRegion": "Amazon Basin and Pantanal",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_154",
+    "name": "South American Tapir",
+    "animalType": "Tapir",
+    "breed": "South American Tapir",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Colombia",
+      "Peru"
+    ],
+    "coordinates": {
+      "lat": -8.0,
+      "lng": -70.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2500
+    ],
+    "stats": {
+      "speed": 42,
+      "strength": 55,
+      "stamina": 58,
+      "agility": 38,
+      "intelligence": 50
+    },
+    "wordSafariVocab": [
+      "prehensile-nose",
+      "Amazon",
+      "ancient",
+      "vulnerable",
+      "tapir"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 42,
+      "weightKg": 250,
+      "lineageYears": 35000000
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "leaf",
+      "water-plant"
+    ],
+    "habitatBuilderPredators": [
+      "jaguar",
+      "puma"
+    ],
+    "worldQuestRegion": "Amazon Basin, South America",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_155",
+    "name": "Scarlet Macaw",
+    "animalType": "Parrot",
+    "breed": "Scarlet Macaw",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Peru",
+      "Colombia"
+    ],
+    "coordinates": {
+      "lat": -5.0,
+      "lng": -63.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 52,
+      "strength": 10,
+      "stamina": 65,
+      "agility": 65,
+      "intelligence": 72
+    },
+    "wordSafariVocab": [
+      "plumage",
+      "flock",
+      "Amazon",
+      "tropical",
+      "intelligence"
+    ],
+    "coinRushFacts": {
+      "flyingSpeedKph": 55,
+      "weightKg": 1.1,
+      "lifespanYears": 40
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "seed",
+      "nut"
+    ],
+    "habitatBuilderPredators": [
+      "harpy eagle",
+      "hawk",
+      "snake"
+    ],
+    "worldQuestRegion": "Amazon Basin, South America",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_156",
+    "name": "Blue Poison Dart Frog",
+    "animalType": "Frog",
+    "breed": "Blue Poison Dart Frog",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "South America",
+    "countries": [
+      "Suriname",
+      "Brazil"
+    ],
+    "coordinates": {
+      "lat": 4.0,
+      "lng": -56.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 5,
+      "strength": 1,
+      "stamina": 25,
+      "agility": 35,
+      "intelligence": 25
+    },
+    "wordSafariVocab": [
+      "toxic",
+      "aposematism",
+      "Amazon",
+      "endangered",
+      "amphibian"
+    ],
+    "coinRushFacts": {
+      "toxinCouldKill": 10,
+      "weightKg": 0.003,
+      "colourWarning": true
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "ant",
+      "termite",
+      "mite"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Suriname and Northern Amazon",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_157",
+    "name": "Andean Condor",
+    "animalType": "Condor",
+    "breed": "Andean Condor",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "South America",
+    "countries": [
+      "Peru",
+      "Chile",
+      "Argentina"
+    ],
+    "coordinates": {
+      "lat": -15.0,
+      "lng": -72.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      0,
+      5500
+    ],
+    "stats": {
+      "speed": 58,
+      "strength": 30,
+      "stamina": 90,
+      "agility": 55,
+      "intelligence": 52
+    },
+    "wordSafariVocab": [
+      "condor",
+      "Andes",
+      "soaring",
+      "wingspan",
+      "scavenger"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 330,
+      "weightKg": 12,
+      "altitudeMaxM": 5500
+    },
+    "habitatBuilderRole": "decomposer",
+    "habitatBuilderPrey": [
+      "carrion"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Andes Mountains, South America",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_158",
+    "name": "Green Anaconda",
+    "animalType": "Snake",
+    "breed": "Green Anaconda",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Venezuela",
+      "Peru"
+    ],
+    "coordinates": {
+      "lat": -5.0,
+      "lng": -63.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 8,
+      "strength": 78,
+      "stamina": 55,
+      "agility": 35,
+      "intelligence": 30
+    },
+    "wordSafariVocab": [
+      "constrictor",
+      "Amazon",
+      "semi-aquatic",
+      "largest-snake",
+      "reptile"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 8,
+      "weightKg": 250,
+      "bodyLengthM": 9
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "capybara",
+      "caiman",
+      "deer"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Amazon Basin (rivers and swamps)",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_159",
+    "name": "Giant Otter",
+    "animalType": "Otter",
+    "breed": "Giant Otter",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Peru",
+      "Bolivia"
+    ],
+    "coordinates": {
+      "lat": -8.0,
+      "lng": -65.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 42,
+      "strength": 35,
+      "stamina": 68,
+      "agility": 78,
+      "intelligence": 65
+    },
+    "wordSafariVocab": [
+      "mustelid",
+      "Amazon",
+      "social",
+      "endangered",
+      "river"
+    ],
+    "coinRushFacts": {
+      "swimSpeedKph": 12,
+      "bodyLengthM": 1.8,
+      "groupSizeMax": 20
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "caiman",
+      "piranha"
+    ],
+    "habitatBuilderPredators": [
+      "jaguar"
+    ],
+    "worldQuestRegion": "Amazon and Pantanal rivers",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_160",
+    "name": "Harpy Eagle",
+    "animalType": "Eagle",
+    "breed": "Harpy Eagle",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Panama"
+    ],
+    "coordinates": {
+      "lat": -8.0,
+      "lng": -60.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2000
+    ],
+    "stats": {
+      "speed": 72,
+      "strength": 55,
+      "stamina": 68,
+      "agility": 72,
+      "intelligence": 55
+    },
+    "wordSafariVocab": [
+      "raptor",
+      "Amazon",
+      "apex",
+      "wingspan",
+      "powerful"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 200,
+      "weightKg": 8.5,
+      "talonLengthCm": 8
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "monkey",
+      "sloth",
+      "anteater"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Amazon Rainforest, Brazil",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_161",
+    "name": "Three-toed Sloth",
+    "animalType": "Sloth",
+    "breed": "Three-toed Sloth",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Colombia",
+      "Venezuela"
+    ],
+    "coordinates": {
+      "lat": 4.0,
+      "lng": -66.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      2400
+    ],
+    "stats": {
+      "speed": 2,
+      "strength": 28,
+      "stamina": 35,
+      "agility": 18,
+      "intelligence": 32
+    },
+    "wordSafariVocab": [
+      "arboreal",
+      "slow",
+      "Amazon",
+      "algae",
+      "mammal"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 0.27,
+      "weightKg": 4.5,
+      "sleepHoursPerDay": 15
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "leaf"
+    ],
+    "habitatBuilderPredators": [
+      "harpy eagle",
+      "jaguar"
+    ],
+    "worldQuestRegion": "Amazon and Central American Rainforest",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_162",
+    "name": "Maned Wolf",
+    "animalType": "Wolf",
+    "breed": "Maned Wolf",
+    "category": "Wild",
+    "conservationStatus": "Near Threatened",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Argentina"
+    ],
+    "coordinates": {
+      "lat": -18.0,
+      "lng": -50.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 58,
+      "strength": 25,
+      "stamina": 62,
+      "agility": 65,
+      "intelligence": 55
+    },
+    "wordSafariVocab": [
+      "South-America",
+      "solitary",
+      "omnivore",
+      "cerrado",
+      "stilt-legs"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 58,
+      "weightKg": 23,
+      "legLengthCm": 90
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "rabbit",
+      "fruit",
+      "rodent"
+    ],
+    "habitatBuilderPredators": [
+      "jaguar",
+      "puma"
+    ],
+    "worldQuestRegion": "Brazilian Cerrado",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_163",
+    "name": "Golden Lion Tamarin",
+    "animalType": "Monkey",
+    "breed": "Golden Lion Tamarin",
+    "category": "Wild",
+    "conservationStatus": "Endangered",
+    "region": "South America",
+    "countries": [
+      "Brazil"
+    ],
+    "coordinates": {
+      "lat": -22.0,
+      "lng": -44.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      0,
+      500
+    ],
+    "stats": {
+      "speed": 18,
+      "strength": 5,
+      "stamina": 40,
+      "agility": 72,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "primate",
+      "Brazil",
+      "endangered",
+      "mane",
+      "Atlantic-forest"
+    ],
+    "coinRushFacts": {
+      "weightKg": 0.62,
+      "litterSizeTypical": 2,
+      "wildPopulation": 3200
+    },
+    "habitatBuilderRole": "omnivore",
+    "habitatBuilderPrey": [
+      "insect",
+      "fruit",
+      "frog"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "snake",
+      "wild cat"
+    ],
+    "worldQuestRegion": "Atlantic Forest, Rio de Janeiro State, Brazil",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_164",
+    "name": "Vicuna",
+    "animalType": "Camelid",
+    "breed": "Vicu\u00f1a",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Peru",
+      "Chile",
+      "Bolivia"
+    ],
+    "coordinates": {
+      "lat": -16.0,
+      "lng": -70.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      3500,
+      5500
+    ],
+    "stats": {
+      "speed": 45,
+      "strength": 20,
+      "stamina": 72,
+      "agility": 58,
+      "intelligence": 45
+    },
+    "wordSafariVocab": [
+      "Andes",
+      "fibre",
+      "altitude",
+      "camelid",
+      "Peru"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 45,
+      "weightKg": 50,
+      "woolFinenessMicrons": 12
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "grass"
+    ],
+    "habitatBuilderPredators": [
+      "puma",
+      "condor"
+    ],
+    "worldQuestRegion": "Altiplano, Andes Mountains",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_165",
+    "name": "Spectacled Caiman",
+    "animalType": "Crocodilian",
+    "breed": "Spectacled Caiman",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Colombia",
+      "Venezuela"
+    ],
+    "coordinates": {
+      "lat": 3.0,
+      "lng": -65.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 22,
+      "strength": 58,
+      "stamina": 52,
+      "agility": 35,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "reptile",
+      "Amazon",
+      "ambush",
+      "ectotherm",
+      "crocodilian"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 22,
+      "weightKg": 60,
+      "bodyLengthM": 2.5
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "frog",
+      "bird"
+    ],
+    "habitatBuilderPredators": [
+      "jaguar",
+      "anaconda"
+    ],
+    "worldQuestRegion": "Amazon Basin and Orinoco",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_166",
+    "name": "Electric Eel",
+    "animalType": "Fish",
+    "breed": "Electric Eel",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Venezuela"
+    ],
+    "coordinates": {
+      "lat": 0.0,
+      "lng": -63.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      1000
+    ],
+    "stats": {
+      "speed": 8,
+      "strength": 22,
+      "stamina": 45,
+      "agility": 25,
+      "intelligence": 30
+    },
+    "wordSafariVocab": [
+      "electric",
+      "Amazon",
+      "predator",
+      "freshwater",
+      "shock"
+    ],
+    "coinRushFacts": {
+      "shockVolts": 600,
+      "bodyLengthM": 2.5,
+      "weightKg": 20
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "amphibian"
+    ],
+    "habitatBuilderPredators": [
+      "caiman"
+    ],
+    "worldQuestRegion": "Amazon and Orinoco rivers",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_167",
+    "name": "Red-bellied Piranha",
+    "animalType": "Fish",
+    "breed": "Red-bellied Piranha",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Bolivia"
+    ],
+    "coordinates": {
+      "lat": -10.0,
+      "lng": -65.0
+    },
+    "biome": "freshwater",
+    "altitudeRange": [
+      0,
+      800
+    ],
+    "stats": {
+      "speed": 28,
+      "strength": 15,
+      "stamina": 48,
+      "agility": 58,
+      "intelligence": 28
+    },
+    "wordSafariVocab": [
+      "piranha",
+      "Amazon",
+      "shoal",
+      "predator",
+      "teeth"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 30,
+      "weightKg": 1.5,
+      "biteForceTimes": 30
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "fish",
+      "seed",
+      "carcass"
+    ],
+    "habitatBuilderPredators": [
+      "caiman",
+      "giant otter",
+      "heron"
+    ],
+    "worldQuestRegion": "Amazon Basin",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_168",
+    "name": "Cock-of-the-Rock",
+    "animalType": "Bird",
+    "breed": "Andean Cock-of-the-Rock",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Peru",
+      "Colombia",
+      "Ecuador"
+    ],
+    "coordinates": {
+      "lat": -5.0,
+      "lng": -77.0
+    },
+    "biome": "tropical_rainforest",
+    "altitudeRange": [
+      500,
+      2400
+    ],
+    "stats": {
+      "speed": 38,
+      "strength": 8,
+      "stamina": 48,
+      "agility": 55,
+      "intelligence": 42
+    },
+    "wordSafariVocab": [
+      "lekking",
+      "display",
+      "Peru",
+      "Andes",
+      "national-bird"
+    ],
+    "coinRushFacts": {
+      "wingspanCm": 60,
+      "weightKg": 0.3,
+      "maleColour": "brilliant orange"
+    },
+    "habitatBuilderRole": "herbivore",
+    "habitatBuilderPrey": [
+      "fruit",
+      "insect"
+    ],
+    "habitatBuilderPredators": [
+      "hawk",
+      "snake"
+    ],
+    "worldQuestRegion": "Andean Cloud Forest, Peru",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_169",
+    "name": "Giant Armadillo",
+    "animalType": "Armadillo",
+    "breed": "Giant Armadillo",
+    "category": "Wild",
+    "conservationStatus": "Vulnerable",
+    "region": "South America",
+    "countries": [
+      "Brazil",
+      "Venezuela",
+      "Bolivia"
+    ],
+    "coordinates": {
+      "lat": -12.0,
+      "lng": -55.0
+    },
+    "biome": "grassland_savanna",
+    "altitudeRange": [
+      0,
+      1500
+    ],
+    "stats": {
+      "speed": 15,
+      "strength": 35,
+      "stamina": 42,
+      "agility": 22,
+      "intelligence": 38
+    },
+    "wordSafariVocab": [
+      "armour",
+      "South-America",
+      "nocturnal",
+      "termite",
+      "burrower"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 15,
+      "weightKg": 32,
+      "clawLengthCm": 20
+    },
+    "habitatBuilderRole": "carnivore",
+    "habitatBuilderPrey": [
+      "termite",
+      "ant",
+      "worm"
+    ],
+    "habitatBuilderPredators": [
+      "jaguar",
+      "puma"
+    ],
+    "worldQuestRegion": "South American Cerrado and Gran Chaco",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  },
+  {
+    "id": "card_170",
+    "name": "Puma",
+    "animalType": "Cat",
+    "breed": "Puma",
+    "category": "Wild",
+    "conservationStatus": "Least Concern",
+    "region": "South America",
+    "countries": [
+      "Chile",
+      "Argentina",
+      "Brazil"
+    ],
+    "coordinates": {
+      "lat": -25.0,
+      "lng": -65.0
+    },
+    "biome": "mountain_alpine",
+    "altitudeRange": [
+      0,
+      5800
+    ],
+    "stats": {
+      "speed": 70,
+      "strength": 65,
+      "stamina": 65,
+      "agility": 85,
+      "intelligence": 60
+    },
+    "wordSafariVocab": [
+      "solitary",
+      "Americas",
+      "nocturnal",
+      "apex-predator",
+      "Andes"
+    ],
+    "coinRushFacts": {
+      "topSpeedKph": 72,
+      "weightKg": 68,
+      "rangeKm2": 1100
+    },
+    "habitatBuilderRole": "apex_predator",
+    "habitatBuilderPrey": [
+      "deer",
+      "guanaco",
+      "rodent"
+    ],
+    "habitatBuilderPredators": [],
+    "worldQuestRegion": "Patagonia and Andes, South America",
+    "worldQuestMigrates": false,
+    "worldQuestMigrationRoute": null
+  }
+]

@@ -6,7 +6,10 @@ html,
 body,
 #root {
   height: 100%;
+  height: 100dvh; /* dynamic viewport height — prevents gap on iOS Safari when URL bar hides */
+  width: 100%;
   background-color: #0D0D11;
+  overflow: hidden; /* prevent document-level scroll revealing background on iOS */
 }
 
 :root {
@@ -83,6 +86,13 @@ html[data-has-bg] {
   background-attachment: fixed;
 }
 
+/* #root has background-color: #0D0D11 to prevent iOS white bars.
+   When a background image is active on <html>, #root must be transparent
+   so the image shows through. Body overlay is applied via inline style. */
+html[data-has-bg] #root {
+  background-color: transparent;
+}
+
 /* Body overlay alpha is applied via inline style by applyBackgroundToDom in usePersonalisation */
 
 /* Heading case — when set to 'normal', strip uppercase transform from ALL elements app-wide.
@@ -148,10 +158,7 @@ html[data-nav-bold="true"] .nav-label {
   padding: 0;
 }
 
-html, body, #root {
-  height: 100%;
-  width: 100%;
-}
+/* duplicate rule removed — consolidated into the block above */
 
 body {
   background: var(--bg);
@@ -159,6 +166,8 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   overflow: hidden; /* app-level scroll managed per-screen */
+  touch-action: pan-y; /* prevent horizontal drag on iPad */
+  overscroll-behavior-x: none; /* prevent horizontal overscroll rubberbanding */
 }
 
 /* Fredoka minimum size floor — Fredoka is a display face; enforce 14px minimum

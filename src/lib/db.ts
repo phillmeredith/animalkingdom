@@ -1,10 +1,11 @@
 // db.ts — Animal Kingdom Database Schema
-// Dexie.js v4 (IndexedDB), schema version 12
+// Dexie.js v4 (IndexedDB), schema version 16
 // All tables defined in spec/foundation/ENTITY_MODEL.md
 // Never delete or rename columns — add new ones and increment version
 
 import Dexie, { type Table } from 'dexie'
 import type { LeMieuxSlot } from '@/data/lemieux'
+import { REWARD_ONLY_CATEGORIES } from '@/lib/animalTiers'
 
 // Re-export LeMieuxSlot so callers can import it from either module.
 export type { LeMieuxSlot } from '@/data/lemieux'
@@ -339,6 +340,15 @@ export interface SchleichOwned {
   ownedAt: number  // Date.now() timestamp
 }
 
+// ─── Pawtect charity types ─────────────────────────────────────────────────────
+
+/** One donation record. The lifetime total is derived by summing all rows. */
+export interface PawtectDonation {
+  id?: number
+  amount: number
+  donatedAt: Date
+}
+
 // ─── Database class ────────────────────────────────────────────────────────────
 
 export class AnimalKingdomDB extends Dexie {
@@ -360,6 +370,7 @@ export class AnimalKingdomDB extends Dexie {
   races!: Table<Race>
   ownedItems!: Table<OwnedItem>
   schleichOwned!: Table<SchleichOwned>
+  pawtectDonations!: Table<PawtectDonation>
 
   constructor() {
     super('AnimalKingdom')
@@ -541,6 +552,26 @@ export class AnimalKingdomDB extends Dexie {
       // No-op: badges table is empty; careStreak index is built automatically by Dexie.
       return Promise.resolve()
     })
+
+    // v15 — badge-source-index
+    // Adds `source` index to savedNames — required by rescue/generate badge criteria
+    // in checkBadgeEligibility() which uses db.savedNames.where('source').anyOf(...).
+    // Without this index, Dexie throws "KeyRange only allowed on indexed properties"
+    // causing all badge checks to fail silently.
+    this.version(15).stores({
+      savedNames: '++id, category, animalType, rarity, status, careStreak, source',
+    }).upgrade(() => {
+      // No-op: Dexie builds the source index automatically at upgrade time.
+      return Promise.resolve()
+    })
+
+    // v16 — pawtect-charity
+    // Adds pawtectDonations table: { id (auto), amount, donatedAt }
+    // Lifetime total is derived by summing all rows — no denormalised counter.
+    // New table — no existing data to backfill, no upgrade callback needed.
+    this.version(16).stores({
+      pawtectDonations: '++id, amount, donatedAt',
+    })
   }
 }
 
@@ -599,4 +630,68 @@ export async function ensureSkillProgress(): Promise<void> {
 /** Today's date as YYYY-MM-DD string */
 export function todayString(): string {
   return new Date().toISOString().slice(0, 10)
+}
+
+// ─── Animal economy tier migration (v1) ───────────────────────────────────────
+
+/**
+ * One-time migration: cancel any active `for_sale` listings on reward-only animals.
+ *
+ * Reward-only categories: Wild, Sea, Lost World. These animals cannot be traded
+ * under the animal-economy-tiers feature rules. If any were listed before the
+ * feature shipped, this migration returns them to `status: 'active'` and cancels
+ * their player listing record — both inside a single transaction so partial
+ * migration is not possible.
+ *
+ * The migration flag `migration_tier_v1` in localStorage ensures this runs
+ * exactly once, even if called multiple times (e.g. on every app init).
+ *
+ * Silent: no toast, no notification to the player.
+ */
+export async function runTierMigrationV1(): Promise<void> {
+  const FLAG = 'migration_tier_v1'
+  if (localStorage.getItem(FLAG)) return
+
+  const now = new Date()
+
+  try {
+    // Identify affected pets before opening the transaction
+    const affectedPets = await db.savedNames
+      .where('status')
+      .equals('for_sale')
+      .filter(pet => (REWARD_ONLY_CATEGORIES as readonly string[]).includes(pet.category))
+      .toArray()
+
+    if (affectedPets.length === 0) {
+      localStorage.setItem(FLAG, '1')
+      return
+    }
+
+    await db.transaction('rw', db.savedNames, db.playerListings, async () => {
+      for (const pet of affectedPets) {
+        // Restore pet to active
+        await db.savedNames.update(pet.id!, { status: 'active', updatedAt: now })
+
+        // Cancel any active listing for this pet
+        const listings = await db.playerListings
+          .where('petId')
+          .equals(pet.id!)
+          .filter(l => l.status === 'active')
+          .toArray()
+
+        for (const listing of listings) {
+          await db.playerListings.update(listing.id!, {
+            status: 'cancelled',
+            updatedAt: now,
+          })
+        }
+      }
+    })
+
+    localStorage.setItem(FLAG, '1')
+  } catch {
+    // Migration failure is non-fatal — log for diagnostics, but do not surface to the
+    // player. The flag is NOT set on failure so the migration will retry on next init.
+    console.error('[runTierMigrationV1] migration failed — will retry on next app start')
+  }
 }

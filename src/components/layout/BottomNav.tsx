@@ -23,10 +23,10 @@ const LAST_VISIT_KEY = 'lastVisitedPlayTab'
 const TABS: { to: string; label: string; concept?: PreviewConcept; FallbackIcon?: React.ComponentType<{ size: number; strokeWidth: number; className?: string }> }[] = [
   { to: '/',          label: 'Home',       concept: 'home'   },
   { to: '/explore',   label: 'Explore',    concept: 'search' },
-  { to: '/animals',   label: 'Animals',    concept: 'heart'  },
+  { to: '/animals',   label: 'Collection', concept: 'heart'  },
+  { to: '/schleich',  label: 'Figures',    FallbackIcon: Package },
   { to: '/play',      label: 'Play',       FallbackIcon: Gamepad2 },
   { to: '/shop',      label: 'Store',      concept: 'coins'  },
-  { to: '/schleich',  label: 'Collection', FallbackIcon: Package },
 ]
 
 export function BottomNav() {

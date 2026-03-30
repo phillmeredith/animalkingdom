@@ -3,17 +3,19 @@
 import { ChevronLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const TOTAL_STEPS = 7
-
 interface WizardHeaderProps {
   step: number
+  totalSteps?: number
   onBack: () => void
   showBack?: boolean
 }
 
-export function WizardHeader({ step, onBack, showBack = true }: WizardHeaderProps) {
+export function WizardHeader({ step, totalSteps = 7, onBack, showBack = true }: WizardHeaderProps) {
   return (
-    <div className="flex items-center justify-between px-6 py-4 shrink-0">
+    <div
+      className="flex items-center justify-between px-6 shrink-0"
+      style={{ paddingTop: 'calc(24px + env(safe-area-inset-top, 0px))', paddingBottom: '16px' }}
+    >
       {/* Back button */}
       <button
         onClick={onBack}
@@ -31,10 +33,10 @@ export function WizardHeader({ step, onBack, showBack = true }: WizardHeaderProp
       {/* Step counter + dots */}
       <div className="flex flex-col items-center gap-2">
         <span className="text-[11px] font-700 uppercase tracking-[1.5px] text-t3">
-          Step {step} of {TOTAL_STEPS}
+          Step {step} of {totalSteps}
         </span>
         <div className="flex items-center gap-1.5">
-          {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+          {Array.from({ length: totalSteps }).map((_, i) => (
             <span
               key={i}
               className={cn(

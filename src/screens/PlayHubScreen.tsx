@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Trophy, Zap, Clock, Flag, Mountain, Crown,
-  Coins, Disc, Leaf, Microscope, Globe, Settings,
+  Coins, Disc, Leaf, Microscope, Globe, Settings, Sparkles,
 } from 'lucide-react'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { CoinDisplay } from '@/components/ui/CoinDisplay'
@@ -701,6 +701,13 @@ export function PlayHubScreen() {
         trailing={
           <div className="flex items-center gap-2">
             <CoinDisplay amount={coins} />
+            <button
+              onClick={() => navigate('/generate')}
+              className="w-9 h-9 flex items-center justify-center rounded-full text-[var(--blue-t)] bg-[var(--blue-sub)] hover:bg-[var(--blue)] hover:text-white transition-all"
+              aria-label="Generate new animal"
+            >
+              <Sparkles size={16} strokeWidth={2} />
+            </button>
             <button
               onClick={() => navigate('/settings')}
               className="w-9 h-9 flex items-center justify-center rounded-full text-t3 hover:text-t1 hover:bg-white/[.06] transition-all"

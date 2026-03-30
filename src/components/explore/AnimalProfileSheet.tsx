@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import { MapPin, ShoppingBag } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 import { BottomSheet } from '@/components/ui/Modal'
 import { Button } from '@/components/ui/Button'
 import { AnimalImage } from '@/components/ui/AnimalImage'
@@ -95,21 +95,31 @@ export function AnimalProfileSheet({ animal, onClose, onViewMore }: AnimalProfil
     onClose()
   }
 
+  // Same mapping as AnimalDetailContent — broad catalog types don't exist in the wizard
+  const CATALOG_TYPE_TO_WIZARD_CATEGORY: Record<string, string> = {
+    'Wild Animal':    'Wild',
+    'Pet':            'At Home',
+    'Marine Animal':  'Sea',
+    'Marine Reptile': 'Sea',
+    'Farm Animal':    'Farm',
+    'Bird':           'Wild',
+  }
+
   function handleGenerate() {
     if (!animal) return
     onClose()
-    navigate(`/generate?type=${encodeURIComponent(animal.animalType)}&breed=${encodeURIComponent(animal.breed)}`)
+    const wizardCategory = CATALOG_TYPE_TO_WIZARD_CATEGORY[animal.animalType] ?? animal.category
+    const params = new URLSearchParams({
+      name: animal.name,
+      animalType: animal.animalType,
+      category: wizardCategory,
+      breed: animal.breed,
+      ...(animal.imageUrl ? { imageUrl: animal.imageUrl } : {}),
+    })
+    navigate(`/adopt?${params.toString()}`)
   }
 
-  function handleMarketplace() {
-    onClose()
-    navigate('/shop')
-  }
 
-  const isGated =
-    animal?.rarity === 'rare' ||
-    animal?.rarity === 'epic' ||
-    animal?.rarity === 'legendary'
 
   return (
     <BottomSheet isOpen={!!animal} onClose={onClose}>
@@ -201,31 +211,14 @@ export function AnimalProfileSheet({ animal, onClose, onViewMore }: AnimalProfil
 
             {/* Generate / Marketplace CTA */}
             <div className="mt-8">
-              {isGated ? (
-                <>
-                  <Button
-                    variant="accent"
-                    size="md"
-                    className="w-full"
-                    icon={<ShoppingBag size={16} />}
-                    onClick={handleMarketplace}
-                  >
-                    Find in Marketplace
-                  </Button>
-                  <p className="text-[12px] text-[var(--t3)] text-center mt-2">
-                    Common &amp; Uncommon only · Rare and above from marketplace
-                  </p>
-                </>
-              ) : (
-                <Button
-                  variant="accent"
-                  size="lg"
-                  className="w-full"
-                  onClick={handleGenerate}
-                >
-                  Generate this animal
-                </Button>
-              )}
+              <Button
+                variant="accent"
+                size="lg"
+                className="w-full"
+                onClick={handleGenerate}
+              >
+                Adopt {animal.name}
+              </Button>
             </div>
           </div>
         </div>

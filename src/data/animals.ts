@@ -1359,11 +1359,26 @@ export async function enrichAnimalWithEncyclopedia(animal: AnimalEntry): Promise
   // ignored here — the detail view renders fine with missing wiki fields.
   await loadEncyclopedia().catch(() => undefined)
 
-  const enc = getEncyclopediaEntry(animal.name)
+  // Try the exact name first, then progressively strip leading words.
+  // e.g. "African Elephant" → "Elephant", "Common Bottlenose Dolphin" → "Dolphin"
+  // This handles catalog names that are more specific than the encyclopedia entry.
+  function findEntry(name: string) {
+    const words = name.split(' ')
+    for (let i = 0; i < words.length; i++) {
+      const candidate = words.slice(i).join(' ')
+      const entry = getEncyclopediaEntry(candidate)
+      if (entry?.description) return entry
+    }
+    return null
+  }
+
+  const enc = findEntry(animal.name)
   if (!enc) return animal
-  if (animal.wikiDescription === undefined) animal.wikiDescription = enc.description
-  if (animal.wikiThumbnail === undefined) animal.wikiThumbnail = enc.thumbnail
-  if (animal.wikiUrl === undefined) animal.wikiUrl = enc.wikiUrl
+  // Use loose null check — a previous failed enrichment may have set these to null.
+  // Always overwrite null/undefined with a real value if we now have one.
+  if (animal.wikiDescription == null) animal.wikiDescription = enc.description
+  if (animal.wikiThumbnail == null) animal.wikiThumbnail = enc.thumbnail
+  if (animal.wikiUrl == null) animal.wikiUrl = enc.wikiUrl
   return animal
 }
 

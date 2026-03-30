@@ -10,6 +10,10 @@ interface OptionCardProps {
   imageUrl?: string
   label: string
   description?: string
+  /** Tier sub-label pill shown below the label (Step 1 category cards only).
+   *  'tradeable' → green tint-pair; 'reward-only' → amber tint-pair.
+   *  Non-interactive — purely informational. */
+  tierPill?: 'tradeable' | 'reward-only'
   selected?: boolean
   colorHex?: string   // for colour swatches
   onClick: () => void
@@ -21,6 +25,7 @@ export function OptionCard({
   imageUrl,
   label,
   description,
+  tierPill,
   selected = false,
   colorHex,
   onClick,
@@ -66,6 +71,24 @@ export function OptionCard({
       <span className={cn('text-[13px] font-600 leading-tight', selected ? 'text-t1' : 'text-t1')}>
         {label}
       </span>
+
+      {/* Tier sub-label pill (Step 1 category cards) — non-interactive, informational only */}
+      {tierPill === 'tradeable' && (
+        <span
+          className="inline-flex items-center rounded-pill bg-[var(--green-sub)] text-[var(--green-t)] text-[10px] font-semibold leading-none pointer-events-none"
+          style={{ padding: '2px 6px' }}
+        >
+          Tradeable
+        </span>
+      )}
+      {tierPill === 'reward-only' && (
+        <span
+          className="inline-flex items-center rounded-pill bg-[var(--amber-sub)] text-[var(--amber-t)] text-[10px] font-semibold leading-none pointer-events-none"
+          style={{ padding: '2px 6px' }}
+        >
+          Reward-only
+        </span>
+      )}
 
       {/* Description */}
       {description && (

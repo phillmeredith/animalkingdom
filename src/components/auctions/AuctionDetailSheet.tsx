@@ -17,7 +17,7 @@
 // - Inline red error for insufficient coins — NOT a toast (spec section 7)
 // - Stepper: no freeform input, min 44×44px touch target on [+] and [−]
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   ChevronLeft, AlertCircle, Coins, Loader2
 } from 'lucide-react'
@@ -27,6 +27,7 @@ import { Button } from '@/components/ui/Button'
 import { AnimalImage } from '@/components/ui/AnimalImage'
 import { RarityBadge } from '@/components/ui/Badge'
 import { useToast } from '@/components/ui/Toast'
+import { BidRetractModal } from './BidRetractModal'
 import { cn } from '@/lib/utils'
 import type { AuctionItem, AuctionBid } from '@/lib/db'
 
@@ -502,6 +503,8 @@ function BuyNowConfirmState({ auction, coins, onBack, onConfirm }: BuyNowConfirm
 interface DetailViewProps {
   auction: AuctionItem
   playerBid: number | null
+  /** The actual active bid record (if Harry has one) — needed for bid retract. */
+  activeBidRecord: (AuctionBid & { id: number }) | null
   isOutbid: boolean
   coins: number
   bids: AuctionBid[]
@@ -510,11 +513,15 @@ interface DetailViewProps {
   onBuyNow: () => void
   onExpired: () => void
   onNavigateToAnimals: () => void
+  onWithdrawBid: () => void
+  /** Ref attached to the "Withdraw my bid" button — for focus restoration after modal close. */
+  withdrawBidBtnRef?: React.RefObject<HTMLButtonElement>
 }
 
 function DetailView({
   auction,
   playerBid,
+  activeBidRecord,
   isOutbid,
   coins,
   bids,
@@ -523,6 +530,8 @@ function DetailView({
   onBuyNow,
   onExpired,
   onNavigateToAnimals,
+  onWithdrawBid,
+  withdrawBidBtnRef,
 }: DetailViewProps) {
   const isActive = auction.status === 'active'
   const isWon = auction.status === 'won'
@@ -685,6 +694,32 @@ function DetailView({
               Buy now for {auction.buyNow.toLocaleString()} coins
             </Button>
           )}
+
+          {/* "Withdraw my bid" text link — auction-retract feature.
+              Only shown when Harry has an active bid AND the auction is not closed.
+              Absent from DOM (not just hidden) when no bid or auction is closed. */}
+          {activeBidRecord != null && (
+            <div className="flex justify-center">
+              <button
+                ref={withdrawBidBtnRef}
+                onClick={onWithdrawBid}
+                // 44px min touch target — padding extends hit area vertically
+                className={cn(
+                  'text-[13px] font-normal py-3 px-2',
+                  'transition-colors duration-150',
+                  'hover:underline hover:text-[var(--t1)]',
+                  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--blue)] focus-visible:outline-offset-2',
+                  'active:opacity-70',
+                )}
+                style={{
+                  color: 'var(--t3)',
+                  textUnderlineOffset: '2px',
+                }}
+              >
+                Withdraw my bid
+              </button>
+            </div>
+          )}
         </div>
       )}
 
@@ -741,37 +776,56 @@ export function AuctionDetailSheet({
   // Sheet-close mid-bid (Flow 6): view state resets to 'detail' on every open
   // so the stepper does not persist between opens.
   const [view, setView] = useState<SheetView>('detail')
+  const [bidRetractOpen, setBidRetractOpen] = useState(false)
   const { toast } = useToast()
+  // withdrawBidBtnRef — focus returns here after the retract modal closes (WCAG 2.1 AA)
+  const withdrawBidBtnRef = useRef<HTMLButtonElement>(null)
 
   // Reset view to 'detail' whenever the sheet opens (spec Flow 6)
   useEffect(() => {
     if (isOpen) setView('detail')
   }, [isOpen])
 
+  // Close retract modal when the sheet closes
+  useEffect(() => {
+    if (!isOpen) setBidRetractOpen(false)
+  }, [isOpen])
+
   const isReadOnly = auction?.status === 'won'
+
+  // Find the active player bid record from the bids array.
+  // This is the bid record needed by BidRetractModal (needs id + amount).
+  // Only computed when the sheet is open and an auction is selected.
+  const activeBidRecord = (auction?.id != null && bids.length > 0)
+    ? (bids.find(b => b.bidder === 'player' && b.bidStatus === 'active' && b.id != null) as (AuctionBid & { id: number }) | undefined ?? null)
+    : null
 
   if (!auction) return null
 
   return (
-    <BottomSheet
-      isOpen={isOpen}
-      onClose={onClose}
-      maxHeight="90vh"
-    >
-      {view === 'detail' && (
-        <DetailView
-          auction={auction}
-          playerBid={playerBid}
-          isOutbid={isOutbid}
-          coins={coins}
-          bids={bids}
-          isReadOnly={isReadOnly ?? false}
-          onPlaceBid={() => setView('bid-confirm')}
-          onBuyNow={() => setView('buynow-confirm')}
-          onExpired={onAuctionExpired}
-          onNavigateToAnimals={onNavigateToAnimals}
-        />
-      )}
+    <>
+      <BottomSheet
+        isOpen={isOpen}
+        onClose={onClose}
+        maxHeight="90vh"
+      >
+        {view === 'detail' && (
+          <DetailView
+            auction={auction}
+            playerBid={playerBid}
+            activeBidRecord={activeBidRecord}
+            isOutbid={isOutbid}
+            coins={coins}
+            bids={bids}
+            isReadOnly={isReadOnly ?? false}
+            onPlaceBid={() => setView('bid-confirm')}
+            onBuyNow={() => setView('buynow-confirm')}
+            onExpired={onAuctionExpired}
+            onNavigateToAnimals={onNavigateToAnimals}
+            onWithdrawBid={() => setBidRetractOpen(true)}
+            withdrawBidBtnRef={withdrawBidBtnRef}
+          />
+        )}
 
       {view === 'bid-confirm' && (
         <BidConfirmState
@@ -788,18 +842,39 @@ export function AuctionDetailSheet({
         />
       )}
 
-      {view === 'buynow-confirm' && auction.buyNow != null && (
-        <BuyNowConfirmState
-          auction={auction}
-          coins={coins}
-          onBack={() => setView('detail')}
-          onConfirm={async () => {
-            await onBuyNow()
-            setView('detail')
-            onClose()
+        {view === 'buynow-confirm' && auction.buyNow != null && (
+          <BuyNowConfirmState
+            auction={auction}
+            coins={coins}
+            onBack={() => setView('detail')}
+            onConfirm={async () => {
+              await onBuyNow()
+              setView('detail')
+              onClose()
+            }}
+          />
+        )}
+      </BottomSheet>
+
+      {/* auction-retract: BidRetractModal — portalled to body via Modal component.
+          Only rendered when Harry has an active bid and the auction is open. */}
+      {activeBidRecord != null && auction.id != null && (
+        <BidRetractModal
+          auction={auction as AuctionItem & { id: number }}
+          bid={activeBidRecord}
+          isOpen={bidRetractOpen}
+          onClose={() => {
+            setBidRetractOpen(false)
+            setTimeout(() => withdrawBidBtnRef.current?.focus(), 50)
           }}
+          onSuccess={() => {
+            setBidRetractOpen(false)
+            // The BottomSheet's live data (bids, playerBid) will update reactively
+            // via useLiveQuery in AuctionHubScreen — no manual refresh needed
+          }}
+          triggerRef={withdrawBidBtnRef as React.RefObject<HTMLElement>}
         />
       )}
-    </BottomSheet>
+    </>
   )
 }

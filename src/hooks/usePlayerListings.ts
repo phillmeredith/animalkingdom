@@ -454,6 +454,49 @@ export function usePlayerListings() {
     }
   }
 
+  // ── retractListing ────────────────────────────────────────────────────────
+  //
+  // Canonical entry point for the auction-retract feature (ListingRetractModal).
+  // Differs from cancelListing in two ways:
+  //   1. Does NOT fire a success toast — the calling modal fires its own.
+  //   2. Returns { success: true } so the modal can close and fire its toast.
+  //
+  // Transaction integrity:
+  //   playerListings.update(status:'cancelled') + savedNames.update(status:'active')
+  //   + npcBuyerOffers.update(status:'declined') are all inside ONE db.transaction().
+  //   Partial state (listing cancelled but pet still 'for_sale') is not possible.
+  //
+  // Error handling: toast type:'error' + rethrow so the modal stays open and
+  // re-enables its buttons (TRANS-3).
+
+  async function retractListing(listingId: number, _petId: number): Promise<{ success: true }> {
+    try {
+      const listing = await db.playerListings.get(listingId)
+      if (!listing) throw new Error('Listing not found.')
+
+      const now = new Date()
+
+      await db.transaction('rw', db.playerListings, db.savedNames, db.npcBuyerOffers, async () => {
+        await db.playerListings.update(listingId, { status: 'cancelled', updatedAt: now })
+        await db.savedNames.update(listing.petId, { status: 'active', updatedAt: now })
+
+        // Auto-decline all pending NPC offers on this listing
+        const pendingOffers = await db.npcBuyerOffers
+          .where('listingId').equals(listingId)
+          .filter(o => o.status === 'pending')
+          .toArray()
+        for (const offer of pendingOffers) {
+          await db.npcBuyerOffers.update(offer.id!, { status: 'declined', updatedAt: now })
+        }
+      })
+
+      return { success: true }
+    } catch (err) {
+      toast({ type: 'error', title: 'Could not cancel — please try again.' })
+      throw err
+    }
+  }
+
   // ── completeSale ──────────────────────────────────────────────────────────
   //
   // Transaction integrity (CLAUDE.md — spend-before-write):
@@ -602,6 +645,7 @@ export function usePlayerListings() {
     // Actions
     listPet,
     cancelListing,
+    retractListing,
     completeSale,
     declineNpcOffer,
 

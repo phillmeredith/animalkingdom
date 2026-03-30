@@ -1,19 +1,25 @@
 // HomeScreen — the daily anchor of Animal Kingdom
 // Phase C build per spec/features/home-screen/
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
-import { Settings } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Settings, Sparkles, CheckCircle2 } from 'lucide-react'
+import { useLiveQuery } from 'dexie-react-hooks'
 import { CoinDisplay } from '@/components/ui/CoinDisplay'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { DailyBonusCard } from '@/components/home/DailyBonusCard'
+import { PawtectCard } from '@/components/home/PawtectCard'
+import { DonationSheet } from '@/components/home/DonationSheet'
 import { HomeStatCards } from '@/components/home/HomeStatCards'
 import { FeaturedPetCard } from '@/components/home/FeaturedPetCard'
+import { PetDetailSheet } from '@/components/my-animals/PetDetailSheet'
 import { useWallet } from '@/hooks/useWallet'
 import { useSavedNames } from '@/hooks/useSavedNames'
 import { useProgress } from '@/hooks/useProgress'
 import { usePersonalisation } from '@/hooks/usePersonalisation'
+import { db, todayString } from '@/lib/db'
+import type { SavedName } from '@/lib/db'
 
 type BonusResult = { awarded: boolean; amount: number; streak: number }
 
@@ -34,8 +40,31 @@ export function HomeScreen() {
 
   const [bonusResult, setBonusResult] = useState<BonusResult | null>(null)
   const [bonusChecked, setBonusChecked] = useState(false)
+  const [selectedPet, setSelectedPet] = useState<SavedName | null>(null)
+  const [donationSheetOpen, setDonationSheetOpen] = useState(false)
+  const donateButtonRef = useRef<HTMLButtonElement>(null)
 
-  // Reactive readiness: hooks return defaults during init
+  // Load today's care logs across all pets in one query
+  const todayLogs = useLiveQuery(
+    () => db.careLog.toArray().then(logs => logs.filter(l => l.date === todayString())),
+    [],
+    [],
+  )
+
+  // Compute which petIds have all 3 care actions done today
+  const fullyCaredPetIds = useMemo(() => {
+    const byPet = new Map<number, Set<string>>()
+    for (const log of todayLogs) {
+      if (!byPet.has(log.petId)) byPet.set(log.petId, new Set())
+      byPet.get(log.petId)!.add(log.action)
+    }
+    const done = new Set<number>()
+    for (const [id, actions] of byPet) {
+      if (['feed', 'clean', 'play'].every(a => actions.has(a))) done.add(id)
+    }
+    return done
+  }, [todayLogs])
+
   const loading = !bonusChecked
 
   useEffect(() => {
@@ -56,16 +85,24 @@ export function HomeScreen() {
     return () => { cancelled = true }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const featuredPet = pets.length > 0 ? pets[0] : null
+  // Only show pets that still need care today
+  const petsNeedingCare = pets.filter(p => p.id != null && !fullyCaredPetIds.has(p.id!))
+  const allCaredFor = pets.length > 0 && petsNeedingCare.length === 0
 
   return (
-    // relative: required to contain the position:absolute background layer
     <div className="relative flex flex-col h-full bg-[var(--bg)] overflow-y-auto">
       <PageHeader
         title={greeting(playerName)}
         trailing={
           <div className="flex items-center gap-2">
             <CoinDisplay amount={coins} />
+            <button
+              onClick={() => navigate('/generate')}
+              className="w-9 h-9 flex items-center justify-center rounded-full text-[var(--blue-t)] bg-[var(--blue-sub)] hover:bg-[var(--blue)] hover:text-white transition-all"
+              aria-label="Generate new animal"
+            >
+              <Sparkles size={16} strokeWidth={2} />
+            </button>
             <button
               onClick={() => navigate('/settings')}
               className="w-9 h-9 flex items-center justify-center rounded-full text-t3 hover:text-t1 hover:bg-white/[.06] transition-all"
@@ -89,6 +126,12 @@ export function HomeScreen() {
           )}
         </AnimatePresence>
 
+        {/* Pawtect charity card — always visible */}
+        <PawtectCard
+          onDonate={() => setDonationSheetOpen(true)}
+          triggerRef={donateButtonRef}
+        />
+
         {/* Stats */}
         <HomeStatCards
           petCount={petCount}
@@ -97,9 +140,76 @@ export function HomeScreen() {
           loading={loading}
         />
 
-        {/* Featured pet */}
-        <FeaturedPetCard pet={featuredPet} loading={loading} />
+        {/* Care section */}
+        {loading ? (
+          <FeaturedPetCard pet={null} loading={true} />
+        ) : pets.length === 0 ? (
+          <FeaturedPetCard pet={null} loading={false} />
+        ) : (
+          <>
+            <AnimatePresence mode="popLayout">
+              {/* Section heading — only visible while any pet needs care */}
+              {petsNeedingCare.length > 0 && (
+                <motion.p
+                  key="care-heading"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-[11px] font-700 uppercase tracking-widest text-[var(--t3)] mb-3"
+                >
+                  Needs care today
+                </motion.p>
+              )}
+
+              {/* One card per pet that still needs care — exits when care is complete */}
+              {petsNeedingCare.map(pet => (
+                <motion.div
+                  key={pet.id}
+                  layout
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.25 } }}
+                >
+                  <FeaturedPetCard
+                    pet={pet}
+                    loading={false}
+                    onOpenDetail={() => setSelectedPet(pet)}
+                  />
+                </motion.div>
+              ))}
+
+              {/* All cared for — confirmation message */}
+              {allCaredFor && (
+                <motion.div
+                  key="all-done"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 py-4 text-[13px] font-600 text-[var(--green-t)]"
+                >
+                  <CheckCircle2 size={16} style={{ color: 'var(--green)' }} />
+                  All animals cared for today — check back tomorrow!
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
+        )}
       </div>
+
+      {/* Pet detail sheet — opened from any pet card */}
+      <PetDetailSheet
+        pet={selectedPet}
+        open={selectedPet !== null}
+        onClose={() => setSelectedPet(null)}
+        onRenamed={() => setSelectedPet(null)}
+        onReleased={() => setSelectedPet(null)}
+      />
+
+      {/* Pawtect donation sheet — portalled to body */}
+      <DonationSheet
+        open={donationSheetOpen}
+        onClose={() => setDonationSheetOpen(false)}
+        triggerRef={donateButtonRef}
+      />
     </div>
   )
 }

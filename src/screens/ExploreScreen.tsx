@@ -18,7 +18,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useVirtualizer } from '@tanstack/react-virtual'
-import { Search, Settings, Volume2 } from 'lucide-react'
+import { Search, Settings, Sparkles, Volume2 } from 'lucide-react'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { SearchBar } from '@/components/ui/SearchBar'
 import { CategoryPills } from '@/components/explore/CategoryPills'
@@ -178,9 +178,12 @@ function AnimalVirtualGrid({
   )
 }
 
+type ExploreDomain = 'animals' | 'dinosaurs'
+
 export function ExploreScreen() {
   const navigate = useNavigate()
   const { coins } = useWallet()
+  const [exploreDomain, setExploreDomain] = useState<ExploreDomain>('animals')
   const {
     query,
     activeCategory,
@@ -218,24 +221,39 @@ export function ExploreScreen() {
     scrollToIndex: (index: number, opts?: { align?: 'start' }) => void
   } | null>(null)
 
+  // Domain-scoped list: Animals tab excludes Lost World; Dinosaurs tab is Lost World only.
+  // Post-filtering filteredAnimals keeps useExploreFilter's multi-filter logic intact.
+  const domainAnimals = useMemo(() => {
+    return exploreDomain === 'animals'
+      ? filteredAnimals.filter(a => a.category !== 'Lost World')
+      : filteredAnimals.filter(a => a.category === 'Lost World')
+  }, [filteredAnimals, exploreDomain])
+
+  function handleDomainSwitch(domain: ExploreDomain) {
+    setExploreDomain(domain)
+    // Reset category — 'Lost World' is not shown on Animals tab, and there's no
+    // sub-category filtering on Dinosaurs tab, so always reset to 'All'.
+    setActiveCategory('All')
+  }
+
   // Track the index of the first animal for each letter (for AZ rail scrolling).
   // The virtualiser maps animal index → row index by dividing by colCount.
   // Since colCount is only known inside AnimalVirtualGrid we use animal index here
   // and let handleLetterPress derive the row index at call time via the same formula.
   const letterFirstIndex = useMemo(() => {
     const map = new Map<string, number>()
-    filteredAnimals.forEach((animal, i) => {
+    domainAnimals.forEach((animal, i) => {
       const letter = animal.name[0].toUpperCase()
       if (!map.has(letter)) map.set(letter, i)
     })
     return map
-  }, [filteredAnimals])
+  }, [domainAnimals])
 
   const availableLetters = useMemo(() => {
     const letters = new Set<string>()
-    filteredAnimals.forEach(a => letters.add(a.name[0].toUpperCase()))
+    domainAnimals.forEach(a => letters.add(a.name[0].toUpperCase()))
     return letters
-  }, [filteredAnimals])
+  }, [domainAnimals])
 
   // EAD-3: Called by AnimalProfileSheet when "Learn More" is tapped.
   // The sheet clears its own timer before calling this. We capture the animal reference
@@ -275,6 +293,13 @@ export function ExploreScreen() {
             <div className="flex items-center gap-2">
               <CoinDisplay amount={coins} />
               <button
+                onClick={() => navigate('/generate')}
+                className="w-9 h-9 flex items-center justify-center rounded-full text-[var(--blue-t)] bg-[var(--blue-sub)] hover:bg-[var(--blue)] hover:text-white transition-all"
+                aria-label="Generate new animal"
+              >
+                <Sparkles size={16} strokeWidth={2} />
+              </button>
+              <button
                 onClick={() => navigate('/settings')}
                 className="w-9 h-9 flex items-center justify-center rounded-full text-t3 hover:text-t1 hover:bg-white/[.06] transition-all"
                 aria-label="Settings"
@@ -283,49 +308,102 @@ export function ExploreScreen() {
               </button>
             </div>
           }
+          centre={
+            // Domain switcher — Animals | Dinosaurs
+            <div
+              style={{
+                display: 'inline-flex',
+                background: 'var(--card)',
+                border: '1px solid var(--border-s)',
+                borderRadius: 100,
+                padding: 4,
+              }}
+            >
+              {(['animals', 'dinosaurs'] as const).map(domain => (
+                <button
+                  key={domain}
+                  onClick={() => handleDomainSwitch(domain)}
+                  style={{
+                    borderRadius: 100,
+                    padding: '6px 14px',
+                    fontWeight: 600,
+                    fontSize: 13,
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'background 150ms, color 150ms',
+                    ...(exploreDomain === domain
+                      ? { background: 'var(--elev)', color: 'var(--t1)' }
+                      : { background: 'transparent', color: 'var(--t3)' }),
+                  }}
+                >
+                  {domain === 'animals' ? 'Animals' : 'Dinosaurs'}
+                </button>
+              ))}
+            </div>
+          }
           below={
             <>
               <SearchBar
                 value={query}
                 onChange={setQuery}
-                placeholder="Search animals…"
+                placeholder={exploreDomain === 'animals' ? 'Search animals…' : 'Search dinosaurs…'}
               />
-              {/*
-                Filter row: CategoryPills left (flex-1 min-w-0, scrollable within its wrapper)
-                + RarityPills right (ml-auto shrink-0, fixed to the right edge, does not scroll).
-                The outer row is overflow-x-auto so at 375px the user can scroll horizontally
-                to reach the rarity group — matching the My Animals sort-control pattern.
-                Per spec: -mx-6 px-6 bleeds to the screen edges.
-              */}
-              <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-6 px-6">
-                <div className="flex-1 min-w-0">
-                  <CategoryPills active={activeCategory} onSelect={setActiveCategory} />
+              {exploreDomain === 'animals' ? (
+                // Animals tab: full filter row, excluding Lost World (those are in Dinosaurs tab)
+                <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-6 px-6">
+                  <div className="flex-1 min-w-0">
+                    <CategoryPills
+                      active={activeCategory}
+                      onSelect={setActiveCategory}
+                      exclude={['Lost World']}
+                    />
+                  </div>
+                  <RarityPills active={activeRarity} onSelect={setActiveRarity} />
+                  <button
+                    onClick={() => setHasSoundOnly(!hasSoundOnly)}
+                    aria-pressed={hasSoundOnly}
+                    aria-label="Show only animals with sounds"
+                    className={[
+                      'h-9 px-3 rounded-pill flex items-center gap-1.5 shrink-0 border text-[13px] font-semibold whitespace-nowrap transition-colors duration-150',
+                      hasSoundOnly
+                        ? 'bg-[var(--blue-sub)] border-[var(--blue)] text-[var(--blue-t)]'
+                        : 'bg-[var(--card)] border-[var(--border-s)] text-[var(--t2)]',
+                    ].join(' ')}
+                  >
+                    <Volume2 size={14} strokeWidth={2} aria-hidden="true" />
+                    Sound
+                  </button>
                 </div>
-                <RarityPills active={activeRarity} onSelect={setActiveRarity} />
-                {/* Has-sound toggle pill */}
-                <button
-                  onClick={() => setHasSoundOnly(!hasSoundOnly)}
-                  aria-pressed={hasSoundOnly}
-                  aria-label="Show only animals with sounds"
-                  className={[
-                    'h-9 px-3 rounded-pill flex items-center gap-1.5 shrink-0 border text-[13px] font-semibold whitespace-nowrap transition-colors duration-150',
-                    hasSoundOnly
-                      ? 'bg-[var(--blue-sub)] border-[var(--blue)] text-[var(--blue-t)]'
-                      : 'bg-[var(--card)] border-[var(--border-s)] text-[var(--t2)]',
-                  ].join(' ')}
-                >
-                  <Volume2 size={14} strokeWidth={2} aria-hidden="true" />
-                  Sound
-                </button>
-              </div>
+              ) : (
+                // Dinosaurs tab: rarity filter only (all are Lost World, no category sub-filter needed)
+                <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-6 px-6">
+                  <RarityPills active={activeRarity} onSelect={setActiveRarity} />
+                  <button
+                    onClick={() => setHasSoundOnly(!hasSoundOnly)}
+                    aria-pressed={hasSoundOnly}
+                    aria-label="Show only dinosaurs with sounds"
+                    className={[
+                      'h-9 px-3 rounded-pill flex items-center gap-1.5 shrink-0 border text-[13px] font-semibold whitespace-nowrap transition-colors duration-150',
+                      hasSoundOnly
+                        ? 'bg-[var(--blue-sub)] border-[var(--blue)] text-[var(--blue-t)]'
+                        : 'bg-[var(--card)] border-[var(--border-s)] text-[var(--t2)]',
+                    ].join(' ')}
+                  >
+                    <Volume2 size={14} strokeWidth={2} aria-hidden="true" />
+                    Sound
+                  </button>
+                </div>
+              )}
             </>
           }
         />
 
-        {filteredAnimals.length === 0 ? (
+        {domainAnimals.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 gap-3 px-6">
             <Search size={48} className="text-t3" />
-            <p className="text-[17px] font-600 text-t1">No animals found</p>
+            <p className="text-[17px] font-600 text-t1">
+              {exploreDomain === 'animals' ? 'No animals found' : 'No dinosaurs found'}
+            </p>
             <p className="text-[14px] text-t2">Try a different search or clear filters</p>
             <Button
               variant="outline"
@@ -338,7 +416,7 @@ export function ExploreScreen() {
         ) : (
           <div className="px-6 pt-4 pb-24">
             <AnimalVirtualGrid
-              items={filteredAnimals}
+              items={domainAnimals}
               letterFirstIndex={letterFirstIndex}
               onCardTap={setSelectedAnimal}
               scrollRef={scrollContainerRef}
