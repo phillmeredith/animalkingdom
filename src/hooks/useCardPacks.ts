@@ -6,6 +6,7 @@ import { db, todayString } from '@/lib/db'
 import { useWallet } from '@/hooks/useWallet'
 import { ANIMALS } from '@/data/animals'
 import type { CardStats, CollectedCard, Rarity } from '@/lib/db'
+import { enrichCardFromCatalogue } from '@/lib/cardCatalogue'
 
 export interface PackDef {
   id: string
@@ -164,7 +165,12 @@ export function useCardPacks() {
                 updatedAt: new Date(),
               })
             } else {
-              await db.collectedCards.add({
+              // Build the base record with progression defaults, then enrich with
+              // catalogue data (coordinates, biome, vocab, facts, etc.) from the
+              // 200-card static dataset. If no catalogue match, card is stored
+              // without catalogue fields — they remain undefined and are handled
+              // gracefully by game hooks.
+              const baseCard: CollectedCard = {
                 animalType: animal.animalType,
                 breed: animal.breed,
                 name: animal.name,
@@ -175,7 +181,19 @@ export function useCardPacks() {
                 updatedAt: new Date(),
                 stats: rollStats(rarity),
                 description: generateDescription(rarity, animal.breed, animal.animalType),
-              })
+                // v17 progression defaults
+                level: 1,
+                xp: 0,
+                yearLevel: 1,
+                gameHistory: {
+                  wordSafari: 0,
+                  coinRush: 0,
+                  habitatBuilder: 0,
+                  worldQuest: 0,
+                },
+                habitatBuilderState: null,
+              }
+              await db.collectedCards.add(enrichCardFromCatalogue(baseCard))
             }
 
             openedCards.push({ ...animal, rarity, isNew })

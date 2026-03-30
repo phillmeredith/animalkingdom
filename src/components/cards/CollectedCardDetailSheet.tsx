@@ -7,17 +7,96 @@
 //   └── Inner container: max-w-xl mx-auto w-full px-6 pt-2 pb-10
 //       ├── Section 1 — Hero (image, name row, subtitle)
 //       ├── Section 2 — Stats block (5 labelled progress bars)
+//       ├── Section 2b — Card progression (Story 10: level + XP bar)
+//       ├── Section 2c — Game history (Story 10: 4 game rows)
 //       ├── Section 3 — Duplicates pill (conditional — only when duplicateCount > 0)
 //       ├── Section 4 — Description (flavour text)
 //       └── Section 5 — Ability (conditional — only when ability is non-empty)
 //
 // No action buttons. No footer. View-only per spec.
 
-import { Zap } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { Zap, Coins, Leaf, Microscope, Globe } from 'lucide-react'
 import { BottomSheet } from '@/components/ui/Modal'
 import { RarityBadge } from '@/components/ui/Badge'
 import { AnimalImage } from '@/components/ui/AnimalImage'
 import type { CollectedCard, CardStats, Rarity } from '@/lib/db'
+
+// ─── XP threshold (Owner decision: XP per level = 50 × level number) ──────────
+
+function xpThreshold(level: number): number {
+  return 50 * level
+}
+
+// ─── Level pill (tint-pair by level range) ────────────────────────────────────
+//
+// Lv 1–3: neutral (var(--card) bg, var(--border-s) border, var(--t3) text)
+// Lv 4–6: green tint-pair
+// Lv 7–10: amber tint-pair
+// Never solid fill + white text — tint-pair only.
+
+function LevelPillSmall({ level }: { level: number }) {
+  const bg     = level <= 3 ? 'var(--card)'      : level <= 6 ? 'var(--green-sub)' : 'var(--amber-sub)'
+  const border = level <= 3 ? 'var(--border-s)'  : level <= 6 ? 'var(--green)'    : 'var(--amber)'
+  const color  = level <= 3 ? 'var(--t3)'        : level <= 6 ? 'var(--green-t)'  : 'var(--amber-t)'
+  return (
+    <span
+      className="inline-flex items-center px-2 py-0.5 rounded-pill text-[11px] font-700"
+      style={{ background: bg, border: `1px solid ${border}`, color }}
+    >
+      Lv {level}
+    </span>
+  )
+}
+
+// ─── Game history row data ─────────────────────────────────────────────────────
+//
+// Game accent colours from the game DEFS in PlayHubScreen (canonical reference).
+// Using DS tokens only — no hardcoded hex.
+
+interface GameHistoryRowDef {
+  key: keyof CollectedCard['gameHistory']
+  label: string
+  icon: ReactNode
+  accentSub: string
+  accent: string
+  accentText: string
+}
+
+const GAME_HISTORY_ROWS: GameHistoryRowDef[] = [
+  {
+    key:       'coinRush',
+    label:     'Coin Rush',
+    icon:      <Coins size={16} />,
+    accentSub: 'var(--amber-sub)',
+    accent:    'var(--amber)',
+    accentText:'var(--amber-t)',
+  },
+  {
+    key:       'wordSafari',
+    label:     'Word Safari',
+    icon:      <Leaf size={16} />,
+    accentSub: 'var(--green-sub)',
+    accent:    'var(--green)',
+    accentText:'var(--green-t)',
+  },
+  {
+    key:       'habitatBuilder',
+    label:     'Habitat Builder',
+    icon:      <Microscope size={16} />,
+    accentSub: 'var(--blue-sub)',
+    accent:    'var(--blue)',
+    accentText:'var(--blue-t)',
+  },
+  {
+    key:       'worldQuest',
+    label:     'World Quest',
+    icon:      <Globe size={16} />,
+    accentSub: 'var(--purple-sub)',
+    accent:    'var(--purple)',
+    accentText:'var(--purple-t)',
+  },
+]
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -189,6 +268,130 @@ function SheetBody({ card }: { card: CollectedCard }) {
             isLast={index === STAT_ROWS.length - 1}
           />
         ))}
+      </div>
+
+      {/* ── Section 2b — Card progression ───────────────────────────────── */}
+      {/*
+        Inserted between Stats and Duplicates per Story 10 spec.
+        Level bar: "Level N" left, "xp / threshold XP" right.
+        Progress bar: var(--blue) fill, 8px height, rounded-full.
+        Level badge: tint-pair by level range — never solid fill + white.
+      */}
+      <div style={{ marginTop: 20 }}>
+        {/* Section heading */}
+        <p
+          className="uppercase tracking-widest text-[var(--t3)]"
+          style={{ fontSize: 11, fontWeight: 700, marginBottom: 10 }}
+        >
+          Progress
+        </p>
+
+        {/* Level row */}
+        <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
+          <div className="flex items-center gap-2">
+            <LevelPillSmall level={card.level ?? 1} />
+            <span
+              className="text-[var(--t1)]"
+              style={{ fontSize: 13, fontWeight: 600 }}
+            >
+              Level {card.level ?? 1}
+            </span>
+          </div>
+          <span
+            className="text-[var(--t3)]"
+            style={{ fontSize: 13, fontWeight: 400 }}
+          >
+            {card.xp ?? 0} / {xpThreshold(card.level ?? 1)} XP
+          </span>
+        </div>
+
+        {/* XP progress bar */}
+        <div
+          className="rounded-full overflow-hidden"
+          style={{ height: 8, background: 'var(--border-s)' }}
+        >
+          <div
+            className="h-full rounded-full"
+            style={{
+              width: `${Math.min(((card.xp ?? 0) / xpThreshold(card.level ?? 1)) * 100, 100)}%`,
+              background: 'var(--blue)',
+            }}
+          />
+        </div>
+      </div>
+
+      {/* ── Section 2c — Game history ─────────────────────────────────────── */}
+      {/*
+        4 rows, one per game. Uses tint-pair badge for session count.
+        If 0 sessions: shows "Not played yet" in 12px/400 var(--t3).
+        Section heading: 11px/700 uppercase var(--t3).
+      */}
+      <div style={{ marginTop: 20 }}>
+        {/* Section heading */}
+        <p
+          className="uppercase tracking-widest text-[var(--t3)]"
+          style={{ fontSize: 11, fontWeight: 700, marginBottom: 10 }}
+        >
+          Games played
+        </p>
+
+        <div className="flex flex-col" style={{ gap: 8 }}>
+          {GAME_HISTORY_ROWS.map(row => {
+            const sessions = card.gameHistory?.[row.key] ?? 0
+            return (
+              <div
+                key={row.key}
+                className="flex items-center gap-3"
+                style={{ minHeight: 32 }}
+              >
+                {/* Game icon in accent tint circle */}
+                <div
+                  className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                  style={{ background: row.accentSub }}
+                >
+                  <span style={{ color: row.accentText }}>{row.icon}</span>
+                </div>
+
+                {/* Game name */}
+                <span
+                  className="flex-1 text-[var(--t1)]"
+                  style={{ fontSize: 13, fontWeight: 600 }}
+                >
+                  {row.label}
+                </span>
+
+                {/* Session count badge or "Not played yet" */}
+                {sessions > 0 ? (
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="inline-flex items-center px-2 py-0.5 rounded-pill text-[11px] font-700"
+                      style={{
+                        background: row.accentSub,
+                        border: `1px solid ${row.accent}`,
+                        color: row.accentText,
+                      }}
+                    >
+                      {sessions}
+                    </span>
+                    <span
+                      className="text-[var(--t2)]"
+                      style={{ fontSize: 12, fontWeight: 400 }}
+                    >
+                      sessions
+                    </span>
+                  </div>
+                ) : (
+                  <span
+                    className="text-[var(--t3)]"
+                    style={{ fontSize: 12, fontWeight: 400 }}
+                  >
+                    Not played yet
+                  </span>
+                )}
+              </div>
+            )
+          })}
+        </div>
       </div>
 
       {/* ── Section 3 — Duplicates pill (conditional) ────────────────────── */}

@@ -1,5 +1,5 @@
 // CardsScreen — card collection + pack opening
-// Tab: Packs | Collection
+// Tab: Packs | Collection | Map
 
 import { useState, useRef } from 'react'
 import { AnimatePresence, motion, type Transition, type TargetAndTransition } from 'framer-motion'
@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/Button'
 import { PillToggle } from '@/components/ui/PillToggle'
 import { BottomSheet } from '@/components/ui/Modal'
 import { CollectedCardDetailSheet } from '@/components/cards/CollectedCardDetailSheet'
+import { WorldMapView } from '@/components/cards/WorldMapView'
 import { useWallet } from '@/hooks/useWallet'
 import { useCardPacks, PACK_DEFS, type OpenedCard } from '@/hooks/useCardPacks'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
@@ -31,7 +32,7 @@ const PACK_ICON_LARGE: Record<string, React.ReactNode> = {
   legendary: <Crown size={48} className="text-[var(--amber-t)]" />,
 }
 
-type Tab = 'packs' | 'collection'
+type Tab = 'packs' | 'collection' | 'map'
 
 // ─── Pack card ────────────────────────────────────────────────────────────────
 
@@ -901,8 +902,9 @@ export function CardsScreen() {
           id="cards-tabs"
           className="w-full"
           tabs={[
-            { id: 'packs', label: 'Packs' },
+            { id: 'packs',      label: 'Packs' },
             { id: 'collection', label: `Collection (${totalCards})` },
+            { id: 'map',        label: 'Map' },
           ]}
           activeId={tab}
           onChange={id => setTab(id as Tab)}
@@ -911,7 +913,9 @@ export function CardsScreen() {
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
-        {tab === 'packs' ? (
+        {tab === 'map' ? (
+          <WorldMapView />
+        ) : tab === 'packs' ? (
           <div className="px-6 pb-24 max-w-3xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
             {PACK_DEFS.map(pack => (
               <PackCard

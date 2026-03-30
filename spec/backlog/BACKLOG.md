@@ -53,6 +53,7 @@
 | Animal economy tiers (tradeable pets vs reward-only wildlife) | 3 | complete | Marketplace, Player Listings, Auctions | high |
 | Auction retract offer | 3 | complete | Auctions | low |
 | Generate — additional names button | 2 | complete | Generate Wizard | low |
+| Educational games (card progression, 4 games, World Map) | 3 | in_progress | Cards System, CollectedCard schema | high |
 | Pawtect charity donation system | 4 | complete | Wallet | medium |
 | Poacher catching mechanic | 4 | queued | Animal economy tiers | high |
 | NPC interaction system notifications | 3 | queued | Marketplace, Player Listings | medium |

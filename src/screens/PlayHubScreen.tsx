@@ -9,6 +9,7 @@ import {
   Trophy, Zap, Clock, Flag, Mountain, Crown,
   Coins, Disc, Leaf, Microscope, Globe, Settings, Sparkles,
 } from 'lucide-react'
+import { GameCardPicker } from '@/components/games/GameCardPicker'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { CoinDisplay } from '@/components/ui/CoinDisplay'
 import { RarityBadge } from '@/components/ui/Badge'
@@ -394,7 +395,11 @@ function GamesContent() {
   const navigate = useNavigate()
   const { getSkill } = useProgress()
 
+  // GameCardPicker state — null when closed, holds the game def when open
+  const [pickerGame, setPickerGame] = useState<GameDef | null>(null)
+
   return (
+    <>
     <div className="px-6 pt-4 pb-24 max-w-3xl mx-auto w-full">
       <p className="text-[14px] text-t3 mb-4">
         Earn coins and XP by answering questions correctly.
@@ -410,7 +415,7 @@ function GamesContent() {
           return (
             <button
               key={game.area}
-              onClick={() => navigate(game.route)}
+              onClick={() => setPickerGame(game)}
               className="w-full text-left rounded-2xl border border-[var(--border-s)] bg-[var(--card)] p-5 hover:border-[var(--border)] motion-safe:hover:-translate-y-0.5 hover:shadow-[0_4px_24px_rgba(0,0,0,.25)] transition-all duration-300 motion-safe:active:scale-[.97]"
             >
               <div className="flex items-start gap-4">
@@ -473,6 +478,26 @@ function GamesContent() {
         ))}
       </div>
     </div>
+
+    {/* GameCardPicker — portal-rendered inside BottomSheet, outside Framer Motion tree */}
+    {pickerGame && (
+      <GameCardPicker
+        isOpen={!!pickerGame}
+        gameTitle={pickerGame.title}
+        gameRoute={pickerGame.route}
+        gameKey={
+          pickerGame.area === 'maths'     ? 'coinRush'       :
+          pickerGame.area === 'spelling'  ? 'wordSafari'     :
+          pickerGame.area === 'science'   ? 'habitatBuilder' : 'worldQuest'
+        }
+        gameIcon={pickerGame.icon}
+        gameAccent={pickerGame.accent}
+        gameAccentSub={pickerGame.accentSub}
+        gameAccentText={pickerGame.accentText}
+        onClose={() => setPickerGame(null)}
+      />
+    )}
+    </>
   )
 }
 

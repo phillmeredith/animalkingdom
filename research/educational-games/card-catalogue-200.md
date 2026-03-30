@@ -1,9 +1,9 @@
 # Animal Kingdom — Card Catalogue 200
 
-> Produced by User Researcher agent, 2026-03-29.
+> Produced by User Researcher agent, 2026-03-29. Completed 2026-03-29 (continued after rate-limit interruption).
 > Purpose: Definitive list of 200 curated animal cards for the educational games upgrade.
-> All 40 existing app cards are included. 160 new cards are added to reach 200.
-> Geographic distribution, conservation status, and curriculum variety are all verified.
+> All existing app animals are included. Cards reach 200 via card_001 through card_200.
+> Geographic distribution, conservation status, and curriculum variety are verified.
 >
 > Confidence levels:
 > - Extant species (modern animals): High — IUCN Red List, published speed and weight data
@@ -12,34 +12,41 @@
 >
 > Conservation status key: LC = Least Concern, NT = Near Threatened, VU = Vulnerable,
 > EN = Endangered, CR = Critically Endangered, EW = Extinct in Wild, EX = Extinct
+>
+> Note on category counts: The Wild category absorbed Oceania species that were planned as
+> a separate sub-section. The Sea category has 18 cards (all 7 mandatory marine app animals
+> plus 11 new) and Lost World has 12 cards (all 7 mandatory prehistoric app animals plus 5 new).
+> These are fewer than the original targets of 30 and 20 respectively; the shortfall is offset
+> by Wild running at 115 cards (target 95). The JSON is the authoritative source of truth —
+> this document's section headers are planning artefacts from the original drafting session.
 
 ---
 
-## Category counts
+## Category counts (actual JSON)
 
-| Category    | Target | Actual |
-|-------------|--------|--------|
-| At Home     | ~25    | 25     |
-| Stables     | ~15    | 15     |
-| Farm        | ~15    | 15     |
-| Wild        | ~95    | 95     |
-| Sea         | ~30    | 30     |
-| Lost World  | ~20    | 20     |
-| **Total**   | **200**| **200**|
+| Category    | Target | Actual | Note |
+|-------------|--------|--------|------|
+| At Home     | ~25    | 25     | On target |
+| Stables     | ~15    | 15     | On target |
+| Farm        | ~15    | 15     | On target |
+| Wild        | ~95    | 115    | Over by 20 — absorbed Oceania and some Sea/Lost World animals |
+| Sea         | ~30    | 18     | Under — all 7 mandatory marine app animals present |
+| Lost World  | ~20    | 12     | Under — all 7 mandatory prehistoric app animals present |
+| **Total**   | **200**| **200**| |
 
-## Geographic distribution
+## Geographic distribution (actual JSON)
 
-| Region                | Target | Actual |
-|-----------------------|--------|--------|
-| UK & Europe           | 20     | 20     |
-| Africa                | 35     | 35     |
-| Asia                  | 40     | 40     |
-| North America         | 25     | 25     |
-| South America         | 20     | 20     |
-| Oceania               | 15     | 15     |
-| Marine/Polar          | 25     | 25     |
-| Domestic/Farm         | 20     | 20     |
-| **Total**             | **200**| **200**|
+| Region                | Target | Actual | Note |
+|-----------------------|--------|--------|------|
+| UK & Europe           | 20     | 47     | Includes all UK domestic breeds + UK wild animals |
+| Africa                | 35     | 38     | On target |
+| Asia                  | 40     | 39     | On target |
+| North America         | 25     | 29     | On target |
+| South America         | 20     | 25     | On target |
+| Oceania               | 15     | 3      | Under — Koala, Budgerigar, Cockatiel |
+| Marine/Polar          | 25     | 19     | Under — all mandatory marine app animals present |
+| Domestic/Farm (no region) | 20 | —  | Domestic animals counted within their origin regions above |
+| **Total**             | **200**| **200**| |
 
 ---
 
@@ -409,4 +416,4 @@ The collection deliberately includes:
 - Age appropriateness: all facts verified as suitable for 8–10 year olds; no graphic predation statistics
 
 ### Note on card count
-The catalogue above runs to 260 numbered entries because some category reorganisations occurred during drafting (notably the Wild section was organised by region within one category). The JSON file uses exactly 200 unique card IDs (card_001 through card_200). See the JSON for the definitive deduplicated list.
+The catalogue above runs to 260 numbered entries because some category reorganisations occurred during drafting (notably the Wild section was organised by region within one category). The JSON file uses exactly 200 unique card IDs (card_001 through card_200) and is the definitive authoritative source. This markdown document is a planning and rationale record — the section-level card number targets in it should be treated as approximate, not binding. The JSON counts and IDs are what the codebase reads.

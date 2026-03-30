@@ -29,6 +29,7 @@ import { useToast } from '@/components/ui/Toast'
 import { cn } from '@/lib/utils'
 import type { MarketOffer, SavedName, PlayerListing, NpcBuyerOffer } from '@/lib/db'
 import { AuctionHubScreen, AuctionFilterRow } from '@/screens/AuctionHubScreen'
+import { WorldMapView } from '@/components/cards/WorldMapView'
 import { useAuctions } from '@/hooks/useAuctions'
 import { ListingRetractModal } from '@/components/my-animals/ListingRetractModal'
 import type { Rarity } from '@/lib/db'
@@ -37,7 +38,7 @@ import type { Rarity } from '@/lib/db'
 
 type MainTab = 'marketplace' | 'items' | 'cards' | 'auctions'
 type MarketTab = 'browse' | 'listings'
-type CardsTab = 'packs' | 'collection'
+type CardsTab = 'packs' | 'collection' | 'map'
 
 // Segmented control button style — shared by all sub-tab controls
 function segBtn(active: boolean): React.CSSProperties {
@@ -1770,7 +1771,9 @@ function CardsContent({ cardsTab, setCardsTab }: { cardsTab: CardsTab; setCardsT
 
   return (
     <>
-      {cardsTab === 'packs' ? (
+      {cardsTab === 'map' ? (
+        <WorldMapView />
+      ) : cardsTab === 'packs' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
           {PACK_DEFS.map(pack => (
             <PackCard
@@ -1925,7 +1928,7 @@ export function StoreHubScreen() {
             )}
             {tab === 'cards' && (
               <>
-                {(['packs', 'collection'] as const).map(t => (
+                {(['packs', 'collection', 'map'] as const).map(t => (
                   <button
                     key={t}
                     onClick={() => setCardsTab(t)}

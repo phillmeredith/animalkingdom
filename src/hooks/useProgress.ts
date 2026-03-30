@@ -1,4 +1,4 @@
-// useProgress — manages skill XP, puzzle history, and badges
+// useProgress — manages skill XP, puzzle history, badges, and year-level progression
 // Leaf hook — no dependencies on other hooks
 
 import { useEffect } from 'react'
@@ -6,6 +6,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db, ensureSkillProgress } from '@/lib/db'
 import type { SkillProgress, Badge, SkillArea } from '@/lib/db'
 import { BADGE_CATALOGUE } from '@/data/badges'
+import { useToast } from '@/components/ui/Toast'
 
 // XP thresholds per tier boundary (cumulative)
 // Tier 1→2: 40 XP, Tier 2→3: 105 XP (40+65), Tier 3→4: 190 XP (40+65+85)
@@ -18,7 +19,18 @@ function xpToTier(xp: number): number {
   return 1
 }
 
+// ─── Year level constants ─────────────────────────────────────────────────────
+
+/** Number of consecutive sessions that must exceed the accuracy threshold. */
+const YEAR_PROGRESSION_WINDOW = 3
+/** Minimum accuracy (0–100) required in each of the last N sessions to advance. */
+const YEAR_PROGRESSION_THRESHOLD = 80
+/** Maximum size of the recentAccuracy rolling window. */
+const RECENT_ACCURACY_MAX = 15
+
 export function useProgress() {
+  const { toast } = useToast()
+
   // Initialise skill rows once on mount (separate from the live query)
   useEffect(() => {
     ensureSkillProgress()
@@ -310,6 +322,93 @@ export function useProgress() {
     }
   }
 
+  /**
+   * Record `sessionAccuracy` (0–100) for a skill area after a game session.
+   * If the last YEAR_PROGRESSION_WINDOW entries in recentAccuracy are all ≥
+   * YEAR_PROGRESSION_THRESHOLD AND the current yearLevel is below 3, yearLevel
+   * advances by 1 and recentAccuracy is cleared.
+   *
+   * yearLevel never decreases.
+   * Story 8: year-level auto-progression.
+   */
+  async function checkYearProgression(
+    area: SkillArea,
+    sessionAccuracy: number,
+  ): Promise<{ advanced: boolean; newLevel: 1 | 2 | 3 }> {
+    try {
+      return await db.transaction('rw', db.skillProgress, async () => {
+        const record = await db.skillProgress.where('area').equals(area).first()
+        if (!record) throw new Error(`Skill area ${area} not found`)
+
+        // Append new accuracy, then trim the rolling window.
+        const updated = [...(record.recentAccuracy ?? []), sessionAccuracy]
+        const trimmed = updated.slice(-RECENT_ACCURACY_MAX)
+
+        const currentYearLevel = record.yearLevel ?? 1
+
+        // Check whether the last N entries all meet the threshold.
+        const canAdvance = currentYearLevel < 3
+        const lastN = trimmed.slice(-YEAR_PROGRESSION_WINDOW)
+        const thresholdMet =
+          lastN.length >= YEAR_PROGRESSION_WINDOW &&
+          lastN.every(a => a >= YEAR_PROGRESSION_THRESHOLD)
+
+        if (canAdvance && thresholdMet) {
+          const newLevel = (currentYearLevel + 1) as 1 | 2 | 3
+          await db.skillProgress.update(record.id!, {
+            yearLevel: newLevel,
+            recentAccuracy: [],  // reset window after advancing
+          })
+          return { advanced: true, newLevel }
+        }
+
+        // No advancement — persist the updated accuracy window only.
+        await db.skillProgress.update(record.id!, {
+          recentAccuracy: trimmed,
+        })
+
+        return { advanced: false, newLevel: currentYearLevel as 1 | 2 | 3 }
+      })
+    } catch (err) {
+      toast({
+        type: 'error',
+        title: 'Could not update your challenge level',
+        description: 'Progress was not saved. Please try again.',
+      })
+      return { advanced: false, newLevel: 1 }
+    }
+  }
+
+  /**
+   * Record a newly discovered country on the geography skill's discoveredCountries
+   * list. No-op if the country is already present.
+   * Story 9 (World Quest integration).
+   */
+  async function discoverCountry(country: string): Promise<void> {
+    try {
+      await db.transaction('rw', db.skillProgress, async () => {
+        const record = await db.skillProgress
+          .where('area')
+          .equals('geography')
+          .first()
+        if (!record) throw new Error('Geography skill area not found')
+
+        const existing = record.discoveredCountries ?? []
+        if (existing.includes(country)) return // already discovered — no-op
+
+        await db.skillProgress.update(record.id!, {
+          discoveredCountries: [...existing, country],
+        })
+      })
+    } catch (err) {
+      toast({
+        type: 'error',
+        title: 'Could not save country discovery',
+        description: 'Please try again.',
+      })
+    }
+  }
+
   return {
     skills,
     badges,
@@ -321,5 +420,7 @@ export function useProgress() {
     getBadges,
     awardBadge,
     checkBadgeEligibility,
+    checkYearProgression,
+    discoverCountry,
   }
 }

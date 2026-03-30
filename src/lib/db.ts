@@ -92,6 +92,37 @@ export interface CollectedCard {
   description: string
   ability?: string
   abilityDescription?: string
+  // Added in v17 — educational-games card progression
+  level: number           // 1–10, default 1
+  xp: number              // XP within current level, default 0
+  yearLevel: 1 | 2 | 3   // 1=Getting started, 2=Going further, 3=Expert. Default 1
+  gameHistory: {
+    wordSafari: number    // sessions played, default 0
+    coinRush: number
+    habitatBuilder: number
+    worldQuest: number
+  }
+  habitatBuilderState: {  // null when no session in progress
+    day: number           // 1–5
+    decisions: string[]   // decision keys made so far
+    stats: { stamina: number; health: number; food: number }
+  } | null
+  // Geographic / curriculum data — populated from card-catalogue-200.json at acquisition time
+  // All optional: existing cards will not have these fields; they are populated when a new pack
+  // is opened after v17 is deployed. No retroactive backfill is performed.
+  coordinates?: { lat: number; lng: number } | null
+  biome?: string | null
+  region?: string | null
+  conservationStatus?: string | null
+  countries?: string[]
+  worldQuestMigrates?: boolean
+  wordSafariVocab?: string[]
+  coinRushFacts?: Record<string, number | string>
+  habitatBuilderRole?: 'carnivore' | 'herbivore' | 'omnivore' | null
+  habitatBuilderPrey?: string[]
+  habitatBuilderPredators?: string[]
+  worldQuestRegion?: string | null
+  worldQuestMigrationRoute?: string | null
 }
 
 export interface PackHistory {
@@ -139,6 +170,10 @@ export interface SkillProgress {
   bestStreak: number
   gamesPlayed: number
   lastPlayedAt: Date | null
+  // Added in v17 — educational-games year level progression
+  yearLevel: 1 | 2 | 3           // 1=Getting started, 2=Going further, 3=Expert. Default 1
+  recentAccuracy: number[]        // last 15 session accuracies (0–100), rolling window
+  discoveredCountries: string[]   // countries unlocked via World Quest. Default []
 }
 
 export interface PuzzleHistory {
@@ -572,6 +607,57 @@ export class AnimalKingdomDB extends Dexie {
     this.version(16).stores({
       pawtectDonations: '++id, amount, donatedAt',
     })
+
+    // v17 — educational-games card progression
+    //
+    // CollectedCard extensions:
+    //   level, xp, yearLevel, gameHistory, habitatBuilderState — progression fields,
+    //   backfilled with safe defaults for all existing rows.
+    //   Catalogue fields (coordinates, biome, region, etc.) are optional and NOT
+    //   backfilled — they are populated at pack-open time going forward.
+    //
+    // SkillProgress extensions:
+    //   yearLevel, recentAccuracy, discoveredCountries — backfilled with defaults.
+    //
+    // No new indexed columns — store definitions unchanged. Dexie inherits v16 layout.
+    this.version(17).upgrade(async tx => {
+      await tx.table('collectedCards').toCollection().modify((card: any) => {
+        if (card.level === undefined) {
+          card.level = 1
+        }
+        if (card.xp === undefined) {
+          card.xp = 0
+        }
+        if (card.yearLevel === undefined) {
+          card.yearLevel = 1
+        }
+        if (card.gameHistory === undefined) {
+          card.gameHistory = {
+            wordSafari: 0,
+            coinRush: 0,
+            habitatBuilder: 0,
+            worldQuest: 0,
+          }
+        }
+        if (card.habitatBuilderState === undefined) {
+          card.habitatBuilderState = null
+        }
+        // Catalogue fields are intentionally left absent on existing rows.
+        // They will be populated when new packs are opened after v17.
+      })
+
+      await tx.table('skillProgress').toCollection().modify((skill: any) => {
+        if (skill.yearLevel === undefined) {
+          skill.yearLevel = 1
+        }
+        if (skill.recentAccuracy === undefined) {
+          skill.recentAccuracy = []
+        }
+        if (skill.discoveredCountries === undefined) {
+          skill.discoveredCountries = []
+        }
+      })
+    })
   }
 }
 
@@ -621,6 +707,9 @@ export async function ensureSkillProgress(): Promise<void> {
           bestStreak: 0,
           gamesPlayed: 0,
           lastPlayedAt: null,
+          yearLevel: 1,
+          recentAccuracy: [],
+          discoveredCountries: [],
         })
       }
     }
