@@ -14,6 +14,7 @@ interface PawtectCardProps {
 
 export function PawtectCard({ onDonate, triggerRef }: PawtectCardProps) {
   const { totalDonated } = usePawtect()
+  const missionsFunded = Math.floor(totalDonated / 50)
 
   return (
     <div
@@ -77,10 +78,10 @@ export function PawtectCard({ onDonate, triggerRef }: PawtectCardProps) {
             lineHeight: 1.5,
           }}
         >
-          Donate coins to support wildlife conservation.
+          Donate coins to fund real rescue missions and bring wild animals into your care.
         </p>
 
-        {/* Total donated row */}
+        {/* Stats row — donations + missions funded */}
         {totalDonated > 0 ? (
           <div
             style={{
@@ -89,20 +90,27 @@ export function PawtectCard({ onDonate, triggerRef }: PawtectCardProps) {
               padding: '12px',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
+              gap: '12px',
               marginBottom: '16px',
             }}
           >
-            <Coins size={16} style={{ color: 'var(--amber-t)', flexShrink: 0 }} strokeWidth={2} />
-            <span
-              style={{
-                fontSize: '13px',
-                fontWeight: 600,
-                color: 'var(--t2)',
-              }}
-            >
-              {totalDonated} coins donated
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1 }}>
+              <Coins size={14} style={{ color: 'var(--amber-t)', flexShrink: 0 }} strokeWidth={2} />
+              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--t2)' }}>
+                {totalDonated} coins donated
+              </span>
+            </div>
+            {missionsFunded > 0 && (
+              <>
+                <div style={{ width: '1px', height: '16px', background: 'var(--border-s)' }} aria-hidden="true" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1 }}>
+                  <Heart size={14} style={{ color: '#45B26B', flexShrink: 0 }} strokeWidth={2} />
+                  <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--t2)' }}>
+                    {missionsFunded} mission{missionsFunded !== 1 ? 's' : ''} funded
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         ) : (
           <p
@@ -114,7 +122,7 @@ export function PawtectCard({ onDonate, triggerRef }: PawtectCardProps) {
               marginBottom: '16px',
             }}
           >
-            Nothing donated yet — you could be first!
+            Nothing donated yet — every 50 coins funds a rescue mission!
           </p>
         )}
 

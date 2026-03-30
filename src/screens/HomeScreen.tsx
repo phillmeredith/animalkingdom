@@ -10,16 +10,19 @@ import { CoinDisplay } from '@/components/ui/CoinDisplay'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { DailyBonusCard } from '@/components/home/DailyBonusCard'
 import { PawtectCard } from '@/components/home/PawtectCard'
+import { RescueMissionBanner } from '@/components/home/RescueMissionBanner'
 import { DonationSheet } from '@/components/home/DonationSheet'
 import { HomeStatCards } from '@/components/home/HomeStatCards'
 import { FeaturedPetCard } from '@/components/home/FeaturedPetCard'
 import { PetDetailSheet } from '@/components/my-animals/PetDetailSheet'
+import { ReleaseWildOverlay } from '@/components/store/ReleaseWildOverlay'
 import { useWallet } from '@/hooks/useWallet'
 import { useSavedNames } from '@/hooks/useSavedNames'
 import { useProgress } from '@/hooks/useProgress'
 import { usePersonalisation } from '@/hooks/usePersonalisation'
+import { useRescueMissions } from '@/hooks/useRescueMissions'
 import { db, todayString } from '@/lib/db'
-import type { SavedName } from '@/lib/db'
+import type { SavedName, RescueMission } from '@/lib/db'
 
 type BonusResult = { awarded: boolean; amount: number; streak: number }
 
@@ -38,11 +41,25 @@ export function HomeScreen() {
   const { gamerLevel } = useProgress()
   const { playerName } = usePersonalisation()
 
+  const { missions, releaseToWild } = useRescueMissions()
+
   const [bonusResult, setBonusResult] = useState<BonusResult | null>(null)
   const [bonusChecked, setBonusChecked] = useState(false)
   const [selectedPet, setSelectedPet] = useState<SavedName | null>(null)
   const [donationSheetOpen, setDonationSheetOpen] = useState(false)
+  const [releasingMission, setReleasingMission] = useState<RescueMission | null>(null)
+  const [releaseCoins, setReleaseCoins] = useState(0)
   const donateButtonRef = useRef<HTMLButtonElement>(null)
+
+  function handleRelease(mission: RescueMission) {
+    setReleasingMission(mission)
+    setReleaseCoins(50) // XP shown on overlay
+  }
+
+  async function handleConfirmRelease(missionId: number) {
+    await releaseToWild(missionId)
+    setReleasingMission(null)
+  }
 
   // Load today's care logs across all pets in one query
   const todayLogs = useLiveQuery(
@@ -132,6 +149,13 @@ export function HomeScreen() {
           triggerRef={donateButtonRef}
         />
 
+        {/* Rescue mission banners — in_progress and ready-for-release */}
+        <RescueMissionBanner
+          missions={missions}
+          onNavigate={() => navigate('/shop')}
+          onRelease={handleRelease}
+        />
+
         {/* Stats */}
         <HomeStatCards
           petCount={petCount}
@@ -209,6 +233,14 @@ export function HomeScreen() {
         open={donationSheetOpen}
         onClose={() => setDonationSheetOpen(false)}
         triggerRef={donateButtonRef}
+      />
+
+      {/* Release-to-wild overlay — triggered from rescue mission banner */}
+      <ReleaseWildOverlay
+        mission={releasingMission}
+        coinsEarned={releaseCoins}
+        onViewMap={() => { setReleasingMission(null); navigate('/play') }}
+        onContinue={() => releasingMission && handleConfirmRelease(releasingMission.id!)}
       />
     </div>
   )

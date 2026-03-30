@@ -702,6 +702,53 @@ export class AnimalKingdomDB extends Dexie {
     this.version(18).stores({
       rescueMissions: '++id, status, animalType',
     })
+
+    // v19 — rescue mission task description migration
+    // Rewrites task descriptions from school-subject language ("Answer 2 science
+    // questions") to ranger vocabulary ("Complete 2 animal tracking sessions").
+    // The localStorage seed flag (rescue_missions_seeded_v1) prevents re-seeding,
+    // so existing users have the old descriptions — this one-time upgrade patches them.
+    // Keyed by taskId — only updates tasks whose description has changed.
+    this.version(19).upgrade(async tx => {
+      const TASK_DESCRIPTIONS: Record<string, string> = {
+        'wolf-arcade-1':      'Complete 2 animal tracking sessions in Word Safari',
+        'wolf-care-1':        'Carry out 3 welfare checks at the sanctuary',
+        'wolf-knowledge-1':   'Study 2 animal profiles in your ranger log',
+        'fox-arcade-1':       'Complete 2 animal tracking sessions in Word Safari',
+        'fox-knowledge-1':    'Study 2 animal profiles in your ranger log',
+        'fox-checkin-1':      'Check in to the sanctuary on 2 separate days',
+        'dolphin-arcade-1':   'Complete 3 animal tracking sessions in Word Safari',
+        'dolphin-knowledge-1':'Study 3 animal profiles in your ranger log',
+        'dolphin-care-1':     'Carry out 4 welfare checks at the sanctuary',
+        'seahorse-arcade-1':  'Complete 3 animal tracking sessions in Word Safari',
+        'seahorse-knowledge-1':'Study 3 animal profiles in your ranger log',
+        'seahorse-map-1':     'Survey 2 new habitats on the World Map',
+        'koala-arcade-1':     'Complete 4 animal tracking sessions in Word Safari',
+        'koala-care-1':       'Carry out 5 welfare checks at the sanctuary',
+        'koala-knowledge-1':  'Complete 4 habitat surveys on the World Map',
+        'koala-checkin-1':    'Check in to the sanctuary on 3 separate days',
+        'panda-arcade-1':     'Complete 5 animal tracking sessions in Word Safari',
+        'panda-care-1':       'Carry out 7 welfare checks at the sanctuary',
+        'panda-knowledge-1':  'Complete 5 ranger field notes',
+        'panda-map-1':        'Survey 3 new habitats on the World Map',
+        'panda-checkin-1':    'Check in to the sanctuary on 5 separate days',
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await tx.table('rescueMissions').toCollection().modify((mission: any) => {
+        if (!Array.isArray(mission.tasks)) return
+        let changed = false
+        mission.tasks = mission.tasks.map((task: any) => {
+          const updated = TASK_DESCRIPTIONS[task.taskId]
+          if (updated && task.description !== updated) {
+            changed = true
+            return { ...task, description: updated }
+          }
+          return task
+        })
+        if (!changed) return false // signal no modification needed
+      })
+    })
   }
 }
 

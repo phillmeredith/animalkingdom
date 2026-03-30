@@ -1996,7 +1996,7 @@ export function StoreHubScreen() {
                   {([
                     { key: 'market',   label: 'Looking to buy'  },
                     { key: 'for_sale', label: 'Looking to sell' },
-                    { key: 'rescue',   label: 'Rescue rewards'  },
+                    { key: 'rescue',   label: 'Rescue Centre'   },
                     { key: 'auctions', label: 'Auctions'        },
                   ] as const).map(({ key, label }) => (
                     <button
