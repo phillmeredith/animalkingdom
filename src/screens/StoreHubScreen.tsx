@@ -27,17 +27,21 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { useSavedNames } from '@/hooks/useSavedNames'
 import { useToast } from '@/components/ui/Toast'
 import { cn } from '@/lib/utils'
-import type { MarketOffer, SavedName, PlayerListing, NpcBuyerOffer } from '@/lib/db'
+import type { MarketOffer, SavedName, PlayerListing, NpcBuyerOffer, RescueMission, Rarity } from '@/lib/db'
+import { db } from '@/lib/db'
+import { useLiveQuery } from 'dexie-react-hooks'
 import { AuctionHubScreen, AuctionFilterRow } from '@/screens/AuctionHubScreen'
+import { RescueTab } from '@/components/store/RescueTab'
+import { MissionBriefSheet } from '@/components/store/MissionBriefSheet'
 import { WorldMapView } from '@/components/cards/WorldMapView'
 import { useAuctions } from '@/hooks/useAuctions'
+import { useRescueMissions } from '@/hooks/useRescueMissions'
 import { ListingRetractModal } from '@/components/my-animals/ListingRetractModal'
-import type { Rarity } from '@/lib/db'
 
 // ─── Tab types ────────────────────────────────────────────────────────────────
 
-type MainTab = 'marketplace' | 'items' | 'cards' | 'auctions'
-type MarketTab = 'browse' | 'listings'
+type MainTab = 'marketplace' | 'items' | 'cards'
+type MarketTab = 'market' | 'for_sale' | 'rescue' | 'auctions'
 type CardsTab = 'packs' | 'collection' | 'map'
 
 // Segmented control button style — shared by all sub-tab controls
@@ -682,11 +686,16 @@ function NamingSheet({ breed, onSave }: { breed: string; onSave: (name: string) 
 
 // ─── Marketplace content ──────────────────────────────────────────────────────
 
-function MarketplaceContent({ marketTab, setMarketTab, searchQuery = '', onClearSearch }: {
+// MarketplaceContent receives marketTab as a prop — it does NOT render its own tab
+// control. The tab row lives exclusively in the PageHeader below slot (spec §1.2,
+// dual navigation prevention). Any tab UI inside this component is a build defect.
+function MarketplaceContent({ marketTab, searchQuery = '', onClearSearch, missions, onStartMission = () => {}, onClaimMission = () => {} }: {
   marketTab: MarketTab
-  setMarketTab: (t: MarketTab) => void
   searchQuery?: string
   onClearSearch?: () => void
+  missions: RescueMission[]
+  onStartMission?: (id: number) => Promise<void>
+  onClaimMission?: (id: number) => Promise<void>
 }) {
   const { coins, canAfford } = useWallet()
   const { pets, renamePet } = useSavedNames()
@@ -698,10 +707,13 @@ function MarketplaceContent({ marketTab, setMarketTab, searchQuery = '', onClear
     acceptNpcBuyerOffer, declineNpcBuyerOffer,
   } = useMarketplace()
   const { toast } = useToast()
+  const navigate = useNavigate()
 
   const [selected, setSelected] = useState<MarketOffer | null>(null)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [namingPet, setNamingPet] = useState<{ id: number; breed: string } | null>(null)
+  // activeMission — drives MissionBriefSheet open state for the rescue tab
+  const [activeMission, setActiveMission] = useState<RescueMission | null>(null)
 
   useEffect(() => {
     setIsRefreshing(true)
@@ -723,7 +735,8 @@ function MarketplaceContent({ marketTab, setMarketTab, searchQuery = '', onClear
 
   return (
     <>
-      {marketTab === 'browse' ? (
+      {/* market tab — NPC offers (replaces old 'browse') */}
+      {marketTab === 'market' && (
         <div className="flex flex-col gap-6 mt-2">
           {/* Search context banner — shown when arriving from "Find in Marketplace" */}
           {q && (
@@ -748,16 +761,6 @@ function MarketplaceContent({ marketTab, setMarketTab, searchQuery = '', onClear
               <p className="text-[11px] font-700 uppercase tracking-widest text-t3 mb-3">NPCs looking to buy</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
                 {buyOffers.map(o => <OfferCard key={o.id} offer={o} onTap={() => setSelected(o)} />)}
-              </div>
-            </div>
-          )}
-          {sellOffers.length > 0 && (
-            <div>
-              <p className="text-[11px] font-700 uppercase tracking-widest text-t3 mb-3">
-                {q ? `${searchQuery} for sale` : 'Animals for sale'}
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                {sellOffers.map(o => <OfferCard key={o.id} offer={o} onTap={() => setSelected(o)} />)}
               </div>
             </div>
           )}
@@ -795,8 +798,20 @@ function MarketplaceContent({ marketTab, setMarketTab, searchQuery = '', onClear
             </div>
           )}
         </div>
-      ) : (
-        <div className="mt-2">
+      )}
+
+      {/* for_sale tab — NPC sell offers + player listings */}
+      {marketTab === 'for_sale' && (
+        <div className="mt-2 flex flex-col gap-6">
+          {/* NPC animals for sale */}
+          {sellOffers.length > 0 && (
+            <div>
+              <p className="text-[11px] font-700 uppercase tracking-widest text-t3 mb-3">Animals for sale</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                {sellOffers.map(o => <OfferCard key={o.id} offer={o} onTap={() => setSelected(o)} />)}
+              </div>
+            </div>
+          )}
           <MyListings
             listings={listings}
             npcOffers={npcOffers}
@@ -821,6 +836,32 @@ function MarketplaceContent({ marketTab, setMarketTab, searchQuery = '', onClear
             canAfford={canAfford}
           />
         </div>
+      )}
+
+      {/* rescue tab — rescue mission card grid */}
+      {marketTab === 'rescue' && (
+        <>
+          <RescueTab
+            missions={missions}
+            onStartMission={(id) => {
+              const m = missions.find(m => m.id === id) ?? null
+              setActiveMission(m)
+            }}
+            onGoToWorldMap={() => navigate('/world-quest')}
+          />
+          <MissionBriefSheet
+            mission={activeMission}
+            onClose={() => setActiveMission(null)}
+            onBegin={async (id) => {
+              await onStartMission(id)
+              setActiveMission(null)
+            }}
+            onClaim={async (id) => {
+              await onClaimMission(id)
+              setActiveMission(null)
+            }}
+          />
+        </>
       )}
 
       {/* Naming sheet */}
@@ -1830,14 +1871,17 @@ export function StoreHubScreen() {
   const urlSearch = urlParams.get('search') ?? ''
 
   const [tab, setTab] = useState<MainTab>(
-    urlTab === 'marketplace' || urlTab === 'items' || urlTab === 'cards' || urlTab === 'auctions'
+    urlTab === 'marketplace' || urlTab === 'items' || urlTab === 'cards'
       ? urlTab
       : 'marketplace'
   )
   const [filter, setFilter] = useState<LeMieuxFilter>('all')
   const [cardsTab, setCardsTab] = useState<CardsTab>('packs')
-  const [marketTab, setMarketTab] = useState<MarketTab>('browse')
+  const [marketTab, setMarketTab] = useState<MarketTab>('market')
   const [marketSearch, setMarketSearch] = useState<string>(urlSearch)
+
+  // Rescue missions — hook handles seeding on first mount
+  const { missions: rescueMissions, startMission, claimRescue, releaseToWild, keepCaring } = useRescueMissions()
 
   // Auction filter state — lifted here so the below slot can render the filter row
   // while AuctionHubScreen manages the grid (dual navigation prevention: tab control
@@ -1851,7 +1895,7 @@ export function StoreHubScreen() {
   return (
     <div className="flex flex-col h-full bg-[var(--bg)] overflow-y-auto">
       <PageHeader
-        title="Store"
+        title="Marketplace"
         trailing={
           <div className="flex items-center gap-2">
             <CoinDisplay amount={coins} coinsInBids={coinsInBids} />
@@ -1881,32 +1925,54 @@ export function StoreHubScreen() {
               padding: 4,
             }}
           >
-            {(['marketplace', 'items', 'cards', 'auctions'] as const).map(t => (
+            {(['marketplace', 'items', 'cards'] as const).map(t => (
               <button key={t} onClick={() => setTab(t)} style={{ ...segBtn(tab === t), padding: '6px 12px' }}>
-                {t === 'marketplace' ? 'Market' : t.charAt(0).toUpperCase() + t.slice(1)}
+                {t === 'marketplace' ? 'Animals' : t.charAt(0).toUpperCase() + t.slice(1)}
               </button>
             ))}
           </div>
         }
         below={
           <div className="flex gap-2 overflow-x-auto scrollbar-none -mx-6 px-6">
+            {/* Market sub-filter — only visible when Marketplace main tab is active.
+                CategoryPills pattern: tint-pair active state, never solid fill.
+                Navigation ownership: this is the only place this tab row renders —
+                MarketplaceContent does NOT render a duplicate (spec §1.2). */}
             {tab === 'marketplace' && (
-              <>
-                {(['browse', 'listings'] as const).map(t => (
-                  <button
-                    key={t}
-                    onClick={() => setMarketTab(t)}
-                    className={cn(
-                      'h-9 px-4 rounded-pill text-[13px] font-600 whitespace-nowrap shrink-0 transition-colors duration-150',
-                      marketTab === t
-                        ? 'bg-[var(--blue-sub)] border border-[var(--blue)] text-[var(--blue-t)]'
-                        : 'bg-[var(--card)] border border-[var(--border-s)] text-[var(--t2)]',
-                    )}
-                  >
-                    {t === 'browse' ? 'Browse' : 'My Listings'}
-                  </button>
-                ))}
-              </>
+              <div className="flex flex-col gap-2 w-full">
+                <div role="group" aria-label="Market view" className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                  {([
+                    { key: 'market',   label: 'Looking to buy'  },
+                    { key: 'for_sale', label: 'Looking to sell' },
+                    { key: 'rescue',   label: 'Rescue rewards'  },
+                    { key: 'auctions', label: 'Auctions'        },
+                  ] as const).map(({ key, label }) => (
+                    <button
+                      key={key}
+                      onClick={() => setMarketTab(key)}
+                      aria-pressed={marketTab === key}
+                      className={cn(
+                        'flex-shrink-0 h-9 px-4 rounded-[var(--r-pill)]',
+                        'text-[13px] font-semibold transition-colors duration-150',
+                        marketTab === key
+                          ? 'bg-[var(--blue-sub)] border border-[var(--blue)] text-[var(--blue-t)]'
+                          : 'bg-[var(--card)] border border-[var(--border-s)] text-[var(--t2)]',
+                      )}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                {/* Auction filter row — only visible when Auctions sub-filter is active */}
+                {marketTab === 'auctions' && (
+                  <AuctionFilterRow
+                    rarityFilter={auctionRarityFilter}
+                    sort={auctionSort}
+                    onRarityChange={setAuctionRarityFilter}
+                    onSortChange={setAuctionSort}
+                  />
+                )}
+              </div>
             )}
             {tab === 'items' && (
               <>
@@ -1944,36 +2010,34 @@ export function StoreHubScreen() {
                 ))}
               </>
             )}
-            {/* Auctions tab: rarity filter pills + sort control in the below slot */}
-            {tab === 'auctions' && (
-              <AuctionFilterRow
-                rarityFilter={auctionRarityFilter}
-                sort={auctionSort}
-                onRarityChange={setAuctionRarityFilter}
-                onSortChange={setAuctionSort}
-              />
-            )}
           </div>
         }
       />
 
-      {/* Non-auction tabs use a shared content column */}
-      {tab !== 'auctions' && (
-        <div className="px-6 pt-4 pb-24 max-w-3xl mx-auto w-full">
-          {tab === 'items' && <ItemsContent filter={filter} />}
-          {tab === 'cards' && <CardsContent cardsTab={cardsTab} setCardsTab={setCardsTab} />}
-          {tab === 'marketplace' && <MarketplaceContent marketTab={marketTab} setMarketTab={setMarketTab} searchQuery={marketSearch} onClearSearch={() => setMarketSearch('')} />}
-        </div>
-      )}
-      {/* AuctionHubScreen manages its own content column and portals.
-          Filter state is lifted here (StoreHubScreen owns the below slot) and
-          passed as props — AuctionHubScreen does NOT render its own tab control
-          (dual navigation is a build defect per CLAUDE.md). */}
-      {tab === 'auctions' && (
+      {/* Auctions sub-filter: AuctionHubScreen owns its own content column */}
+      {tab === 'marketplace' && marketTab === 'auctions' && (
         <AuctionHubScreen
           rarityFilter={auctionRarityFilter}
           sort={auctionSort}
         />
+      )}
+
+      {/* All other tabs use a shared content column */}
+      {!(tab === 'marketplace' && marketTab === 'auctions') && (
+        <div className="px-6 pt-4 pb-24 max-w-3xl mx-auto w-full">
+          {tab === 'items' && <ItemsContent filter={filter} />}
+          {tab === 'cards' && <CardsContent cardsTab={cardsTab} setCardsTab={setCardsTab} />}
+          {tab === 'marketplace' && (
+            <MarketplaceContent
+              marketTab={marketTab}
+              searchQuery={marketSearch}
+              onClearSearch={() => setMarketSearch('')}
+              missions={rescueMissions}
+              onStartMission={startMission}
+              onClaimMission={claimRescue}
+            />
+          )}
+        </div>
       )}
     </div>
   )

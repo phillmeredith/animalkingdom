@@ -17,6 +17,7 @@ interface PetCardProps {
 
 export function PetCard({ pet, onClick, careState = 'unknown' }: PetCardProps) {
   const isForSale = pet.status === 'for_sale'
+  const isRescued = pet.status === 'rescued'
 
   return (
     <button
@@ -69,10 +70,28 @@ export function PetCard({ pet, onClick, careState = 'unknown' }: PetCardProps) {
         <p className="text-[15px] font-600 text-t1 truncate leading-tight mb-1">
           {pet.name}
         </p>
-        {/* Badge row — flex-wrap so TierBadge wraps to second line at 375px if needed */}
+        {/* Badge row — flex-wrap so TierBadge wraps to second line at 375px if needed.
+            Stacking order: rarity → tier → status.
+            If rescued (status badge present), tier badge is suppressed to prevent
+            three-badge overflow on narrow cards (spec §2.5). */}
         <div className="flex items-center gap-1.5 flex-wrap mb-1">
           <RarityBadge rarity={pet.rarity} />
-          <TierBadge category={pet.category} />
+          {/* TierBadge suppressed when rescued to avoid three-badge overflow */}
+          {!isRescued && <TierBadge category={pet.category} />}
+          {/* "In your care" — tint-pair, never solid fill */}
+          {isRescued && (
+            <span
+              className="inline-flex items-center px-2 rounded-[var(--r-pill)] text-[11px] font-semibold uppercase tracking-[0.5px]"
+              style={{
+                padding: '2px 8px',
+                background: 'var(--green-sub)',
+                border: '1px solid var(--green)',
+                color: 'var(--green-t)',
+              }}
+            >
+              In your care
+            </span>
+          )}
         </div>
         <p className="text-[11px] text-t3 truncate uppercase tracking-wide">
           {pet.category}

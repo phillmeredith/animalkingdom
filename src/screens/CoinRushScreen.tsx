@@ -8,11 +8,9 @@ import { useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Coins } from 'lucide-react'
 import { GameSessionShell } from '@/components/games/GameSessionShell'
-import { getArcadeQuestions } from '@/data/arcadeQuestions'
-import type { CollectedCard } from '@/lib/db'
-
-// TODO: When useCardProgression hook is available (Story 7), call
-// awardXp(result.xpEarned) and applyStatDelta(result.statDeltas) inside onComplete.
+import { generateCoinRushQuestions } from '@/data/questionGenerator'
+import { useCardProgression } from '@/hooks/useCardProgression'
+import type { CollectedCard, CardStats } from '@/lib/db'
 
 const THEME = {
   accent:     'var(--amber)',
@@ -27,6 +25,7 @@ export function CoinRushScreen() {
   const location  = useLocation()
   const state     = location.state as { selectedCard?: CollectedCard; challengeLevel?: number } | null
   const card      = state?.selectedCard ?? null
+  const { awardXp, applyStatDelta, recordSession } = useCardProgression()
 
   // If navigated to without a card (direct URL entry), redirect back to play hub
   useEffect(() => {
@@ -37,7 +36,8 @@ export function CoinRushScreen() {
 
   if (!card) return null
 
-  const questions = getArcadeQuestions('maths', 10)
+  const challengeLevel = ((state?.challengeLevel ?? card.yearLevel ?? 1) as 1 | 2 | 3)
+  const questions = generateCoinRushQuestions(card, challengeLevel, 10)
 
   return (
     <div className="flex flex-col h-full bg-[var(--bg)]">
@@ -48,9 +48,13 @@ export function CoinRushScreen() {
         questions={questions}
         onExit={() => navigate('/play')}
         onComplete={(result) => {
-          // TODO: await awardXp(card.id, result.xpEarned)
-          // TODO: await applyStatDelta(card.id, result.statDeltas)
-          void result
+          if (!card.id) return
+          const cardId = card.id
+          awardXp(cardId, result.xpEarned).catch(() => {})
+          Object.entries(result.statDeltas).forEach(([stat, delta]) => {
+            if (delta > 0) applyStatDelta(cardId, stat as keyof CardStats, delta).catch(() => {})
+          })
+          recordSession(cardId, 'coinRush').catch(() => {})
         }}
       />
     </div>

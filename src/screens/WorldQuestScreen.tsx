@@ -1,30 +1,20 @@
 // WorldQuestScreen — Geography educational game
-// Phase 1: uses GameSessionShell
-// Card is passed via navigation state from GameCardPicker.
+// Renders WorldQuestGame (bespoke SVG map game) replacing the old GameSessionShell.
+// Card and challenge level are passed via navigation state from GameCardPicker.
 
 import { useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Globe } from 'lucide-react'
-import { GameSessionShell } from '@/components/games/GameSessionShell'
-import { getArcadeQuestions } from '@/data/arcadeQuestions'
-import type { CollectedCard } from '@/lib/db'
-
-// TODO: When useCardProgression hook is available (Story 7), call
-// awardXp(result.xpEarned) and applyStatDelta(result.statDeltas) inside onComplete.
-
-const THEME = {
-  accent:     'var(--purple)',
-  accentSub:  'var(--purple-sub)',
-  accentText: 'var(--purple-t)',
-  icon:       <Globe size={20} />,
-  title:      'World Quest',
-}
+import { WorldQuestGame } from '@/components/games/WorldQuestGame'
+import { useCardProgression } from '@/hooks/useCardProgression'
+import type { CollectedCard, CardStats } from '@/lib/db'
 
 export function WorldQuestScreen() {
   const navigate  = useNavigate()
   const location  = useLocation()
-  const state     = location.state as { selectedCard?: CollectedCard; challengeLevel?: number } | null
+  const state     = location.state as { selectedCard?: CollectedCard; challengeLevel?: 1 | 2 | 3 } | null
   const card      = state?.selectedCard ?? null
+  const yearLevel = (state?.challengeLevel ?? (card?.yearLevel as 1 | 2 | 3 | undefined) ?? 1) as 1 | 2 | 3
+  const { awardXp, applyStatDelta, recordSession } = useCardProgression()
 
   useEffect(() => {
     if (!card) {
@@ -34,20 +24,20 @@ export function WorldQuestScreen() {
 
   if (!card) return null
 
-  const questions = getArcadeQuestions('geography', 10)
-
   return (
     <div className="flex flex-col h-full bg-[var(--bg)]">
-      <GameSessionShell
+      <WorldQuestGame
         card={card}
-        area="geography"
-        theme={THEME}
-        questions={questions}
+        yearLevel={yearLevel}
         onExit={() => navigate('/play')}
         onComplete={(result) => {
-          // TODO: await awardXp(card.id, result.xpEarned)
-          // TODO: await applyStatDelta(card.id, result.statDeltas)
-          void result
+          if (!card.id) return
+          const cardId = card.id
+          awardXp(cardId, result.xpEarned).catch(() => {})
+          Object.entries(result.statDeltas).forEach(([stat, delta]) => {
+            if (delta > 0) applyStatDelta(cardId, stat as keyof CardStats, delta).catch(() => {})
+          })
+          recordSession(cardId, 'worldQuest').catch(() => {})
         }}
       />
     </div>

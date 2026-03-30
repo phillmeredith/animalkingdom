@@ -55,6 +55,10 @@ export interface AnimalEntry {
    */
   conservationStatus?: 'LC' | 'NT' | 'VU' | 'EN' | 'CR' | 'EW' | 'EX' | 'DD' | null
 
+  /** Human-readable native region for mission brief display,
+   *  e.g. "South and Southeast Asia". Distinct from the `region` quick-stat. */
+  nativeRegion?: string | null
+
   /** Supporting sentence for the conservation status (max ~40 words).
    *  If non-null, renders below the status pill. If null (but conservationStatus is
    *  non-null), the pill renders alone with no sentence. */
@@ -863,8 +867,9 @@ export const ANIMALS: AnimalEntry[] = [
       'Matriarchs lead the herd and use low-frequency rumbles to communicate over kilometres.',
       'Calves stay close to their mothers and are cared for by the whole herd.',
     ],
-    conservationStatus: 'VU',
-    conservationStatusDetail: 'Listed as Vulnerable by the IUCN. Poaching for ivory and habitat loss from farming expansion are the primary threats.',
+    conservationStatus: 'EN',
+    nativeRegion: 'Sub-Saharan Africa',
+    conservationStatusDetail: 'Listed as Endangered by the IUCN. Poaching for ivory and habitat loss from farming expansion are the primary threats.',
     socialBehaviour: 'African Elephants live in tight-knit matriarchal herds of 10–20 individuals. Males leave the herd at adolescence and live semi-solitary lives or in loose bachelor groups.',
     habitatThreats: [
       'Illegal poaching for ivory, despite international trade bans.',
@@ -899,6 +904,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['It gets cold', 'Camouflage in snow', 'It loses pigment', 'It hibernates'],
       correctIndex: 1,
     },
+    conservationStatus: 'LC',
+    nativeRegion: 'Arctic tundra and sea ice regions worldwide',
   },
   {
     id: 'bengal-tiger',
@@ -924,6 +931,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['Brazil', 'India', 'Kenya', 'Australia'],
       correctIndex: 1,
     },
+    conservationStatus: 'EN',
+    nativeRegion: 'South and Southeast Asia',
   },
   {
     id: 'cheetah',
@@ -949,6 +958,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['8', '10', '12', '15'],
       correctIndex: 2,
     },
+    conservationStatus: 'VU',
+    nativeRegion: 'Sub-Saharan Africa and Iran',
   },
   {
     id: 'giant-panda',
@@ -974,6 +985,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['49kg', '84kg', '98kg', '70kg'],
       correctIndex: 2,
     },
+    conservationStatus: 'VU',
+    nativeRegion: 'Southwest China',
   },
   {
     id: 'gorilla',
@@ -999,6 +1012,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['80%', '90%', '95%', '98%'],
       correctIndex: 3,
     },
+    conservationStatus: 'CR',
+    nativeRegion: 'West and Central Africa',
   },
   {
     id: 'grey-wolf',
@@ -1024,6 +1039,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['Cats', 'Foxes', 'Domestic dogs', 'Hyenas'],
       correctIndex: 2,
     },
+    conservationStatus: 'LC',
+    nativeRegion: 'Northern hemisphere — North America, Europe, and Asia',
   },
   {
     id: 'koala',
@@ -1049,6 +1066,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['New Zealand', 'South Africa', 'Australia', 'Brazil'],
       correctIndex: 2,
     },
+    conservationStatus: 'EN',
+    nativeRegion: 'Eastern and southeastern Australia',
   },
   {
     id: 'lion',
@@ -1074,6 +1093,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['Pack', 'Pride', 'Herd', 'Colony'],
       correctIndex: 1,
     },
+    conservationStatus: 'VU',
+    nativeRegion: 'Sub-Saharan Africa',
   },
   {
     id: 'polar-bear',
@@ -1099,6 +1120,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['White', 'Yellow', 'Transparent', 'Grey'],
       correctIndex: 2,
     },
+    conservationStatus: 'VU',
+    nativeRegion: 'Arctic regions of Canada, Alaska, Russia, Norway, and Greenland',
   },
   {
     id: 'red-panda',
@@ -1124,6 +1147,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['Africa', 'Europe', 'Asia', 'South America'],
       correctIndex: 2,
     },
+    conservationStatus: 'EN',
+    nativeRegion: 'Eastern Himalayas and southwest China',
   },
   {
     id: 'snow-leopard',
@@ -1149,6 +1174,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['Alps', 'Rockies', 'Himalayas', 'Andes'],
       correctIndex: 2,
     },
+    conservationStatus: 'VU',
+    nativeRegion: 'Mountain ranges of Central and South Asia',
   },
 
   // ── Sea ──────────────────────────────────────────────────────────────────────
@@ -1176,6 +1203,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['Half-sleep', 'Unihemispheric sleep', 'Deep sleep', 'Dolphin nap'],
       correctIndex: 1,
     },
+    conservationStatus: 'LC',
+    nativeRegion: 'Temperate and tropical oceans worldwide',
   },
   {
     id: 'clownfish',
@@ -1201,6 +1230,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['Thick scales', 'Special slime coating', 'Immunity', 'Speed'],
       correctIndex: 2,
     },
+    conservationStatus: 'LC',
+    nativeRegion: 'Indo-Pacific Ocean — Indian Ocean and western Pacific',
   },
   {
     id: 'great-white-shark',
@@ -1226,6 +1257,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['30', '40', '60', '50'],
       correctIndex: 2,
     },
+    conservationStatus: 'VU',
+    nativeRegion: 'Cool coastal and offshore waters worldwide',
   },
   {
     id: 'humpback-whale',
@@ -1251,6 +1284,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['20', '30', '40', '50'],
       correctIndex: 2,
     },
+    conservationStatus: 'LC',
+    nativeRegion: 'All major oceans — migrates between polar feeding and tropical breeding grounds',
   },
   {
     id: 'octopus',
@@ -1276,6 +1311,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['16', '18', '24', '32'],
       correctIndex: 2,
     },
+    conservationStatus: 'LC',
+    nativeRegion: 'Coastal and open waters worldwide',
   },
   {
     id: 'sea-turtle',
@@ -1301,6 +1338,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['200', '250', '300', '350'],
       correctIndex: 2,
     },
+    conservationStatus: 'EN',
+    nativeRegion: 'Tropical and subtropical oceans worldwide',
   },
   {
     id: 'seahorse',
@@ -1326,6 +1365,8 @@ export const ANIMALS: AnimalEntry[] = [
       options: ['The female', 'The male', 'Both share equally', 'Neither — eggs float freely'],
       correctIndex: 1,
     },
+    conservationStatus: 'VU',
+    nativeRegion: 'Tropical and temperate coastal waters worldwide',
   },
 ]
 

@@ -39,7 +39,7 @@ export interface SavedName {
   discoveryNarrative: string
   siblings: string[]
   source: 'generate' | 'marketplace' | 'auction' | 'rescue'
-  status: 'active' | 'for_sale'
+  status: 'active' | 'for_sale' | 'rescued'
   equippedSaddleId: number | null
   careStreak: number
   lastFullCareDate: string | null
@@ -384,6 +384,42 @@ export interface PawtectDonation {
   donatedAt: Date
 }
 
+// ─── Rescue mission types ─────────────────────────────────────────────────────
+
+export type MissionTaskType = 'arcade' | 'care' | 'map' | 'knowledge' | 'checkin'
+export type MissionStatus = 'available' | 'in_progress' | 'complete' | 'claimed'
+
+export interface MissionTask {
+  taskId: string
+  type: MissionTaskType
+  description: string  // e.g. "Complete 3 Word Safari sessions with any card"
+  required: number     // e.g. 3
+  completed: number    // e.g. 2
+  done: boolean
+}
+
+export interface RescueMission {
+  id?: number
+  animalType: string           // matches animals.ts animalType
+  breed: string                // matches animals.ts breed
+  name: string                 // display name e.g. "Giant Panda"
+  imageUrl: string
+  rarity: Rarity
+  conservationStatus: string   // 'VU', 'EN', 'CR' etc.
+  habitat: string
+  nativeRegion: string
+  about: string                // 2-3 sentence conservation context
+  tasks: MissionTask[]
+  status: MissionStatus
+  rescuedPetId: number | null  // set when claimed — references savedNames.id
+  fosterDaysRequired: number   // minimum days in care before release ready
+  fosterStartDate: string | null // YYYY-MM-DD when card was added to collection
+  releaseReadyDate: string | null // YYYY-MM-DD when release is available
+  releasedAt: Date | null
+  createdAt: Date
+  updatedAt: Date
+}
+
 // ─── Database class ────────────────────────────────────────────────────────────
 
 export class AnimalKingdomDB extends Dexie {
@@ -406,6 +442,7 @@ export class AnimalKingdomDB extends Dexie {
   ownedItems!: Table<OwnedItem>
   schleichOwned!: Table<SchleichOwned>
   pawtectDonations!: Table<PawtectDonation>
+  rescueMissions!: Table<RescueMission>
 
   constructor() {
     super('AnimalKingdom')
@@ -657,6 +694,13 @@ export class AnimalKingdomDB extends Dexie {
           skill.discoveredCountries = []
         }
       })
+    })
+
+    // v18 — store-rewards / rescue missions
+    // Adds rescueMissions table: { id (auto), status, animalType }
+    // New table — no existing data to backfill, no upgrade callback needed.
+    this.version(18).stores({
+      rescueMissions: '++id, status, animalType',
     })
   }
 }

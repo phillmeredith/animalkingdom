@@ -10,7 +10,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BottomSheet } from '@/components/ui/Modal'
+import { BottomSheet, Modal } from '@/components/ui/Modal'
 import { AnimalImage } from '@/components/ui/AnimalImage'
 import { RarityBadge, Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
@@ -20,7 +20,7 @@ import { CarePanel } from './CarePanel'
 import { ListForSaleSheet } from '@/components/player-listings/ListForSaleSheet'
 import { ForSaleReleaseBlockModal } from '@/components/player-listings/ForSaleReleaseBlockModal'
 import { ListingRetractModal } from './ListingRetractModal'
-import { Disc, Award } from 'lucide-react'
+import { Disc, Award, Leaf } from 'lucide-react'
 import { TierBadge } from '@/components/ui/TierBadge'
 import { isTradeable } from '@/lib/animalTiers'
 import { SoundButton } from '@/components/ui/SoundButton'
@@ -69,6 +69,8 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
   const [listForSaleOpen, setListForSaleOpen] = useState(false)
   const [releaseBlockOpen, setReleaseBlockOpen] = useState(false)
   const [retractListingOpen, setRetractListingOpen] = useState(false)
+  // Rescued flow
+  const [releaseWildOpen, setReleaseWildOpen] = useState(false)
   // cancelListingBtnRef — focus returns here after the retract modal closes (WCAG 2.1 AA)
   const cancelListingBtnRef = useRef<HTMLButtonElement>(null)
 
@@ -83,7 +85,19 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
     [pet?.id],
   )
 
+  // Live-query the rescue mission for this pet — drives the Homing Status block.
+  // Only runs when status is 'rescued' to avoid unnecessary DB reads.
+  const rescueMission = useLiveQuery(
+    () => pet?.id && pet?.status === 'rescued'
+      ? db.rescueMissions
+          .where('rescuedPetId').equals(pet.id)
+          .first()
+      : Promise.resolve(undefined),
+    [pet?.id, pet?.status],
+  )
+
   const isForSale = pet?.status === 'for_sale'
+  const isRescued = pet?.status === 'rescued'
 
   // Reset sub-states when pet or open changes
   useEffect(() => {
@@ -92,11 +106,51 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
     setListForSaleOpen(false)
     setReleaseBlockOpen(false)
     setRetractListingOpen(false)
+    setReleaseWildOpen(false)
   }, [pet, open])
 
   if (!pet) return null
 
   const colourHex = resolveColourHex(pet.animalType, pet.colour)
+
+  // ─── Rescue homing calculations ──────────────────────────────────────────────
+  // Only computed when this is a rescued pet and we have mission data.
+  let daysUntilRelease = 0
+  let isReleaseReady = false
+  let homingProgress = 0
+
+  if (isRescued && rescueMission?.releaseReadyDate) {
+    const releaseDate = new Date(rescueMission.releaseReadyDate)
+    const today = new Date()
+    // Zero out time component for whole-day comparison
+    releaseDate.setHours(0, 0, 0, 0)
+    today.setHours(0, 0, 0, 0)
+    const msPerDay = 24 * 60 * 60 * 1000
+    const remaining = Math.ceil((releaseDate.getTime() - today.getTime()) / msPerDay)
+    daysUntilRelease = Math.max(0, remaining)
+    isReleaseReady = daysUntilRelease === 0
+
+    // Progress: days elapsed since foster start / total required days
+    if (rescueMission.fosterStartDate && rescueMission.fosterDaysRequired > 0) {
+      const startDate = new Date(rescueMission.fosterStartDate)
+      startDate.setHours(0, 0, 0, 0)
+      const elapsed = Math.max(0, Math.floor((today.getTime() - startDate.getTime()) / msPerDay))
+      homingProgress = Math.min(1, elapsed / rescueMission.fosterDaysRequired)
+    }
+  }
+
+  async function handleReleaseWild() {
+    if (!pet?.id) return
+    try {
+      // Phase C stub — Developer will wire to useRescueMissions.releasePet()
+      await releasePet(pet.id)
+      setReleaseWildOpen(false)
+      toast({ type: 'success', title: `${pet.name} has been released! You earned 50 XP.` })
+      onReleased()
+    } catch {
+      toast({ type: 'error', title: `Could not release ${pet.name} — please try again.` })
+    }
+  }
 
   async function handleRename(newName: string) {
     if (!pet?.id) return
@@ -151,13 +205,27 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
                 <>
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h2 className="text-[20px] font-700 text-t1 leading-tight truncate">{pet.name}</h2>
-                    {/* Header badges: RarityBadge + TierBadge (always) + for_sale badge */}
+                    {/* Header badges: RarityBadge + TierBadge + for_sale / rescued badge */}
                     <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
                       <SoundButton soundUrl={getSoundUrl(pet.animalType)} />
                       <RarityBadge rarity={pet.rarity} />
                       <TierBadge category={pet.category} />
                       {isForSale && (
                         <Badge variant="amber">Listed for sale</Badge>
+                      )}
+                      {/* "In your care" — tint-pair, per spec §2.5. Never solid fill. */}
+                      {isRescued && (
+                        <span
+                          className="inline-flex items-center rounded-[var(--r-pill)] text-[11px] font-semibold uppercase tracking-[0.5px]"
+                          style={{
+                            padding: '2px 8px',
+                            background: 'var(--green-sub)',
+                            border: '1px solid var(--green)',
+                            color: 'var(--green-t)',
+                          }}
+                        >
+                          In your care
+                        </span>
                       )}
                     </div>
                   </div>
@@ -225,6 +293,57 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
             </div>
           )}
 
+          {/* Homing Status block — only for rescued pets. Per spec §2.5.
+              Sits between the reward-only banner (or narrative) and the equipment section.
+              Live-updates when releaseReadyDate changes without requiring sheet reopen. */}
+          {isRescued && (
+            <div
+              className="rounded-[12px] p-4 mb-4"
+              style={{ background: 'var(--elev)' }}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Leaf size={20} className="text-[var(--green-t)] shrink-0" aria-hidden="true" />
+                <p className="text-[14px] font-semibold text-[var(--t1)]">
+                  Homing until ready for release
+                </p>
+              </div>
+
+              <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-[var(--t3)] mb-1">
+                Care Progress
+              </p>
+
+              {/* Progress bar — green fill */}
+              <div
+                className="h-1 rounded-full mb-1.5"
+                style={{ background: 'var(--card)' }}
+                role="progressbar"
+                aria-valuenow={Math.round(homingProgress * 100)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label="Care progress"
+              >
+                <div
+                  className="h-full rounded-full transition-all duration-300"
+                  style={{
+                    width: `${homingProgress * 100}%`,
+                    background: 'var(--green)',
+                  }}
+                />
+              </div>
+
+              {/* Days label — green text when ready */}
+              {isReleaseReady ? (
+                <p className="text-[13px]" style={{ color: 'var(--green-t)' }}>
+                  Ready for release
+                </p>
+              ) : (
+                <p className="text-[13px] text-[var(--t2)]">
+                  {daysUntilRelease} {daysUntilRelease === 1 ? 'day' : 'days'} until release ready
+                </p>
+              )}
+            </div>
+          )}
+
           {/* Equipment — saddles */}
           {pet.id && (() => {
             const ownedSaddles = ownedItems.filter(i => i.category === 'saddle')
@@ -268,9 +387,29 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
           {/* Actions */}
           {!isRenaming && (
             <>
-              {/* for_sale state: "Rename" hidden, "Release" hidden, "List for Sale" hidden.
-                  Only "Cancel listing" is shown (spec auction-retract Story 1 AC). */}
-              {isForSale ? (
+              {/* rescued state: "List for Sale" absent entirely (rescued cards are not tradeable).
+                  "Release" absent until release-ready. Spec §2.5. */}
+              {isRescued ? (
+                <div className="flex flex-col gap-2">
+                  {isReleaseReady && (
+                    <Button
+                      variant="accent"
+                      size="lg"
+                      className="w-full"
+                      onClick={() => setReleaseWildOpen(true)}
+                    >
+                      Release to wild
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    size="md"
+                    className="w-full"
+                  >
+                    Keep caring for {pet.name}
+                  </Button>
+                </div>
+              ) : isForSale ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {/* Left col on iPad: empty spacer keeps "Cancel listing" right-aligned */}
                   <div className="hidden md:block" />
@@ -412,6 +551,55 @@ export function PetDetailSheet({ pet, open, onClose, onRenamed, onReleased }: Pe
           triggerRef={cancelListingBtnRef as React.RefObject<HTMLElement>}
         />
       )}
+
+      {/* store-rewards: Release to wild confirmation modal — spec §2.6.
+          Rendered via Modal which uses createPortal internally. */}
+      <Modal
+        isOpen={releaseWildOpen}
+        onClose={() => setReleaseWildOpen(false)}
+        maxWidth="max-w-[420px]"
+      >
+        <div className="flex flex-col gap-0">
+          {/* Animal image — centred header */}
+          <div className="flex items-start gap-3 mb-4">
+            <AnimalImage
+              src={pet.imageUrl}
+              alt={pet.name}
+              className="w-16 h-16 rounded-xl object-cover shrink-0"
+            />
+            <div className="flex-1 min-w-0 pt-1">
+              <h3 className="text-[18px] font-bold text-[var(--t1)] leading-snug">
+                Release {pet.name} to the wild?
+              </h3>
+            </div>
+          </div>
+
+          <p className="text-[14px] text-[var(--t2)] mt-0 mb-6 leading-relaxed">
+            {pet.name} will leave your care. You'll earn bonus XP and a Conservation Hero badge
+            as a thank you for your care.
+          </p>
+
+          <Button
+            variant="accent"
+            size="md"
+            className="w-full mb-2"
+            onClick={handleReleaseWild}
+          >
+            Release
+          </Button>
+          <Button
+            variant="outline"
+            size="md"
+            className="w-full"
+            onClick={() => {
+              setReleaseWildOpen(false)
+              toast({ type: 'info', title: `Great choice! ${pet.name}'s care timer has been reset.` })
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Modal>
     </>
   )
 }

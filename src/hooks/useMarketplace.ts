@@ -243,6 +243,12 @@ export function useMarketplace() {
         throw new Error('Pet is already listed for sale.')
       }
 
+      // Guard: rescued animals cannot be listed for sale (store-rewards spec §2.7)
+      if (pet.status === 'rescued') {
+        toast({ type: 'error', title: 'Rescued animals cannot be listed for sale while in your care.' })
+        throw new Error('Rescued animals cannot be listed for sale.')
+      }
+
       const [min, max] = RARITY_MARKET_VALUES[pet.rarity]
       const marketValue = randomBetween(min, max)
       const now = new Date()

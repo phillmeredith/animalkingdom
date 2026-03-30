@@ -43,6 +43,12 @@ export function useSavedNames() {
       return { success: false, reason: 'Pet is currently listed for sale. Remove the listing first.' }
     }
 
+    // Guard: rescued pets cannot be released via the normal release flow.
+    // They must go through the dedicated rescue release flow (useRescueMissions.releaseToWild).
+    if (pet.status === 'rescued') {
+      return { success: false, reason: 'This animal is temporarily in your care. Use the release option in My Animals.' }
+    }
+
     await db.savedNames.delete(id)
     return { success: true }
   }

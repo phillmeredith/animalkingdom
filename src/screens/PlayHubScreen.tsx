@@ -50,7 +50,7 @@ const GAMES: GameDef[] = [
     route: '/play/coin-rush',
     icon: <Coins size={28} />,
     title: 'Coin Rush',
-    subtitle: 'Animal maths challenges',
+    subtitle: 'Answer fast, earn coins',
     accent: 'var(--amber)',
     accentSub: 'var(--amber-sub)',
     accentText: 'var(--amber-t)',
@@ -60,7 +60,7 @@ const GAMES: GameDef[] = [
     route: '/play/word-safari',
     icon: <Leaf size={28} />,
     title: 'Word Safari',
-    subtitle: 'Animal spelling adventure',
+    subtitle: 'Words and wildlife adventure',
     accent: 'var(--green)',
     accentSub: 'var(--green-sub)',
     accentText: 'var(--green-t)',
@@ -70,7 +70,7 @@ const GAMES: GameDef[] = [
     route: '/play/habitat-builder',
     icon: <Microscope size={28} />,
     title: 'Habitat Builder',
-    subtitle: 'Animal science quiz',
+    subtitle: 'Survive and thrive in the wild',
     accent: 'var(--blue)',
     accentSub: 'var(--blue-sub)',
     accentText: 'var(--blue-t)',
@@ -80,7 +80,7 @@ const GAMES: GameDef[] = [
     route: '/play/world-quest',
     icon: <Globe size={28} />,
     title: 'World Quest',
-    subtitle: 'Animal geography challenge',
+    subtitle: 'Explore the world with your animals',
     accent: 'var(--purple)',
     accentSub: 'var(--purple-sub)',
     accentText: 'var(--purple-t)',
@@ -401,9 +401,26 @@ function GamesContent() {
   return (
     <>
     <div className="px-6 pt-4 pb-24 max-w-3xl mx-auto w-full">
-      <p className="text-[14px] text-t3 mb-4">
-        Earn coins and XP by answering questions correctly.
-      </p>
+      {/* How it works — 3-step explainer so Harry knows games level up his cards */}
+      <div className="flex items-stretch gap-2 mb-5 p-3 rounded-2xl bg-[var(--card)] border border-[var(--border-s)]">
+        {([
+          { step: '1', label: 'Pick a game',          detail: 'Choose any game below'           },
+          { step: '2', label: 'Play with a card',      detail: 'Answer questions to earn XP'     },
+          { step: '3', label: 'Level up its stats',    detail: 'Stronger cards win more races'   },
+        ] as const).map((s, i) => (
+          <div key={s.step} className="flex-1 flex flex-col gap-0.5 text-center">
+            {i > 0 && <div className="hidden" />}
+            <span
+              className="mx-auto mb-1 w-6 h-6 rounded-full text-[11px] font-700 flex items-center justify-center"
+              style={{ background: 'var(--blue-sub)', border: '1px solid var(--blue)', color: 'var(--blue-t)' }}
+            >
+              {s.step}
+            </span>
+            <p className="text-[12px] font-700 text-[var(--t1)] leading-tight">{s.label}</p>
+            <p className="text-[11px] text-[var(--t3)] leading-tight">{s.detail}</p>
+          </div>
+        ))}
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
         {GAMES.map(game => {

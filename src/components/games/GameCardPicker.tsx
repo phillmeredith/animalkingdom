@@ -158,12 +158,13 @@ function CardPickerTile({
   const displayLevel = sessionsPlayed === 0 ? 0 : cardLevel
 
   return (
-    <div className="flex flex-col gap-0.5">
-      {/* Last-used label sits above the tile — only for the first card in the sorted list */}
+    // w-24 fixed width + shrink-0 keeps all cards the same size in the horizontal row
+    <div className="flex flex-col gap-0.5 w-24 shrink-0">
+      {/* Last-used label */}
       {isLastUsed && (
         <p
-          className="text-[11px] font-700 uppercase tracking-widest text-[var(--t3)] mb-1"
-          style={{ letterSpacing: '0.1em' }}
+          className="text-[10px] font-700 uppercase tracking-widest text-[var(--t3)] mb-0.5 truncate"
+          style={{ letterSpacing: '0.08em' }}
         >
           Last used
         </p>
@@ -176,7 +177,7 @@ function CardPickerTile({
         aria-pressed={isSelected}
         aria-label={`Select ${card.name}`}
         className={[
-          'rounded-2xl border overflow-hidden cursor-pointer transition-all duration-200',
+          'rounded-xl border overflow-hidden cursor-pointer transition-all duration-200',
           'motion-safe:hover:-translate-y-0.5 hover:shadow-[0_4px_24px_rgba(0,0,0,.25)]',
           'motion-safe:active:scale-[.97]',
           'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--blue)] focus-visible:outline-offset-2',
@@ -188,7 +189,7 @@ function CardPickerTile({
         onClick={onSelect}
         onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect() } }}
       >
-        {/* Image — aspect-square with selection check overlay */}
+        {/* Image — square */}
         <div className="relative w-full aspect-square">
           <AnimalImage
             src={card.imageUrl}
@@ -196,24 +197,23 @@ function CardPickerTile({
             className="w-full h-full object-cover"
             fallbackClassName="w-full h-full"
           />
-          {/* Selection indicator: Check in blue circle, top-right of image */}
           {isSelected && (
             <div
-              className="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center"
+              className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full flex items-center justify-center"
               style={{ background: 'var(--blue)' }}
               aria-hidden="true"
             >
-              <Check size={12} className="text-white" strokeWidth={3} />
+              <Check size={10} className="text-white" strokeWidth={3} />
             </div>
           )}
         </div>
 
         {/* Card info */}
-        <div className="p-2.5 flex flex-col gap-1">
-          <p className="text-[13px] font-600 text-[var(--t1)] truncate leading-tight">
+        <div className="px-1.5 py-1.5 flex flex-col gap-0.5">
+          <p className="text-[11px] font-600 text-[var(--t1)] truncate leading-tight">
             {card.name}
           </p>
-          <div className="flex items-center justify-between gap-1 flex-wrap">
+          <div className="flex items-center justify-between gap-1">
             <RarityBadge rarity={card.rarity} />
             <LevelPill
               level={displayLevel}
@@ -377,11 +377,14 @@ export function GameCardPicker({
     })
   }
 
-  const playButtonEnabled = selectedCard !== null && (!showLevelPanel || levelConfirmed || hasPlayedGame)
+  // Level 1 is the default — Panel B shows to let the user optionally change it,
+  // but no explicit confirmation tap is required. Button is enabled as soon as a card is selected.
+  void levelConfirmed
+  const playButtonEnabled = selectedCard !== null
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose} maxHeight="90vh">
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col">
 
         {/* ── Sheet header ───────────────────────────────────────────────── */}
         <div className="relative flex items-center gap-3 px-4 pb-3 shrink-0">
@@ -492,10 +495,10 @@ export function GameCardPicker({
               </div>
             </div>
 
-            {/* ── Card grid + Panel B — scrollable area ────────────────────── */}
-            <div className="flex-1 overflow-y-auto">
-              {/* pt-1 prevents hover lift clipping at scroll edge */}
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-4 pb-4 pt-1">
+            {/* ── Card row — horizontal scroll ─────────────────────────────── */}
+            <div className="overflow-y-auto">
+              {/* Single horizontal scrolling row — pt-1 prevents lift clipping */}
+              <div className="flex gap-2 overflow-x-auto px-4 pb-4 pt-1 scrollbar-hide">
                 {filteredCards.map(card => (
                   <CardPickerTile
                     key={card.id}
@@ -526,8 +529,6 @@ export function GameCardPicker({
                 )}
               </AnimatePresence>
 
-              {/* pb-24 ensures content clears the sticky footer */}
-              <div className="h-24" />
             </div>
 
             {/* ── Footer: Play button ──────────────────────────────────────── */}

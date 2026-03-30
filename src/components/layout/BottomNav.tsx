@@ -1,6 +1,7 @@
 // BottomNav — 5-tab fixed bottom navigation
 // NFT Dark DS tokens, iPad safe-area aware
 
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Gamepad2, Package } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -26,11 +27,21 @@ const TABS: { to: string; label: string; concept?: PreviewConcept; FallbackIcon?
   { to: '/animals',   label: 'Collection', concept: 'heart'  },
   { to: '/schleich',  label: 'Figures',    FallbackIcon: Package },
   { to: '/play',      label: 'Play',       FallbackIcon: Gamepad2 },
-  { to: '/shop',      label: 'Store',      concept: 'coins'  },
+  { to: '/shop',      label: 'Marketplace', concept: 'coins'  },
 ]
 
 export function BottomNav() {
   const reducedMotion = useReducedMotion()
+
+  // Hide during game sessions — game components set document.body.dataset.hideNav = 'true'
+  const [hidden, setHidden] = useState(() => document.body.dataset.hideNav === 'true')
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setHidden(document.body.dataset.hideNav === 'true')
+    })
+    observer.observe(document.body, { attributes: true, attributeFilter: ['data-hide-nav'] })
+    return () => observer.disconnect()
+  }, [])
 
   // Play-tab badge: show when EITHER condition is true.
   //
@@ -71,6 +82,9 @@ export function BottomNav() {
     [],
     false,
   )
+
+  // All hooks must be called above this point — early return must come last
+  if (hidden) return null
 
   return (
     <nav

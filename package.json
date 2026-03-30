@@ -11,21 +11,24 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
+    "@remixicon/react": "^4.6.0",
+    "@tabler/icons-react": "^3.19.0",
+    "@tanstack/react-virtual": "^3.11.0",
     "clsx": "^2.1.1",
     "dexie": "^4.0.11",
     "dexie-react-hooks": "^1.1.7",
     "framer-motion": "^11.18.0",
     "lucide-react": "^0.469.0",
+    "mapbox-gl": "^3.20.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-map-gl": "^8.1.0",
     "react-router-dom": "^6.28.0",
-    "tailwind-merge": "^2.5.5",
-    "@tanstack/react-virtual": "^3.11.0",
-    "@phosphor-icons/react": "^2.1.7",
-    "@tabler/icons-react": "^3.19.0",
-    "@remixicon/react": "^4.6.0"
+    "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
+    "@types/mapbox-gl": "^3.4.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
