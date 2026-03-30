@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Gamepad2, Package } from 'lucide-react'
+import { Gamepad2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/lib/db'
@@ -25,7 +25,6 @@ const TABS: { to: string; label: string; concept?: PreviewConcept; FallbackIcon?
   { to: '/',          label: 'Home',       concept: 'home'   },
   { to: '/explore',   label: 'Explore',    concept: 'search' },
   { to: '/animals',   label: 'Collection', concept: 'heart'  },
-  { to: '/schleich',  label: 'Figures',    FallbackIcon: Package },
   { to: '/play',      label: 'Play',       FallbackIcon: Gamepad2 },
   { to: '/shop',      label: 'Marketplace', concept: 'coins'  },
 ]

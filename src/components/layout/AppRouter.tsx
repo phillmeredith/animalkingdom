@@ -18,7 +18,6 @@ import { HabitatBuilderScreen } from '@/screens/HabitatBuilderScreen'
 import { WorldQuestScreen } from '@/screens/WorldQuestScreen'
 import { SettingsScreen } from '@/screens/SettingsScreen'
 import { StoreHubScreen } from '@/screens/StoreHubScreen'
-import { SchleichScreen } from '@/screens/SchleichScreen'
 import { EquipScreen } from '@/screens/EquipScreen'
 
 export function AppRouter() {
@@ -46,7 +45,7 @@ export function AppRouter() {
               The tab switch is handled via URL param rather than separate screen
               to keep the bottom nav active on the Store tab as spec requires. */}
           <Route path="/auctions"              element={<Navigate to="/shop?tab=auctions" replace />} />
-          <Route path="/schleich"              element={<SchleichScreen />} />
+          <Route path="/schleich"              element={<Navigate to="/explore" replace />} />
           <Route path="/equip/:petId"          element={<EquipScreen />} />
           {/* Redirects — legacy routes now consolidated into hub screens */}
           <Route path="/racing"                element={<Navigate to="/play" replace />} />

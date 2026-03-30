@@ -28,11 +28,13 @@ import { useSavedNames } from '@/hooks/useSavedNames'
 import { useToast } from '@/components/ui/Toast'
 import { cn } from '@/lib/utils'
 import type { MarketOffer, SavedName, PlayerListing, NpcBuyerOffer, RescueMission, Rarity } from '@/lib/db'
+import { ANIMALS } from '@/data/animals'
 import { db } from '@/lib/db'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { AuctionHubScreen, AuctionFilterRow } from '@/screens/AuctionHubScreen'
 import { RescueTab } from '@/components/store/RescueTab'
 import { MissionBriefSheet } from '@/components/store/MissionBriefSheet'
+import { ReleaseWildOverlay } from '@/components/store/ReleaseWildOverlay'
 import { WorldMapView } from '@/components/cards/WorldMapView'
 import { useAuctions } from '@/hooks/useAuctions'
 import { useRescueMissions } from '@/hooks/useRescueMissions'
@@ -40,7 +42,7 @@ import { ListingRetractModal } from '@/components/my-animals/ListingRetractModal
 
 // ─── Tab types ────────────────────────────────────────────────────────────────
 
-type MainTab = 'marketplace' | 'items' | 'cards'
+type MainTab = 'marketplace' | 'dinosaurs' | 'items' | 'cards'
 type MarketTab = 'market' | 'for_sale' | 'rescue' | 'auctions'
 type CardsTab = 'packs' | 'collection' | 'map'
 
@@ -66,6 +68,16 @@ const SEG_CONTAINER: React.CSSProperties = {
   border: '1px solid var(--border-s)',
   borderRadius: 100,
   padding: 4,
+}
+
+// ─── Rescue: coin bounty for display purposes (same values as useRescueMissions) ─
+
+const BOUNTY_COINS_FOR_RELEASE: Record<string, number> = {
+  common:    50,
+  uncommon:  100,
+  rare:      200,
+  epic:      350,
+  legendary: 500,
 }
 
 // ─── Items: LeMieux category definitions ──────────────────────────────────────
@@ -475,7 +487,7 @@ function SellOfferSheet({ offer, onBuy, onDecline, canAfford }: {
 
 // ─── Marketplace: MyListings ───────────────────────────────────────────────────
 
-function MyListings({ listings, npcOffers, pets, onList, onCancel, onAcceptOffer, onDeclineOffer, canAfford }: {
+function MyListings({ listings, npcOffers, pets, onList, onCancel, onAcceptOffer, onDeclineOffer, canAfford, isDinoMode = false }: {
   listings: PlayerListing[]
   npcOffers: NpcBuyerOffer[]
   pets: SavedName[]
@@ -484,6 +496,7 @@ function MyListings({ listings, npcOffers, pets, onList, onCancel, onAcceptOffer
   onAcceptOffer: (id: number) => Promise<void>
   onDeclineOffer: (id: number) => Promise<void>
   canAfford: (n: number) => boolean
+  isDinoMode?: boolean
 }) {
   const [listingPet, setListingPet] = useState<SavedName | null>(null)
   const [price, setPrice] = useState('')
@@ -492,16 +505,28 @@ function MyListings({ listings, npcOffers, pets, onList, onCancel, onAcceptOffer
   const [retractTarget, setRetractTarget] = useState<{ listing: PlayerListing; pet: SavedName & { id: number } } | null>(null)
   const cancelBtnRefs = useRef<Record<number, HTMLButtonElement | null>>({})
 
-  const available = pets.filter(p => p.status === 'active')
+  // Filter pets and listings to the current mode — dino mode shows Lost World only, animals mode excludes Lost World
+  const modePetIds = new Set(
+    pets
+      .filter(p => isDinoMode ? p.category === 'Lost World' : p.category !== 'Lost World')
+      .map(p => p.id)
+  )
+  const modeListings = listings.filter(l => modePetIds.has(l.petId))
+  const modeNpcOffers = npcOffers.filter(o => {
+    const listing = listings.find(l => l.id === o.listingId)
+    return listing ? modePetIds.has(listing.petId) : false
+  })
+  const available = pets
+    .filter(p => p.status === 'active' && modePetIds.has(p.id))
 
   return (
     <div className="flex flex-col gap-4">
       {/* NPC offers on my listings */}
-      {npcOffers.length > 0 && (
+      {modeNpcOffers.length > 0 && (
         <div>
           <p className="text-[11px] font-700 uppercase tracking-widest text-t3 mb-3">Offers received</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {npcOffers.map(offer => (
+            {modeNpcOffers.map(offer => (
               <div key={offer.id} className="rounded-xl border border-[var(--amber)] bg-[var(--amber-sub)] p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div>
@@ -527,11 +552,11 @@ function MyListings({ listings, npcOffers, pets, onList, onCancel, onAcceptOffer
       )}
 
       {/* Active listings */}
-      {listings.length > 0 && (
+      {modeListings.length > 0 && (
         <div>
           <p className="text-[11px] font-700 uppercase tracking-widest text-t3 mb-3">Active listings</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {listings.map(listing => {
+            {modeListings.map(listing => {
               const listingPetData = pets.find(p => p.id === listing.petId)
               return (
                 <div key={listing.id} className="relative rounded-xl border border-[var(--border-s)] bg-[var(--card)] p-4 flex items-center gap-3">
@@ -689,13 +714,16 @@ function NamingSheet({ breed, onSave }: { breed: string; onSave: (name: string) 
 // MarketplaceContent receives marketTab as a prop — it does NOT render its own tab
 // control. The tab row lives exclusively in the PageHeader below slot (spec §1.2,
 // dual navigation prevention). Any tab UI inside this component is a build defect.
-function MarketplaceContent({ marketTab, searchQuery = '', onClearSearch, missions, onStartMission = () => {}, onClaimMission = () => {} }: {
+// isDinoMode: when true, filters offers to Lost World category animals only.
+function MarketplaceContent({ marketTab, searchQuery = '', onClearSearch, missions, onStartMission = () => {}, onClaimMission = () => {}, onRelease = () => Promise.resolve(), isDinoMode = false }: {
   marketTab: MarketTab
   searchQuery?: string
   onClearSearch?: () => void
   missions: RescueMission[]
   onStartMission?: (id: number) => Promise<void>
   onClaimMission?: (id: number) => Promise<void>
+  onRelease?: (id: number) => Promise<void>
+  isDinoMode?: boolean
 }) {
   const { coins, canAfford } = useWallet()
   const { pets, renamePet } = useSavedNames()
@@ -720,8 +748,16 @@ function MarketplaceContent({ marketTab, searchQuery = '', onClearSearch, missio
     refreshOffers().finally(() => setIsRefreshing(false))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const buyOffers = offers.filter(o => o.type === 'buy')
-  const allSellOffers = offers.filter(o => o.type === 'sell')
+  // isDinoMode: restrict to offers whose animal belongs to the 'Lost World' category
+  const isLostWorld = (o: MarketOffer) =>
+    ANIMALS.find(a => a.animalType === o.animalType && a.breed === o.breed)?.category === 'Lost World'
+
+  const buyOffers = offers.filter(o =>
+    o.type === 'buy' && (isDinoMode ? isLostWorld(o) : !isLostWorld(o))
+  )
+  const allSellOffers = offers.filter(o =>
+    o.type === 'sell' && (isDinoMode ? isLostWorld(o) : !isLostWorld(o))
+  )
 
   // When arriving via "Find in Marketplace" from the animal detail modal, searchQuery
   // contains the animal's name. We filter sell offers by breed or animalType match.
@@ -784,7 +820,7 @@ function MarketplaceContent({ marketTab, searchQuery = '', onClearSearch, missio
             </div>
           )}
           {/* General empty state */}
-          {!q && offers.length === 0 && !isRefreshing && (
+          {!q && buyOffers.length === 0 && !isRefreshing && (
             <div className="flex flex-col items-center justify-center py-20 gap-3">
               <Store size={48} className="text-t3" />
               <p className="text-[17px] font-600 text-t1">Market is quiet</p>
@@ -816,6 +852,7 @@ function MarketplaceContent({ marketTab, searchQuery = '', onClearSearch, missio
             listings={listings}
             npcOffers={npcOffers}
             pets={pets}
+            isDinoMode={isDinoMode}
             onList={async (pet, price) => {
               await createListing(pet, price)
               toast({ type: 'success', title: `${pet.name} listed for ${price} coins` })
@@ -842,7 +879,9 @@ function MarketplaceContent({ marketTab, searchQuery = '', onClearSearch, missio
       {marketTab === 'rescue' && (
         <>
           <RescueTab
-            missions={missions}
+            missions={missions.filter(m =>
+              isDinoMode ? m.animalType === 'Dinosaur' : m.animalType !== 'Dinosaur'
+            )}
             onStartMission={(id) => {
               const m = missions.find(m => m.id === id) ?? null
               setActiveMission(m)
@@ -860,6 +899,7 @@ function MarketplaceContent({ marketTab, searchQuery = '', onClearSearch, missio
               await onClaimMission(id)
               setActiveMission(null)
             }}
+            onRelease={onRelease}
           />
         </>
       )}
@@ -1871,7 +1911,7 @@ export function StoreHubScreen() {
   const urlSearch = urlParams.get('search') ?? ''
 
   const [tab, setTab] = useState<MainTab>(
-    urlTab === 'marketplace' || urlTab === 'items' || urlTab === 'cards'
+    urlTab === 'marketplace' || urlTab === 'dinosaurs' || urlTab === 'items' || urlTab === 'cards'
       ? urlTab
       : 'marketplace'
   )
@@ -1882,6 +1922,15 @@ export function StoreHubScreen() {
 
   // Rescue missions — hook handles seeding on first mount
   const { missions: rescueMissions, startMission, claimRescue, releaseToWild, keepCaring } = useRescueMissions()
+
+  // Release overlay — shown when the player releases a rescued animal back to the wild
+  const [releasingMission, setReleasingMission] = useState<RescueMission | null>(null)
+
+  async function handleRelease(missionId: number): Promise<void> {
+    const mission = rescueMissions.find(m => m.id === missionId) ?? null
+    setReleasingMission(mission)
+    await releaseToWild(missionId)
+  }
 
   // Auction filter state — lifted here so the below slot can render the filter row
   // while AuctionHubScreen manages the grid (dual navigation prevention: tab control
@@ -1925,20 +1974,23 @@ export function StoreHubScreen() {
               padding: 4,
             }}
           >
-            {(['marketplace', 'items', 'cards'] as const).map(t => (
+            {(['marketplace', 'dinosaurs', 'items', 'cards'] as const).map(t => (
               <button key={t} onClick={() => setTab(t)} style={{ ...segBtn(tab === t), padding: '6px 12px' }}>
-                {t === 'marketplace' ? 'Animals' : t.charAt(0).toUpperCase() + t.slice(1)}
+                {t === 'marketplace' ? 'Animals'
+                  : t === 'dinosaurs' ? 'Dinosaurs'
+                  : t.charAt(0).toUpperCase() + t.slice(1)}
               </button>
             ))}
           </div>
         }
         below={
           <div className="flex gap-2 overflow-x-auto scrollbar-none -mx-6 px-6">
-            {/* Market sub-filter — only visible when Marketplace main tab is active.
+            {/* Market sub-filter — visible when Marketplace OR Dinosaurs main tab is active.
+                marketTab state is shared between both tabs.
                 CategoryPills pattern: tint-pair active state, never solid fill.
                 Navigation ownership: this is the only place this tab row renders —
                 MarketplaceContent does NOT render a duplicate (spec §1.2). */}
-            {tab === 'marketplace' && (
+            {(tab === 'marketplace' || tab === 'dinosaurs') && (
               <div className="flex flex-col gap-2 w-full">
                 <div role="group" aria-label="Market view" className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                   {([
@@ -2014,8 +2066,9 @@ export function StoreHubScreen() {
         }
       />
 
-      {/* Auctions sub-filter: AuctionHubScreen owns its own content column */}
-      {tab === 'marketplace' && marketTab === 'auctions' && (
+      {/* Auctions sub-filter: AuctionHubScreen owns its own content column.
+          Shown for both marketplace and dinosaurs tabs when auctions sub-filter is active. */}
+      {(tab === 'marketplace' || tab === 'dinosaurs') && marketTab === 'auctions' && (
         <AuctionHubScreen
           rarityFilter={auctionRarityFilter}
           sort={auctionSort}
@@ -2023,7 +2076,7 @@ export function StoreHubScreen() {
       )}
 
       {/* All other tabs use a shared content column */}
-      {!(tab === 'marketplace' && marketTab === 'auctions') && (
+      {!((tab === 'marketplace' || tab === 'dinosaurs') && marketTab === 'auctions') && (
         <div className="px-6 pt-4 pb-24 max-w-3xl mx-auto w-full">
           {tab === 'items' && <ItemsContent filter={filter} />}
           {tab === 'cards' && <CardsContent cardsTab={cardsTab} setCardsTab={setCardsTab} />}
@@ -2035,10 +2088,31 @@ export function StoreHubScreen() {
               missions={rescueMissions}
               onStartMission={startMission}
               onClaimMission={claimRescue}
+              onRelease={handleRelease}
+            />
+          )}
+          {tab === 'dinosaurs' && (
+            <MarketplaceContent
+              marketTab={marketTab}
+              searchQuery={marketSearch}
+              onClearSearch={() => setMarketSearch('')}
+              missions={rescueMissions}
+              onStartMission={startMission}
+              onClaimMission={claimRescue}
+              onRelease={handleRelease}
+              isDinoMode
             />
           )}
         </div>
       )}
+
+      {/* Release celebration overlay — portal-rendered, dismiss via buttons only */}
+      <ReleaseWildOverlay
+        mission={releasingMission}
+        coinsEarned={releasingMission ? (BOUNTY_COINS_FOR_RELEASE[releasingMission.rarity] ?? 0) : 0}
+        onViewMap={() => { setReleasingMission(null); navigate('/world-quest') }}
+        onContinue={() => setReleasingMission(null)}
+      />
     </div>
   )
 }

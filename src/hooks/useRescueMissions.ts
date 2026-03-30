@@ -28,6 +28,15 @@ const FOSTER_DAYS: Record<Rarity, number> = {
   legendary: 14,
 }
 
+/** Coin bounty awarded to the player when they claim a completed rescue mission */
+const BOUNTY_COINS: Record<Rarity, number> = {
+  common:    50,
+  uncommon:  100,
+  rare:      200,
+  epic:      350,
+  legendary: 500,
+}
+
 function addDays(dateStr: string, days: number): string {
   const d = new Date(dateStr)
   d.setDate(d.getDate() + days)
@@ -51,7 +60,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'wolf-arcade-1',
         type: 'arcade',
-        description: 'Complete 2 Word Safari sessions with any card',
+        description: 'Complete 2 animal tracking sessions in Word Safari',
         required: 2,
         completed: 0,
         done: false,
@@ -59,7 +68,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'wolf-care-1',
         type: 'care',
-        description: 'Complete 3 care actions for any wild animal',
+        description: 'Carry out 3 welfare checks at the sanctuary',
         required: 3,
         completed: 0,
         done: false,
@@ -67,7 +76,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'wolf-knowledge-1',
         type: 'knowledge',
-        description: 'Answer 2 science questions correctly',
+        description: 'Study 2 animal profiles in your ranger log',
         required: 2,
         completed: 0,
         done: false,
@@ -96,7 +105,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'fox-arcade-1',
         type: 'arcade',
-        description: 'Complete 2 Word Safari sessions with any card',
+        description: 'Complete 2 animal tracking sessions in Word Safari',
         required: 2,
         completed: 0,
         done: false,
@@ -104,7 +113,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'fox-knowledge-1',
         type: 'knowledge',
-        description: 'Answer 2 science questions correctly',
+        description: 'Study 2 animal profiles in your ranger log',
         required: 2,
         completed: 0,
         done: false,
@@ -112,7 +121,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'fox-checkin-1',
         type: 'checkin',
-        description: 'Visit the app on 2 separate days',
+        description: 'Check in to the sanctuary on 2 separate days',
         required: 2,
         completed: 0,
         done: false,
@@ -141,7 +150,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'dolphin-arcade-1',
         type: 'arcade',
-        description: 'Complete 3 Word Safari sessions with any card',
+        description: 'Complete 3 animal tracking sessions in Word Safari',
         required: 3,
         completed: 0,
         done: false,
@@ -149,7 +158,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'dolphin-knowledge-1',
         type: 'knowledge',
-        description: 'Answer 3 science questions correctly',
+        description: 'Study 3 animal profiles in your ranger log',
         required: 3,
         completed: 0,
         done: false,
@@ -157,7 +166,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'dolphin-care-1',
         type: 'care',
-        description: 'Complete 4 care actions for any animal',
+        description: 'Carry out 4 welfare checks at the sanctuary',
         required: 4,
         completed: 0,
         done: false,
@@ -186,7 +195,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'seahorse-arcade-1',
         type: 'arcade',
-        description: 'Complete 3 Word Safari sessions with any card',
+        description: 'Complete 3 animal tracking sessions in Word Safari',
         required: 3,
         completed: 0,
         done: false,
@@ -194,7 +203,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'seahorse-knowledge-1',
         type: 'knowledge',
-        description: 'Answer 3 science questions correctly',
+        description: 'Study 3 animal profiles in your ranger log',
         required: 3,
         completed: 0,
         done: false,
@@ -202,7 +211,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'seahorse-map-1',
         type: 'map',
-        description: 'Discover 2 countries in World Quest',
+        description: 'Survey 2 new habitats on the World Map',
         required: 2,
         completed: 0,
         done: false,
@@ -231,7 +240,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'koala-arcade-1',
         type: 'arcade',
-        description: 'Complete 4 Word Safari sessions with any card',
+        description: 'Complete 4 animal tracking sessions in Word Safari',
         required: 4,
         completed: 0,
         done: false,
@@ -239,7 +248,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'koala-care-1',
         type: 'care',
-        description: 'Complete 5 care actions for any wild animal',
+        description: 'Carry out 5 welfare checks at the sanctuary',
         required: 5,
         completed: 0,
         done: false,
@@ -247,7 +256,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'koala-knowledge-1',
         type: 'knowledge',
-        description: 'Answer 4 geography questions correctly',
+        description: 'Complete 4 habitat surveys on the World Map',
         required: 4,
         completed: 0,
         done: false,
@@ -255,7 +264,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'koala-checkin-1',
         type: 'checkin',
-        description: 'Visit the app on 3 separate days',
+        description: 'Check in to the sanctuary on 3 separate days',
         required: 3,
         completed: 0,
         done: false,
@@ -284,7 +293,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'panda-arcade-1',
         type: 'arcade',
-        description: 'Complete 5 Word Safari sessions with any card',
+        description: 'Complete 5 animal tracking sessions in Word Safari',
         required: 5,
         completed: 0,
         done: false,
@@ -292,7 +301,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'panda-care-1',
         type: 'care',
-        description: 'Complete 7 care actions for any wild animal',
+        description: 'Carry out 7 welfare checks at the sanctuary',
         required: 7,
         completed: 0,
         done: false,
@@ -300,7 +309,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'panda-knowledge-1',
         type: 'knowledge',
-        description: 'Answer 5 questions correctly in any subject',
+        description: 'Complete 5 ranger field notes',
         required: 5,
         completed: 0,
         done: false,
@@ -308,7 +317,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'panda-map-1',
         type: 'map',
-        description: 'Discover 3 countries in World Quest',
+        description: 'Survey 3 new habitats on the World Map',
         required: 3,
         completed: 0,
         done: false,
@@ -316,7 +325,7 @@ const SEED_MISSIONS: Omit<RescueMission, 'id' | 'createdAt' | 'updatedAt'>[] = [
       {
         taskId: 'panda-checkin-1',
         type: 'checkin',
-        description: 'Visit the app on 5 separate days',
+        description: 'Check in to the sanctuary on 5 separate days',
         required: 5,
         completed: 0,
         done: false,
@@ -511,10 +520,14 @@ export function useRescueMissions() {
         })
       })
 
+      // Award the rescue bounty — outside the transaction because earn() opens its own
+      // transaction against playerWallet and transactions tables.
+      await earn(BOUNTY_COINS[mission.rarity], `Rescue bounty — ${mission.name}`, 'care', newPetId!)
+
       toast({
         type: 'success',
         title: `${mission.name} is now in your care!`,
-        description: `Care for them for ${mission.fosterDaysRequired} days until they're ready for release.`,
+        description: `You earned ${BOUNTY_COINS[mission.rarity]} coins! Care for them for ${mission.fosterDaysRequired} days until they're ready for release.`,
         duration: 6000,
       })
     } catch (err) {

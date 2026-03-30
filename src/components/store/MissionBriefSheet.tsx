@@ -52,27 +52,40 @@ interface MissionBriefSheetProps {
   onClose: () => void
   onBegin: (id: number) => void
   onClaim: (id: number) => void
+  onRelease?: (id: number) => Promise<void>
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export function MissionBriefSheet({ mission, onClose, onBegin, onClaim }: MissionBriefSheetProps) {
+export function MissionBriefSheet({ mission, onClose, onBegin, onClaim, onRelease }: MissionBriefSheetProps) {
   // Computed once mission is available
   const tint = mission ? getConservationTint(mission.conservationStatus) : null
   const totalTasks = mission?.tasks.length ?? 0
   const doneTasks = mission?.tasks.filter(t => t.done).length ?? 0
   const progressPct = totalTasks > 0 ? (doneTasks / totalTasks) * 100 : 0
 
+  // A claimed mission is release-ready when releaseReadyDate <= today
+  const today = new Date().toISOString().slice(0, 10)
+  const isReleaseReady =
+    mission?.status === 'claimed' &&
+    !!mission.releaseReadyDate &&
+    mission.releaseReadyDate <= today
+
   const ctaLabel =
+    isReleaseReady ? 'Release to the Wild' :
+    mission?.status === 'claimed' ? 'Still fostering…' :
     mission?.status === 'complete' ? 'Claim Rescue' :
     mission?.status === 'in_progress' ? 'Continue Mission' :
     'Begin Mission'
 
   function handleCta() {
     if (!mission?.id) return
-    if (mission.status === 'complete') {
+    if (isReleaseReady && onRelease) {
+      void onRelease(mission.id)
+      onClose()
+    } else if (mission.status === 'complete') {
       onClaim(mission.id)
-    } else {
+    } else if (mission.status !== 'claimed') {
       onBegin(mission.id)
     }
   }
@@ -194,12 +207,14 @@ export function MissionBriefSheet({ mission, onClose, onBegin, onClaim }: Missio
           </div>
         ))}
 
-        {/* Footer CTA — full-width accent, lg (48px) */}
+        {/* Footer CTA — full-width accent, lg (48px).
+            Disabled while still in foster period (status claimed but not yet release-ready). */}
         <Button
           variant="accent"
           size="lg"
           className="w-full mt-5"
           onClick={handleCta}
+          disabled={mission?.status === 'claimed' && !isReleaseReady}
           autoFocus
         >
           {ctaLabel}

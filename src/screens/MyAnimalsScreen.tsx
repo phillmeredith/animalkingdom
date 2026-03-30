@@ -3,7 +3,7 @@
 // Animals tab: filter by category, sort by name/rarity/newest, tap for detail sheet
 // Items tab: owned LeMieux items grouped by Equipped / Inventory / Hobby Horses
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ShoppingBag, Settings, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -16,20 +16,24 @@ import { EmptyCollection } from '@/components/my-animals/EmptyCollection'
 import { useSavedNames } from '@/hooks/useSavedNames'
 import { useWallet } from '@/hooks/useWallet'
 import { useItemShop } from '@/hooks/useItemShop'
-import { useCardPacks } from '@/hooks/useCardPacks'
 import { RarityBadge } from '@/components/ui/Badge'
 import { CoinDisplay } from '@/components/ui/CoinDisplay'
 import { HorsePickerSheet } from '@/screens/EquipScreen'
 import { CardDetailSheet } from '@/components/my-animals/CardDetailSheet'
+import { CardsTab } from '@/components/my-animals/CardsTab'
+import { SchleichContent } from '@/components/schleich/SchleichContent'
+import { SchleichCategoryPills } from '@/components/schleich/SchleichCategoryPills'
+import { SearchBar } from '@/components/ui/SearchBar'
 import { todayString } from '@/lib/db'
 import type { SavedName, Rarity, OwnedItem, CollectedCard } from '@/lib/db'
 import type { AnimalCategory } from '@/data/animals'
 import { LEMIEUX_ITEMS } from '@/data/lemieux'
 import type { LeMieuxItem } from '@/data/lemieux'
+import { SCHLEICH_DEFAULT_CATEGORY, type SchleichCategoryFilter } from '@/data/schleich'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-type ScreenTab = 'animals' | 'dinosaurs' | 'items' | 'cards'
+type ScreenTab = 'animals' | 'dinosaurs' | 'items' | 'figures' | 'cards'
 type SortOption = 'newest' | 'name' | 'rarity'
 type ActiveCategory = AnimalCategory | 'All'
 
@@ -278,138 +282,25 @@ function ItemsTab() {
   )
 }
 
-// ─── CardsTab ─────────────────────────────────────────────────────────────────
-
-function CardsTab({ onTap }: { onTap: (card: CollectedCard) => void }) {
-  const { cards } = useCardPacks()
-
-  if (cards.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 gap-4">
-        <div
-          style={{
-            width: 64,
-            height: 64,
-            borderRadius: 'var(--r-lg)',
-            background: 'var(--blue-sub)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <ShoppingBag size={28} strokeWidth={2} style={{ color: 'var(--blue-t)' }} />
-        </div>
-        <div className="text-center">
-          <p className="text-[17px] font-semibold text-[var(--t1)] mb-1">No cards yet</p>
-          <p className="text-[14px] text-[var(--t2)]">
-            Open packs from the Store to start your collection.
-          </p>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-1">
-      {cards.map(card => (
-        <button
-          key={card.id}
-          onClick={() => onTap(card)}
-          className="text-left w-full transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_4px_24px_rgba(0,0,0,.25)] motion-safe:active:scale-[.97]"
-          style={{ borderRadius: 'var(--r-lg)' }}
-        >
-        <div
-          style={{
-            background: 'var(--card)',
-            border: '1px solid var(--border-s)',
-            borderRadius: 'var(--r-lg)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {/* Card image */}
-          <div style={{ aspectRatio: '3/4', position: 'relative', background: 'var(--elev)', overflow: 'hidden' }}>
-            {card.imageUrl ? (
-              <img
-                src={card.imageUrl}
-                alt={card.name}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                loading="lazy"
-              />
-            ) : (
-              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <ShoppingBag size={32} strokeWidth={2} style={{ color: 'var(--t4)' }} />
-              </div>
-            )}
-            {/* Duplicate count badge */}
-            {card.duplicateCount > 0 && (
-              <span
-                style={{
-                  position: 'absolute',
-                  top: 6,
-                  right: 6,
-                  background: 'rgba(13,13,17,.80)',
-                  backdropFilter: 'blur(8px)',
-                  WebkitBackdropFilter: 'blur(8px)',
-                  color: 'var(--t2)',
-                  fontSize: 11,
-                  fontWeight: 700,
-                  padding: '2px 7px',
-                  borderRadius: 100,
-                }}
-              >
-                ×{card.duplicateCount + 1}
-              </span>
-            )}
-          </div>
-
-          {/* Card info */}
-          <div style={{ padding: '10px 12px 12px', display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 4 }}>
-              <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--t1)', lineHeight: 1.3, flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {card.name}
-              </p>
-              <RarityBadge rarity={card.rarity} className="shrink-0" />
-            </div>
-            <p style={{ fontSize: 11, color: 'var(--t3)', lineHeight: 1.3 }}>
-              {card.breed || card.animalType}
-            </p>
-            {/* Stats bar row */}
-            {card.stats && (
-              <div style={{ display: 'flex', gap: 3, marginTop: 4 }}>
-                {(['speed','strength','stamina','agility','intelligence'] as const).map(stat => (
-                  <div key={stat} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
-                    <div style={{ width: '100%', height: 3, borderRadius: 2, background: 'var(--elev)', overflow: 'hidden' }}>
-                      <div style={{ width: `${card.stats[stat]}%`, height: '100%', background: 'var(--blue)', borderRadius: 2 }} />
-                    </div>
-                    <span style={{ fontSize: 9, fontWeight: 700, color: 'var(--t4)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                      {stat.slice(0, 3)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        </button>
-      ))}
-    </div>
-  )
-}
-
 // ─── Screen ───────────────────────────────────────────────────────────────────
 
 export function MyAnimalsScreen() {
   const navigate = useNavigate()
   const { pets } = useSavedNames()
   const { coins } = useWallet()
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const [screenTab, setScreenTab] = useState<ScreenTab>('animals')
   const [selectedPet, setSelectedPet] = useState<SavedName | null>(null)
   const [selectedCard, setSelectedCard] = useState<CollectedCard | null>(null)
   const [activeCategory, setActiveCategory] = useState<ActiveCategory>('All')
   const [sortBy, setSortBy] = useState<SortOption>('newest')
+
+  // Figures tab — search/filter state lifted into PageHeader below slot
+  const [figuresQuery, setFiguresQuery] = useState('')
+  const [figuresCategory, setFiguresCategory] = useState<SchleichCategoryFilter>(
+    SCHLEICH_DEFAULT_CATEGORY,
+  )
 
   // Animals tab: exclude Lost World (those go in Dinosaurs tab)
   const animalPets = useMemo(() => pets.filter(p => p.category !== 'Lost World'), [pets])
@@ -434,7 +325,7 @@ export function MyAnimalsScreen() {
   }, [screenTab, animalPets, dinosaurPets, activeCategory, sortBy])
 
   return (
-    <div className="flex flex-col h-full bg-[var(--bg)] overflow-y-auto">
+    <div ref={scrollRef} className="flex flex-col h-full bg-[var(--bg)] overflow-y-auto">
 
       <PageHeader
         title="Collection"
@@ -468,7 +359,7 @@ export function MyAnimalsScreen() {
               padding: 4,
             }}
           >
-            {(['animals', 'dinosaurs', 'items', 'cards'] as const).map(t => (
+            {(['animals', 'dinosaurs', 'items', 'figures', 'cards'] as const).map(t => (
               <button
                 key={t}
                 onClick={() => { setScreenTab(t); setActiveCategory('All') }}
@@ -485,13 +376,26 @@ export function MyAnimalsScreen() {
                     : { background: 'transparent', color: 'var(--t3)' }),
                 }}
               >
-                {t === 'animals' ? 'Animals' : t === 'dinosaurs' ? 'Dinosaurs' : t === 'items' ? 'Items' : 'Cards'}
+                {t === 'animals' ? 'Animals' : t === 'dinosaurs' ? 'Dinosaurs' : t === 'items' ? 'Items' : t === 'figures' ? 'Figures' : 'Cards'}
               </button>
             ))}
           </div>
         }
         below={
-          (screenTab === 'animals' || screenTab === 'dinosaurs') && (
+          screenTab === 'figures' ? (
+            // Figures tab — search bar + category pills lifted into PageHeader below slot
+            <div className="flex flex-col gap-2">
+              <SearchBar
+                value={figuresQuery}
+                onChange={setFiguresQuery}
+                placeholder="Search figurines…"
+              />
+              <SchleichCategoryPills
+                active={figuresCategory}
+                onSelect={setFiguresCategory}
+              />
+            </div>
+          ) : (screenTab === 'animals' || screenTab === 'dinosaurs') ? (
             <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-6 px-6">
               {/* Category filter pills — Animals tab only (Dinosaurs are all Lost World) */}
               {screenTab === 'animals' && ANIMAL_FILTER_TABS.map(tab => (
@@ -525,42 +429,59 @@ export function MyAnimalsScreen() {
                 ))}
               </div>
             </div>
-          )
+          ) : null
         }
       />
 
-      {/* Content */}
-      <div className="px-6 pt-4 pb-24 max-w-3xl mx-auto w-full">
-        {screenTab === 'animals' || screenTab === 'dinosaurs' ? (
-          filteredPets.length === 0 ? (
-            <EmptyCollection
-              hasAnyPets={screenTab === 'animals' ? animalPets.length > 0 : dinosaurPets.length > 0}
-              activeCategory={activeCategory}
-              onGenerate={() => navigate('/generate')}
-              onClearFilter={() => setActiveCategory('All')}
-            />
+      {/* Content — Figures tab renders SchleichContent; search/filter state is lifted
+          into the PageHeader below slot above, so external control props are passed. */}
+      {screenTab === 'figures' ? (
+        <SchleichContent
+          mode="collection"
+          scrollRef={scrollRef}
+          onBrowseAll={() => navigate('/explore?tab=figures')}
+          externalQuery={figuresQuery}
+          externalCategory={figuresCategory}
+          onExternalQueryChange={setFiguresQuery}
+          onExternalCategoryChange={setFiguresCategory}
+          onExternalClearFilters={() => {
+            setFiguresQuery('')
+            setFiguresCategory(SCHLEICH_DEFAULT_CATEGORY)
+          }}
+        />
+      ) : (
+        <div className="px-6 pt-4 pb-24 max-w-3xl mx-auto w-full">
+          {screenTab === 'animals' || screenTab === 'dinosaurs' ? (
+            filteredPets.length === 0 ? (
+              <EmptyCollection
+                hasAnyPets={screenTab === 'animals' ? animalPets.length > 0 : dinosaurPets.length > 0}
+                activeCategory={activeCategory}
+                onGenerate={() => navigate('/generate')}
+                onClearFilter={() => setActiveCategory('All')}
+              />
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-1">
+                {filteredPets.map(pet => (
+                  <PetCard
+                    key={pet.id}
+                    pet={pet}
+                    onClick={() => setSelectedPet(pet)}
+                    careState={
+                      pet.lastFullCareDate === todayString()
+                        ? 'cared-today'
+                        : 'needs-care'
+                    }
+                  />
+                ))}
+              </div>
+            )
+          ) : screenTab === 'items' ? (
+            <ItemsTab />
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-1">
-              {filteredPets.map(pet => (
-                <PetCard
-                  key={pet.id}
-                  pet={pet}
-                  onClick={() => setSelectedPet(pet)}
-                  careState={
-                    pet.lastFullCareDate === todayString()
-                      ? 'cared-today'
-                      : 'needs-care'
-                  }
-                />
-              ))}
-            </div>
-          )
-        ) : screenTab === 'items' ? (
-          <ItemsTab />
-        ) : (
-          <CardsTab onTap={setSelectedCard} />
-        )}
-      </div>
+            <CardsTab onTap={setSelectedCard} />
+          )}
+        </div>
+      )}
 
       {/* Card detail sheet — only shown in Cards tab */}
       <CardDetailSheet

@@ -27,12 +27,16 @@ import { AnimalCard } from '@/components/explore/AnimalCard'
 import { AZRail } from '@/components/explore/AZRail'
 import { AnimalProfileSheet } from '@/components/explore/AnimalProfileSheet'
 import { AnimalDetailModal } from '@/components/explore/AnimalDetailModal'
+import { SchleichContent } from '@/components/schleich/SchleichContent'
+import { CardsTab } from '@/components/my-animals/CardsTab'
+import { CardDetailSheet } from '@/components/my-animals/CardDetailSheet'
 import { CoinDisplay } from '@/components/ui/CoinDisplay'
 import { Button } from '@/components/ui/Button'
 import { useWallet } from '@/hooks/useWallet'
 import { useExploreFilter } from '@/hooks/useExploreFilter'
 import { useSavedNames } from '@/hooks/useSavedNames'
 import type { AnimalEntry } from '@/data/animals'
+import type { CollectedCard } from '@/lib/db'
 
 // ─── Virtual grid ─────────────────────────────────────────────────────────────
 // Mirrors the SchleichScreen VirtualGrid pattern.
@@ -178,7 +182,7 @@ function AnimalVirtualGrid({
   )
 }
 
-type ExploreDomain = 'animals' | 'dinosaurs'
+type ExploreDomain = 'animals' | 'dinosaurs' | 'figures' | 'cards'
 
 export function ExploreScreen() {
   const navigate = useNavigate()
@@ -210,6 +214,8 @@ export function ExploreScreen() {
   const [selectedAnimal, setSelectedAnimal] = useState<AnimalEntry | null>(null)
   // detailAnimal is set after the 100ms sheet-exit overlap delay (EAD-3).
   const [detailAnimal, setDetailAnimal] = useState<AnimalEntry | null>(null)
+  // Cards tab — selected card for CardDetailSheet
+  const [selectedCard, setSelectedCard] = useState<CollectedCard | null>(null)
 
   // scrollContainerRef — the overflow-y-auto flex child; passed to AnimalVirtualGrid
   // so the virtualiser drives page scroll (not a nested scroll).
@@ -309,7 +315,7 @@ export function ExploreScreen() {
             </div>
           }
           centre={
-            // Domain switcher — Animals | Dinosaurs
+            // Domain switcher — Animals | Dinosaurs | Figures | Cards
             <div
               style={{
                 display: 'inline-flex',
@@ -319,7 +325,7 @@ export function ExploreScreen() {
                 padding: 4,
               }}
             >
-              {(['animals', 'dinosaurs'] as const).map(domain => (
+              {(['animals', 'dinosaurs', 'figures', 'cards'] as const).map(domain => (
                 <button
                   key={domain}
                   onClick={() => handleDomainSwitch(domain)}
@@ -336,101 +342,126 @@ export function ExploreScreen() {
                       : { background: 'transparent', color: 'var(--t3)' }),
                   }}
                 >
-                  {domain === 'animals' ? 'Animals' : 'Dinosaurs'}
+                  {domain === 'animals' ? 'Animals'
+                    : domain === 'dinosaurs' ? 'Dinosaurs'
+                    : domain === 'figures' ? 'Figures'
+                    : 'Cards'}
                 </button>
               ))}
             </div>
           }
           below={
-            <>
-              <SearchBar
-                value={query}
-                onChange={setQuery}
-                placeholder={exploreDomain === 'animals' ? 'Search animals…' : 'Search dinosaurs…'}
-              />
-              {exploreDomain === 'animals' ? (
-                // Animals tab: full filter row, excluding Lost World (those are in Dinosaurs tab)
-                <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-6 px-6">
-                  <div className="flex-1 min-w-0">
-                    <CategoryPills
-                      active={activeCategory}
-                      onSelect={setActiveCategory}
-                      exclude={['Lost World']}
-                    />
+            // Filters only shown for Animals and Dinosaurs tabs.
+            // Figures and Cards manage their own filtering internally.
+            (exploreDomain === 'animals' || exploreDomain === 'dinosaurs') ? (
+              <>
+                <SearchBar
+                  value={query}
+                  onChange={setQuery}
+                  placeholder={exploreDomain === 'animals' ? 'Search animals…' : 'Search dinosaurs…'}
+                />
+                {exploreDomain === 'animals' ? (
+                  // Animals tab: full filter row, excluding Lost World (those are in Dinosaurs tab)
+                  <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-6 px-6">
+                    <div className="flex-1 min-w-0">
+                      <CategoryPills
+                        active={activeCategory}
+                        onSelect={setActiveCategory}
+                        exclude={['Lost World']}
+                      />
+                    </div>
+                    <RarityPills active={activeRarity} onSelect={setActiveRarity} />
+                    <button
+                      onClick={() => setHasSoundOnly(!hasSoundOnly)}
+                      aria-pressed={hasSoundOnly}
+                      aria-label="Show only animals with sounds"
+                      className={[
+                        'h-9 px-3 rounded-pill flex items-center gap-1.5 shrink-0 border text-[13px] font-semibold whitespace-nowrap transition-colors duration-150',
+                        hasSoundOnly
+                          ? 'bg-[var(--blue-sub)] border-[var(--blue)] text-[var(--blue-t)]'
+                          : 'bg-[var(--card)] border-[var(--border-s)] text-[var(--t2)]',
+                      ].join(' ')}
+                    >
+                      <Volume2 size={14} strokeWidth={2} aria-hidden="true" />
+                      Sound
+                    </button>
                   </div>
-                  <RarityPills active={activeRarity} onSelect={setActiveRarity} />
-                  <button
-                    onClick={() => setHasSoundOnly(!hasSoundOnly)}
-                    aria-pressed={hasSoundOnly}
-                    aria-label="Show only animals with sounds"
-                    className={[
-                      'h-9 px-3 rounded-pill flex items-center gap-1.5 shrink-0 border text-[13px] font-semibold whitespace-nowrap transition-colors duration-150',
-                      hasSoundOnly
-                        ? 'bg-[var(--blue-sub)] border-[var(--blue)] text-[var(--blue-t)]'
-                        : 'bg-[var(--card)] border-[var(--border-s)] text-[var(--t2)]',
-                    ].join(' ')}
-                  >
-                    <Volume2 size={14} strokeWidth={2} aria-hidden="true" />
-                    Sound
-                  </button>
-                </div>
-              ) : (
-                // Dinosaurs tab: rarity filter only (all are Lost World, no category sub-filter needed)
-                <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-6 px-6">
-                  <RarityPills active={activeRarity} onSelect={setActiveRarity} />
-                  <button
-                    onClick={() => setHasSoundOnly(!hasSoundOnly)}
-                    aria-pressed={hasSoundOnly}
-                    aria-label="Show only dinosaurs with sounds"
-                    className={[
-                      'h-9 px-3 rounded-pill flex items-center gap-1.5 shrink-0 border text-[13px] font-semibold whitespace-nowrap transition-colors duration-150',
-                      hasSoundOnly
-                        ? 'bg-[var(--blue-sub)] border-[var(--blue)] text-[var(--blue-t)]'
-                        : 'bg-[var(--card)] border-[var(--border-s)] text-[var(--t2)]',
-                    ].join(' ')}
-                  >
-                    <Volume2 size={14} strokeWidth={2} aria-hidden="true" />
-                    Sound
-                  </button>
-                </div>
-              )}
-            </>
+                ) : (
+                  // Dinosaurs tab: rarity filter only (all are Lost World, no category sub-filter needed)
+                  <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-6 px-6">
+                    <RarityPills active={activeRarity} onSelect={setActiveRarity} />
+                    <button
+                      onClick={() => setHasSoundOnly(!hasSoundOnly)}
+                      aria-pressed={hasSoundOnly}
+                      aria-label="Show only dinosaurs with sounds"
+                      className={[
+                        'h-9 px-3 rounded-pill flex items-center gap-1.5 shrink-0 border text-[13px] font-semibold whitespace-nowrap transition-colors duration-150',
+                        hasSoundOnly
+                          ? 'bg-[var(--blue-sub)] border-[var(--blue)] text-[var(--blue-t)]'
+                          : 'bg-[var(--card)] border-[var(--border-s)] text-[var(--t2)]',
+                      ].join(' ')}
+                    >
+                      <Volume2 size={14} strokeWidth={2} aria-hidden="true" />
+                      Sound
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : undefined
           }
         />
 
-        {domainAnimals.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 gap-3 px-6">
-            <Search size={48} className="text-t3" />
-            <p className="text-[17px] font-600 text-t1">
-              {exploreDomain === 'animals' ? 'No animals found' : 'No dinosaurs found'}
-            </p>
-            <p className="text-[14px] text-t2">Try a different search or clear filters</p>
-            <Button
-              variant="outline"
-              size="md"
-              onClick={clearAllFilters}
-            >
-              Clear filters
-            </Button>
-          </div>
-        ) : (
-          <div className="px-6 pt-4 pb-24">
-            <AnimalVirtualGrid
-              items={domainAnimals}
-              letterFirstIndex={letterFirstIndex}
-              onCardTap={setSelectedAnimal}
-              scrollRef={scrollContainerRef}
-              virtualizerRef={virtualizerRef}
-            />
+        {/* Animals / Dinosaurs content */}
+        {(exploreDomain === 'animals' || exploreDomain === 'dinosaurs') && (
+          domainAnimals.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16 gap-3 px-6">
+              <Search size={48} className="text-t3" />
+              <p className="text-[17px] font-600 text-t1">
+                {exploreDomain === 'animals' ? 'No animals found' : 'No dinosaurs found'}
+              </p>
+              <p className="text-[14px] text-t2">Try a different search or clear filters</p>
+              <Button
+                variant="outline"
+                size="md"
+                onClick={clearAllFilters}
+              >
+                Clear filters
+              </Button>
+            </div>
+          ) : (
+            <div className="px-6 pt-4 pb-24">
+              <AnimalVirtualGrid
+                items={domainAnimals}
+                letterFirstIndex={letterFirstIndex}
+                onCardTap={setSelectedAnimal}
+                scrollRef={scrollContainerRef}
+                virtualizerRef={virtualizerRef}
+              />
+            </div>
+          )
+        )}
+
+        {/* Figures content — SchleichContent owns its own search/filter/sheet state */}
+        {exploreDomain === 'figures' && (
+          <SchleichContent mode="all" scrollRef={scrollContainerRef} />
+        )}
+
+        {/* Cards content */}
+        {exploreDomain === 'cards' && (
+          <div className="px-6 pt-4 pb-24 max-w-3xl mx-auto w-full">
+            <CardsTab onTap={setSelectedCard} />
+            <CardDetailSheet card={selectedCard} onClose={() => setSelectedCard(null)} />
           </div>
         )}
       </div>
 
-      {/* A-Z Rail — fixed right column, always visible */}
-      <AZRail
-        availableLetters={availableLetters}
-        onLetterPress={handleLetterPress}
-      />
+      {/* A-Z Rail — only shown for Animals and Dinosaurs tabs */}
+      {(exploreDomain === 'animals' || exploreDomain === 'dinosaurs') && (
+        <AZRail
+          availableLetters={availableLetters}
+          onLetterPress={handleLetterPress}
+        />
+      )}
 
       {/* Animal profile sheet — summary view */}
       <AnimalProfileSheet
