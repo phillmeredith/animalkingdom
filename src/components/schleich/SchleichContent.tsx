@@ -145,25 +145,23 @@ function VirtualGrid({
     return () => observer.disconnect()
   }, [])
 
-  // Column count per breakpoints (based on grid container width):
-  //   ≥1024: 4 cols  |  ≥768: 3 cols  |  <768: 2 cols
+  // Column count per breakpoints — matches AnimalVirtualGrid:
+  //   ≥1024: 6 cols  |  ≥768: 5 cols  |  <768: 4 cols
   const colCount = useMemo(() => {
-    if (gridWidth >= 1024) return 4
-    if (gridWidth >= 768) return 3
-    return 2
+    if (gridWidth >= 1024) return 6
+    if (gridWidth >= 768) return 5
+    return 4
   }, [gridWidth])
 
-  // Gap: 12px at 375px (2-col), 16px at 768px+ (3–4-col)
-  const gap = colCount === 2 ? 12 : 16
+  const gap = 8
 
   // Card width = (containerWidth - gaps between columns) / colCount
   const cardWidth = gridWidth > 0
     ? (gridWidth - gap * (colCount - 1)) / colCount
     : 0
 
-  // Card height = image (1:1 square = cardWidth) + name strip
-  // Name strip: py-2 (8px top + 8px bottom) + 12px text line ≈ 36px
-  const cardHeight = cardWidth > 0 ? cardWidth + 36 : 0
+  // Card height = image (1:1 square = cardWidth) + name strip (~28px)
+  const cardHeight = cardWidth > 0 ? cardWidth + 28 : 0
 
   // Row height includes the gap below each row
   const rowHeight = cardHeight + gap

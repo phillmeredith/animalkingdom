@@ -16,14 +16,14 @@
 import { useState, useMemo } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Check, CreditCard, PackageOpen } from 'lucide-react'
+import { X, Check, PawPrint } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { BottomSheet } from '@/components/ui/Modal'
 import { Button } from '@/components/ui/Button'
 import { RarityBadge } from '@/components/ui/Badge'
 import { AnimalImage } from '@/components/ui/AnimalImage'
 import { db } from '@/lib/db'
-import type { CollectedCard } from '@/lib/db'
+import type { CollectedCard, SavedName } from '@/lib/db'
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -57,125 +57,39 @@ const LEVEL_DEFS: LevelDef[] = [
 
 // ─── Filter types ──────────────────────────────────────────────────────────────
 
-type AnimalTypeFilter = 'All' | 'Mammal' | 'Bird' | 'Reptile' | 'Fish' | 'Amphibian'
-type SortMode = 'name' | 'recent' | 'level'
+type CategoryFilter = 'All' | 'At Home' | 'Stables' | 'Farm' | 'Wild' | 'Sea'
+type SortMode = 'name' | 'recent' | 'rarity'
 
-const TYPE_FILTERS: AnimalTypeFilter[] = ['All', 'Mammal', 'Bird', 'Reptile', 'Fish', 'Amphibian']
+const CATEGORY_FILTERS: CategoryFilter[] = ['All', 'At Home', 'Stables', 'Farm', 'Wild', 'Sea']
 
 const SORT_OPTIONS: { id: SortMode; label: string }[] = [
-  { id: 'name',   label: 'Name A–Z'     },
-  { id: 'recent', label: 'Recently used' },
-  { id: 'level',  label: 'Highest level' },
+  { id: 'name',   label: 'Name A–Z'    },
+  { id: 'recent', label: 'Recently added' },
+  { id: 'rarity', label: 'Highest rarity' },
 ]
 
-// ─── XP threshold helper ──────────────────────────────────────────────────────
-//
-// XP per level = 50 × level number (Owner decision)
-
-function xpThreshold(level: number): number {
-  return 50 * level
+const RARITY_ORDER: Record<string, number> = {
+  legendary: 5, epic: 4, rare: 3, uncommon: 2, common: 1,
 }
 
-// ─── Level pill helper ────────────────────────────────────────────────────────
-//
-// Lv 1–3: neutral  (var(--card) bg, var(--border-s) border, var(--t3) text)
-// Lv 4–6: green tint-pair
-// Lv 7–10: amber tint-pair
-// 0 / never played: "New" in neutral
+// ─── Pet picker tile ──────────────────────────────────────────────────────────
 
-function LevelPill({
-  level,
-  gameAccent,
-  gameAccentSub,
-  gameAccentText,
-}: {
-  level: number
-  gameAccent: string
-  gameAccentSub: string
-  gameAccentText: string
-}) {
-  // level === 0 means never played this game with this card
-  if (level === 0) {
-    return (
-      <span
-        className="inline-flex items-center px-2 py-0.5 rounded-pill text-[11px] font-700 tracking-wide"
-        style={{
-          background: 'var(--card)',
-          border: '1px solid var(--border-s)',
-          color: 'var(--t3)',
-        }}
-      >
-        New
-      </span>
-    )
-  }
-
-  const bg   = level <= 3 ? 'var(--card)'      : level <= 6 ? 'var(--green-sub)' : 'var(--amber-sub)'
-  const border = level <= 3 ? 'var(--border-s)' : level <= 6 ? 'var(--green)'    : 'var(--amber)'
-  const color  = level <= 3 ? 'var(--t3)'       : level <= 6 ? 'var(--green-t)'  : 'var(--amber-t)'
-
-  // Use game accent for the pill if level > 0 so it reflects the game's identity
-  // but fall back to the tier-based colour (spec: "tint-pair by level range")
-  void gameAccent; void gameAccentSub; void gameAccentText
-
-  return (
-    <span
-      className="inline-flex items-center px-2 py-0.5 rounded-pill text-[11px] font-700 tracking-wide"
-      style={{ background: bg, border: `1px solid ${border}`, color }}
-    >
-      Lv {level}
-    </span>
-  )
-}
-
-// ─── Card picker tile ─────────────────────────────────────────────────────────
-
-function CardPickerTile({
-  card,
-  gameKey,
-  gameAccent,
-  gameAccentSub,
-  gameAccentText,
+function PetPickerTile({
+  pet,
   isSelected,
-  isLastUsed,
   onSelect,
 }: {
-  card: CollectedCard
-  gameKey: GameCardPickerProps['gameKey']
-  gameAccent: string
-  gameAccentSub: string
-  gameAccentText: string
+  pet: SavedName
   isSelected: boolean
-  isLastUsed: boolean
   onSelect: () => void
 }) {
-  // Per-game level: derive from card.level (overall) as proxy until per-game levels
-  // are stored. The DB has a single `level` field — per-game level tracking is a
-  // future Story 7 concern. For Phase 1, use overall level.
-  const cardLevel = card.level ?? 1
-  // "Never played this game" if gameHistory for this game is 0
-  const sessionsPlayed = card.gameHistory?.[gameKey] ?? 0
-  const displayLevel = sessionsPlayed === 0 ? 0 : cardLevel
-
   return (
-    // w-24 fixed width + shrink-0 keeps all cards the same size in the horizontal row
     <div className="flex flex-col gap-0.5 w-24 shrink-0">
-      {/* Last-used label */}
-      {isLastUsed && (
-        <p
-          className="text-[10px] font-700 uppercase tracking-widest text-[var(--t3)] mb-0.5 truncate"
-          style={{ letterSpacing: '0.08em' }}
-        >
-          Last used
-        </p>
-      )}
-
-      {/* Tile */}
       <div
         role="button"
         tabIndex={0}
         aria-pressed={isSelected}
-        aria-label={`Select ${card.name}`}
+        aria-label={`Select ${pet.name}`}
         className={[
           'rounded-xl border overflow-hidden cursor-pointer transition-all duration-200',
           'motion-safe:hover:-translate-y-0.5 hover:shadow-[0_4px_24px_rgba(0,0,0,.25)]',
@@ -192,8 +106,8 @@ function CardPickerTile({
         {/* Image — square */}
         <div className="relative w-full aspect-square">
           <AnimalImage
-            src={card.imageUrl}
-            alt={card.name}
+            src={pet.imageUrl}
+            alt={pet.name}
             className="w-full h-full object-cover"
             fallbackClassName="w-full h-full"
           />
@@ -208,20 +122,12 @@ function CardPickerTile({
           )}
         </div>
 
-        {/* Card info */}
+        {/* Pet info */}
         <div className="px-1.5 py-1.5 flex flex-col gap-0.5">
           <p className="text-[11px] font-600 text-[var(--t1)] truncate leading-tight">
-            {card.name}
+            {pet.name}
           </p>
-          <div className="flex items-center justify-between gap-1">
-            <RarityBadge rarity={card.rarity} />
-            <LevelPill
-              level={displayLevel}
-              gameAccent={gameAccent}
-              gameAccentSub={gameAccentSub}
-              gameAccentText={gameAccentText}
-            />
-          </div>
+          <RarityBadge rarity={pet.rarity} />
         </div>
       </div>
     </div>
@@ -287,6 +193,38 @@ function ChallengeLevelSelector({
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
+/** Builds a CollectedCard-like object from a SavedName for question generation.
+ *  If the player has a real collected card for this breed, it is used directly
+ *  (full facts + XP tracking). Otherwise a minimal card is returned — games
+ *  still run, but XP is not tracked (card.id is undefined). */
+async function resolveCardForPet(pet: SavedName): Promise<CollectedCard> {
+  const existing = await db.collectedCards
+    .where('[animalType+breed]')
+    .equals([pet.animalType, pet.breed])
+    .first()
+  if (existing) return existing
+
+  // Minimal fallback — default stats, no catalogue facts
+  const now = new Date()
+  return {
+    animalType: pet.animalType,
+    breed:      pet.breed,
+    name:       pet.name,
+    rarity:     pet.rarity,
+    imageUrl:   pet.imageUrl,
+    duplicateCount:    0,
+    firstCollectedAt:  now,
+    updatedAt:         now,
+    stats: { speed: 50, strength: 50, stamina: 50, agility: 50, intelligence: 50 },
+    description: '',
+    level:    1,
+    xp:       0,
+    yearLevel: 1,
+    gameHistory: { wordSafari: 0, coinRush: 0, habitatBuilder: 0, worldQuest: 0 },
+    habitatBuilderState: null,
+  }
+}
+
 export function GameCardPicker({
   isOpen,
   gameTitle,
@@ -300,13 +238,17 @@ export function GameCardPicker({
 }: GameCardPickerProps) {
   const navigate = useNavigate()
 
-  // Load all collected cards from DB (live)
-  const allCards = useLiveQuery(() => db.collectedCards.toArray(), [], [])
+  // Load player's pets (their actual collection) — exclude pets listed for sale
+  const allPets = useLiveQuery(
+    () => db.savedNames.filter(p => p.status !== 'for_sale').toArray(),
+    [],
+    [] as SavedName[],
+  )
 
   // Local filter/sort state
-  const [typeFilter, setTypeFilter] = useState<AnimalTypeFilter>('All')
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('All')
   const [sortMode, setSortMode] = useState<SortMode>('recent')
-  const [selectedCard, setSelectedCard] = useState<CollectedCard | null>(null)
+  const [selectedPet, setSelectedPet] = useState<SavedName | null>(null)
 
   // Panel B state: show challenge selector on first play of this game
   const [showLevelPanel, setShowLevelPanel] = useState(false)
@@ -314,73 +256,53 @@ export function GameCardPicker({
   const [levelConfirmed, setLevelConfirmed] = useState(false)
   const [showSortMenu, setShowSortMenu] = useState(false)
 
-  const isEmpty = (allCards ?? []).length === 0
+  const isEmpty = (allPets ?? []).length === 0
 
-  // Determine whether this is a first-play (no sessions played for this game)
-  const hasPlayedGame = useMemo(() => {
-    return (allCards ?? []).some(c => (c.gameHistory?.[gameKey] ?? 0) > 0)
-  }, [allCards, gameKey])
+  // Determine whether this is a first-play (never navigated to this game)
+  const hasPlayedGame = useMemo(() => false, [])
 
-  // Find most recently played card for this game (sort by sessions played as proxy)
-  const lastUsedCard = useMemo(() => {
-    const played = (allCards ?? []).filter(c => (c.gameHistory?.[gameKey] ?? 0) > 0)
-    if (played.length === 0) return null
-    return played.reduce((best, c) =>
-      (c.gameHistory?.[gameKey] ?? 0) > (best.gameHistory?.[gameKey] ?? 0) ? c : best
-    )
-  }, [allCards, gameKey])
+  // Filter + sort derived pet list
+  const filteredPets = useMemo(() => {
+    let pets = [...(allPets ?? [])]
 
-  // Filter + sort derived card list
-  const filteredCards = useMemo(() => {
-    let cards = [...(allCards ?? [])]
-
-    // Type filter
-    if (typeFilter !== 'All') {
-      cards = cards.filter(c => c.animalType === typeFilter)
+    if (categoryFilter !== 'All') {
+      pets = pets.filter(p => p.category === categoryFilter)
     }
 
-    // Sort
     if (sortMode === 'name') {
-      cards.sort((a, b) => a.name.localeCompare(b.name))
-    } else if (sortMode === 'level') {
-      cards.sort((a, b) => (b.level ?? 1) - (a.level ?? 1))
+      pets.sort((a, b) => a.name.localeCompare(b.name))
+    } else if (sortMode === 'rarity') {
+      pets.sort((a, b) => (RARITY_ORDER[b.rarity] ?? 0) - (RARITY_ORDER[a.rarity] ?? 0))
     } else {
-      // 'recent' — last-used card first
-      cards.sort((a, b) => {
-        const aPlayed = a.gameHistory?.[gameKey] ?? 0
-        const bPlayed = b.gameHistory?.[gameKey] ?? 0
-        if (bPlayed !== aPlayed) return bPlayed - aPlayed
-        return a.name.localeCompare(b.name)
-      })
+      // 'recent' — newest first
+      pets.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
     }
 
-    return cards
-  }, [allCards, typeFilter, sortMode, gameKey])
+    return pets
+  }, [allPets, categoryFilter, sortMode])
 
-  function handleCardSelect(card: CollectedCard) {
-    setSelectedCard(card)
-    // Show Panel B if this game has never been played before
+  function handlePetSelect(pet: SavedName) {
+    setSelectedPet(pet)
     if (!hasPlayedGame && !levelConfirmed) {
       setShowLevelPanel(true)
     }
   }
 
-  function handlePlay() {
-    if (!selectedCard) return
+  async function handlePlay() {
+    if (!selectedPet) return
+    const card = await resolveCardForPet(selectedPet)
     onClose()
     navigate(gameRoute, {
       state: {
-        collectedCardId: selectedCard.id,
+        collectedCardId: card.id,
         challengeLevel,
-        selectedCard,
+        selectedCard: card,
       },
     })
   }
 
-  // Level 1 is the default — Panel B shows to let the user optionally change it,
-  // but no explicit confirmation tap is required. Button is enabled as soon as a card is selected.
   void levelConfirmed
-  const playButtonEnabled = selectedCard !== null
+  const playButtonEnabled = selectedPet !== null
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose} maxHeight="90vh">
@@ -398,7 +320,7 @@ export function GameCardPicker({
           {/* Title block */}
           <div>
             <p className="text-[17px] font-700 text-[var(--t1)]">{gameTitle}</p>
-            <p className="text-[13px] text-[var(--t2)]">Choose a card</p>
+            <p className="text-[13px] text-[var(--t2)]">Choose an animal from your collection</p>
           </div>
           {/* Close button — absolute top-right per DS close button spec */}
           <button
@@ -413,35 +335,34 @@ export function GameCardPicker({
         {/* ── Empty state ─────────────────────────────────────────────────── */}
         {isEmpty ? (
           <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6 pb-8">
-            <CreditCard size={48} className="text-[var(--t3)]" />
-            <p className="text-[17px] font-600 text-[var(--t1)] text-center">You need a card to play</p>
+            <PawPrint size={48} className="text-[var(--t3)]" />
+            <p className="text-[17px] font-600 text-[var(--t1)] text-center">No animals in your collection</p>
             <p className="text-[14px] text-[var(--t2)] text-center">
-              Open a pack in the Collection tab to get your first card.
+              Generate or rescue an animal first, then come back to play.
             </p>
             <Button
               variant="accent"
               size="md"
               onClick={() => {
                 onClose()
-                navigate('/shop')
+                navigate('/generate')
               }}
-              icon={<PackageOpen size={15} />}
             >
-              Go to Collection
+              Generate an animal
             </Button>
           </div>
         ) : (
           <>
-            {/* ── Filter row: pills left, sort right ───────────────────────── */}
+            {/* ── Filter row: category pills left, sort right ───────────────── */}
             <div className="flex items-center gap-2 px-4 pb-3 shrink-0 overflow-x-auto scrollbar-hide">
               {/* Category pills — left aligned */}
               <div className="flex gap-2 overflow-x-auto scrollbar-hide flex-1">
-                {TYPE_FILTERS.map(f => {
-                  const isActive = typeFilter === f
+                {CATEGORY_FILTERS.map(f => {
+                  const isActive = categoryFilter === f
                   return (
                     <button
                       key={f}
-                      onClick={() => setTypeFilter(f)}
+                      onClick={() => setCategoryFilter(f)}
                       aria-pressed={isActive}
                       className="flex-shrink-0 px-4 h-9 rounded-pill text-[13px] font-600 transition-colors duration-150"
                       style={{
@@ -495,21 +416,16 @@ export function GameCardPicker({
               </div>
             </div>
 
-            {/* ── Card row — horizontal scroll ─────────────────────────────── */}
+            {/* ── Pet row — horizontal scroll ───────────────────────────────── */}
             <div className="overflow-y-auto">
               {/* Single horizontal scrolling row — pt-1 prevents lift clipping */}
               <div className="flex gap-2 overflow-x-auto px-4 pb-4 pt-1 scrollbar-hide">
-                {filteredCards.map(card => (
-                  <CardPickerTile
-                    key={card.id}
-                    card={card}
-                    gameKey={gameKey}
-                    gameAccent={gameAccent}
-                    gameAccentSub={gameAccentSub}
-                    gameAccentText={gameAccentText}
-                    isSelected={selectedCard?.id === card.id}
-                    isLastUsed={card.id === lastUsedCard?.id}
-                    onSelect={() => handleCardSelect(card)}
+                {filteredPets.map(pet => (
+                  <PetPickerTile
+                    key={pet.id}
+                    pet={pet}
+                    isSelected={selectedPet?.id === pet.id}
+                    onSelect={() => handlePetSelect(pet)}
                   />
                 ))}
               </div>
@@ -543,11 +459,11 @@ export function GameCardPicker({
                 size="lg"
                 className="w-full"
                 disabled={!playButtonEnabled}
-                onClick={handlePlay}
+                onClick={() => { handlePlay().catch(() => {}) }}
               >
-                {selectedCard
-                  ? `Play with ${selectedCard.name}`
-                  : 'Select a card to play'
+                {selectedPet
+                  ? `Play with ${selectedPet.name}`
+                  : 'Choose an animal to play'
                 }
               </Button>
             </div>

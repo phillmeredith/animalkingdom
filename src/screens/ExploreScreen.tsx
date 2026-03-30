@@ -28,6 +28,8 @@ import { AZRail } from '@/components/explore/AZRail'
 import { AnimalProfileSheet } from '@/components/explore/AnimalProfileSheet'
 import { AnimalDetailModal } from '@/components/explore/AnimalDetailModal'
 import { SchleichContent } from '@/components/schleich/SchleichContent'
+import { SchleichCategoryPills } from '@/components/schleich/SchleichCategoryPills'
+import { SCHLEICH_DEFAULT_CATEGORY, type SchleichCategoryFilter } from '@/data/schleich'
 import { CardsTab } from '@/components/my-animals/CardsTab'
 import { CardDetailSheet } from '@/components/my-animals/CardDetailSheet'
 import { CoinDisplay } from '@/components/ui/CoinDisplay'
@@ -217,6 +219,12 @@ export function ExploreScreen() {
   // Cards tab — selected card for CardDetailSheet
   const [selectedCard, setSelectedCard] = useState<CollectedCard | null>(null)
 
+  // Figures tab — search/filter state lifted into PageHeader below slot
+  const [figuresQuery, setFiguresQuery] = useState('')
+  const [figuresCategory, setFiguresCategory] = useState<SchleichCategoryFilter>(
+    SCHLEICH_DEFAULT_CATEGORY,
+  )
+
   // scrollContainerRef — the overflow-y-auto flex child; passed to AnimalVirtualGrid
   // so the virtualiser drives page scroll (not a nested scroll).
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -351,9 +359,20 @@ export function ExploreScreen() {
             </div>
           }
           below={
-            // Filters only shown for Animals and Dinosaurs tabs.
-            // Figures and Cards manage their own filtering internally.
-            (exploreDomain === 'animals' || exploreDomain === 'dinosaurs') ? (
+            exploreDomain === 'figures' ? (
+              // Figures tab — search bar + category pills in PageHeader below slot
+              <div className="flex flex-col gap-2">
+                <SearchBar
+                  value={figuresQuery}
+                  onChange={setFiguresQuery}
+                  placeholder="Search figurines…"
+                />
+                <SchleichCategoryPills
+                  active={figuresCategory}
+                  onSelect={setFiguresCategory}
+                />
+              </div>
+            ) : (exploreDomain === 'animals' || exploreDomain === 'dinosaurs') ? (
               <>
                 <SearchBar
                   value={query}
@@ -441,9 +460,20 @@ export function ExploreScreen() {
           )
         )}
 
-        {/* Figures content — SchleichContent owns its own search/filter/sheet state */}
+        {/* Figures content — search/filter lifted into PageHeader below slot */}
         {exploreDomain === 'figures' && (
-          <SchleichContent mode="all" scrollRef={scrollContainerRef} />
+          <SchleichContent
+            mode="all"
+            scrollRef={scrollContainerRef}
+            externalQuery={figuresQuery}
+            externalCategory={figuresCategory}
+            onExternalQueryChange={setFiguresQuery}
+            onExternalCategoryChange={setFiguresCategory}
+            onExternalClearFilters={() => {
+              setFiguresQuery('')
+              setFiguresCategory(SCHLEICH_DEFAULT_CATEGORY)
+            }}
+          />
         )}
 
         {/* Cards content */}
